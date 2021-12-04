@@ -1,12 +1,12 @@
 package Main;
-import Modelli.Utente;
 
+import GUI.Applet;
+import GUI.FrontGUI;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Utente utente = new Utente("Gesualdo", "cringe");
-		
+		FrontGUI LogInPage = new FrontGUI();
 		
 	}
 

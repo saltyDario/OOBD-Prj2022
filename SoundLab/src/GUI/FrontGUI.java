@@ -6,37 +6,27 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.Window;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.sql.*;
 
 public class FrontGUI {
 
-	private JFrame Applicazione;
+	
 	private JTextField Username_Field;
 	private JPasswordField Password_Field;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrontGUI window = new FrontGUI();
-					window.Applicazione.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		
-	}
 
 	/**
 	 * Create the application.
@@ -49,15 +39,16 @@ public class FrontGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Applicazione = new JFrame();
-		Applicazione.setTitle("SoundLab");
-		Applicazione.setBounds(100, 100, 649, 488);
-		Applicazione.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Applicazione.getContentPane().setLayout(null);
+		JFrame LogInWindow = new JFrame();
+		LogInWindow.setVisible(true);
+		LogInWindow.setTitle("SoundLab");
+		LogInWindow.setBounds(100, 100, 649, 488);
+		LogInWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		LogInWindow.getContentPane().setLayout(null);
 		
 		JPanel TopTitle = new JPanel();
 		TopTitle.setBounds(118, 11, 385, 50);
-		Applicazione.getContentPane().add(TopTitle);
+		LogInWindow.getContentPane().add(TopTitle);
 		
 		JLabel Title = new JLabel("Benvenuto in SoundLab!");
 		Title.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -65,7 +56,7 @@ public class FrontGUI {
 		
 		JPanel LogIn_panel = new JPanel();
 		LogIn_panel.setBounds(38, 88, 562, 295);
-		Applicazione.getContentPane().add(LogIn_panel);
+		LogInWindow.getContentPane().add(LogIn_panel);
 		LogIn_panel.setLayout(null);
 		
 		Username_Field = new JTextField();
@@ -90,10 +81,41 @@ public class FrontGUI {
 		JButton LogIn_Button = new JButton("LOGIN");
 		LogIn_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String uname = Username_Field.getText();
+				String psd = Password_Field.getText();
 				
+				String url = "jdbc:postgresql://localhost:5432/SoundLab";
+				try {
+					Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
+					String eccoUs = null;
+					String eccoPsd = null;
+					
+					while(!(uname.equals(eccoUs) && psd.equals(eccoPsd))){
+						
+					String getUser = "SELECT Username FROM Utente where Username = '" + uname + "'";
+					Statement richiestaUsername = con.createStatement();
+					ResultSet gotUser = richiestaUsername.executeQuery(getUser);
+					gotUser.next();
+					eccoUs = gotUser.getString("username");
+					
+					String getPassword = "SELECT Password FROM Utente where Password = '"+ psd + "'";
+					Statement richiestaPassword = con.createStatement();
+					ResultSet gotPassword = richiestaPassword.executeQuery(getPassword);
+					gotPassword.next();
+					eccoPsd = gotPassword.getString("password");
+					
+					con.close();
+					}
+					JOptionPane.showMessageDialog(null, "Log in effettuato con successo!.");
+					LogInWindow.setVisible(false);
+					Applet mainPage = new Applet();
+					
+				}catch(SQLException c) {
+					JOptionPane.showMessageDialog(null, "Log in non riuscito, ritenta.");
+				}
 			}
 		});
-		LogIn_Button.setBackground(Color.CYAN);
+		LogIn_Button.setBackground(Color.WHITE);
 		LogIn_Button.setForeground(Color.BLUE);
 		LogIn_Button.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		LogIn_Button.setBounds(193, 153, 139, 48);
