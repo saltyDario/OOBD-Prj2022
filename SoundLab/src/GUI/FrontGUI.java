@@ -115,6 +115,7 @@ public class FrontGUI {
 				}
 			}
 		});
+		
 		LogIn_Button.setBackground(Color.WHITE);
 		LogIn_Button.setForeground(Color.BLUE);
 		LogIn_Button.setFont(new Font("Tahoma", Font.PLAIN, 16));
