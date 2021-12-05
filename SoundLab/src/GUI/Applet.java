@@ -8,6 +8,11 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import Modelli.Utente;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class Applet {
 
@@ -15,31 +20,31 @@ public class Applet {
 	/**
 	 * Create and launch the frame.
 	 */
-	public Applet() {
-		initialize();
+	public Applet(String uname, String psd) {
+		initialize(uname, psd);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		JFrame frame = new JFrame();
-		frame.setVisible(true);
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+	private void initialize(String uname, String psd) {
+		Utente utente = new Utente(uname , psd);
+		JFrame AppWindow = new JFrame();
+		AppWindow.setTitle("SoundLab");
+		AppWindow.setVisible(true);
+		AppWindow.setBounds(100, 100, 812, 603);
+		AppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		AppWindow.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 261);
-		frame.getContentPane().add(panel);
+		panel.setBounds(116, 11, 505, 376);
+		AppWindow.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(142, 94, 137, 70);
-		panel.add(btnNewButton);
+		JLabel lblNewLabel = new JLabel(utente.getUsername());
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 0, 463, 110);
+		panel.add(lblNewLabel);
 	}
 }
