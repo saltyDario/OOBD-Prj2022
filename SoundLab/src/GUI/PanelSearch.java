@@ -10,7 +10,7 @@ public class PanelSearch extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelSearch() {
-		setBounds(0, 0, 465, 573);
+		setBounds(0, 0, 481, 592);
 		setLayout(null);
 		
 		JLabel lblBenvenutoNellaRicerca = new JLabel("BENVENUTO NELLA RICERCA");

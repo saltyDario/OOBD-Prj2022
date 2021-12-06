@@ -10,7 +10,7 @@ public class PanelHome extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelHome() {
-		setBounds(0, 0, 465, 573);
+		setBounds(0, 0, 481, 592);
 		setLayout(null);
 		setVisible(true);
 		

@@ -33,11 +33,12 @@ import javax.swing.SwingConstants;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class FrontGUI {
 	private JTextField Username_Field;
 	private JPasswordField Password_Field;
-
+	private int mouseX, mouseY;
 	/**
 	 * Create the application.
 	 */
@@ -63,16 +64,50 @@ public class FrontGUI {
 		LogInWindow.getContentPane().setLayout(null);
 		BorderFactory.createLineBorder(Color.black);
 		
+		JPanel draggablePanel = new JPanel();
+		draggablePanel.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				LogInWindow.setLocation(LogInWindow.getX() + e.getX() - mouseX, LogInWindow.getY() + e.getY() - mouseY);
+			}
+		});
+		draggablePanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				mouseX = e.getX();
+				mouseY = e.getY();
+			}
+		});
+		draggablePanel.setBackground(Color.BLACK);
+		draggablePanel.setBounds(0, 0, 774, 20);
+		LogInWindow.getContentPane().add(draggablePanel);
+		draggablePanel.setLayout(null);
+		
+		JLabel exitButton = new JLabel("X");
+		exitButton.setBounds(744, 0, 30, 24);
+		draggablePanel.add(exitButton);
+		exitButton.setForeground(Color.WHITE);
+		exitButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
+					System.exit(0);
+				}
+			}
+		});
+		exitButton.setFont(new Font("Arial", Font.BOLD, 16));
+		exitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		JPanel LogInScreen = new JPanel();
 		LogInScreen.setBackground(Color.GRAY);
 		LogInScreen.setBorder(new LineBorder(Color.BLACK, 2));
-		LogInScreen.setBounds(0, 0, 774, 488);
+		LogInScreen.setBounds(0, 19, 774, 468);
 		LogInWindow.getContentPane().add(LogInScreen);
 		LogInScreen.setLayout(null);
 		
 		JPanel User_panel = new JPanel();
 		User_panel.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		User_panel.setBounds(229, 222, 309, 53);
+		User_panel.setBounds(229, 253, 309, 53);
 		LogInScreen.add(User_panel);
 		User_panel.setLayout(null);
 		
@@ -91,7 +126,7 @@ public class FrontGUI {
 		
 		JPanel Password_panel = new JPanel();
 		Password_panel.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		Password_panel.setBounds(229, 279, 309, 53);
+		Password_panel.setBounds(229, 310, 309, 53);
 		LogInScreen.add(Password_panel);
 		Password_panel.setLayout(null);
 		
@@ -111,21 +146,14 @@ public class FrontGUI {
 		
 		JPanel TopTitle = new JPanel();
 		TopTitle.setFont(new Font("Arial", Font.PLAIN, 12));
-		TopTitle.setBounds(10, 11, 183, 46);
+		TopTitle.setBounds(36, 260, 183, 46);
 		TopTitle.setBackground(Color.GRAY);
 		LogInScreen.add(TopTitle);
 		TopTitle.setLayout(null);
 		
-		JLabel Title = new JLabel("Accedi a SoundLab!");
-		Title.setBackground(Color.GRAY);
-		Title.setBounds(0, 0, 183, 45);
-		TopTitle.add(Title);
-		Title.setHorizontalAlignment(SwingConstants.CENTER);
-		Title.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		
 		JButton LogIn_Button = new JButton("LOGIN");
 		LogIn_Button.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		LogIn_Button.setBounds(284, 355, 214, 62);
+		LogIn_Button.setBounds(284, 386, 214, 62);
 		LogInScreen.add(LogIn_Button);
 		LogIn_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -170,31 +198,24 @@ public class FrontGUI {
 		LogIn_Button.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel FrontLogo = new JLabel("");
-		FrontLogo.setBounds(271, 11, 230, 200);
+		FrontLogo.setBounds(268, 42, 230, 200);
 		LogInScreen.add(FrontLogo);
 		FrontLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		FrontLogo.setIcon(new ImageIcon(FrontGUI.class.getResource("/Immagini/FrontLogo.png")));
-		
-		JLabel exitButton = new JLabel("X");
-		exitButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
-					System.exit(0);
-				}
-			}
-		});
-		exitButton.setFont(new Font("Arial", Font.BOLD, 16));
-		exitButton.setHorizontalAlignment(SwingConstants.CENTER);
-		exitButton.setBounds(744, 0, 30, 24);
-		LogInScreen.add(exitButton);
 		
 		JLabel creditLabel = new JLabel("App delivered by: Marucci, Morace");
 		creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		creditLabel.setForeground(Color.WHITE);
 		creditLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		creditLabel.setBounds(0, 444, 327, 44);
+		creditLabel.setBounds(-31, 434, 327, 44);
 		LogInScreen.add(creditLabel);
+		
+		JLabel Title = new JLabel("Accedi a SoundLab!");
+		Title.setBounds(10, 11, 183, 45);
+		LogInScreen.add(Title);
+		Title.setBackground(Color.GRAY);
+		Title.setHorizontalAlignment(SwingConstants.CENTER);
+		Title.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 
 	}

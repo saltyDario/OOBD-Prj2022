@@ -29,6 +29,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.border.LineBorder;
 import GUI.FrontGUI;
+import java.awt.event.MouseMotionAdapter;
 
 public class Applet {
 
@@ -36,7 +37,8 @@ public class Applet {
 	private PanelLibrary paneLibrary;
 	private PanelSearch paneSearch;
 	private PanelInfo paneInfo;
-
+	private int mouseX, mouseY;
+	
 	public Applet(String uname, String psd) {
 		initialize(uname, psd);
 	}
@@ -50,25 +52,29 @@ public class Applet {
 		AppWindow.getContentPane().setBackground(Color.GRAY);
 		AppWindow.setTitle("SoundLab");
 		AppWindow.setVisible(true);
-		AppWindow.setBounds(100, 100, 812, 603);
+		AppWindow.setBounds(100, 100, 823, 616);
 		AppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		AppWindow.getContentPane().setLayout(null);
 		
 		paneHome = new PanelHome();
+		paneHome.setBounds(0, 0, 486, 588);
 		paneLibrary = new PanelLibrary();
+		paneLibrary.setBounds(0, 0, 486, 588);
 		paneSearch = new PanelSearch();
+		paneSearch.setBounds(0, 0, 486, 588);
 		paneInfo = new PanelInfo();
+		paneInfo.setBounds(0, 0, 486, 588);
 		
 		JPanel panel_Menu = new JPanel();
 		panel_Menu.setBackground(Color.BLACK);
-		panel_Menu.setBounds(0, 0, 327, 603);
+		panel_Menu.setBounds(0, 0, 327, 616);
 		AppWindow.getContentPane().add(panel_Menu);
 		panel_Menu.setLayout(null);
 		
 		JLabel lbllconLogo = new JLabel("");
 		lbllconLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lbllconLogo.setForeground(new Color(0, 255, 255));
-		lbllconLogo.setBounds(0, 0, 327, 223);
+		lbllconLogo.setBounds(0, 22, 327, 202);
 		panel_Menu.add(lbllconLogo);
 		lbllconLogo.setIcon(new ImageIcon(FrontGUI.class.getResource("/Immagini/FrontLogo.png")));
 		
@@ -172,30 +178,8 @@ public class Applet {
 		infoLabel.setBounds(122, 11, 73, 44);
 		panel_Info.add(infoLabel);
 		
-		JLabel creditLabel = new JLabel("App delivered by: Marucci, Morace");
-		creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		creditLabel.setForeground(Color.WHITE);
-		creditLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		creditLabel.setBounds(0, 559, 327, 44);
-		panel_Menu.add(creditLabel);
-		
-		JLabel exitButton = new JLabel("X");
-		exitButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
-					System.exit(0);
-				}
-			}
-		});
-		
-		exitButton.setHorizontalAlignment(SwingConstants.CENTER);
-		exitButton.setFont(new Font("Arial", Font.BOLD, 16));
-		exitButton.setBounds(782, 0, 30, 24);
-		AppWindow.getContentPane().add(exitButton);
-		
 		JPanel paneMainContent = new JPanel();
-		paneMainContent.setBounds(337, 20, 465, 573);
+		paneMainContent.setBounds(332, 24, 486, 588);
 		AppWindow.getContentPane().add(paneMainContent);
 		paneMainContent.setLayout(null);
 		paneMainContent.add(paneHome);
@@ -227,6 +211,48 @@ public class Applet {
 		userLabel.setBounds(115, -4, 106, 39);
 		panel.add(userLabel);
 		userLabel.setFont(new Font("Arial", Font.BOLD, 14));
+		
+		JLabel creditLabel = new JLabel("App delivered by: Marucci, Morace");
+		creditLabel.setBounds(0, 572, 327, 44);
+		panel_Menu.add(creditLabel);
+		creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		creditLabel.setForeground(Color.WHITE);
+		creditLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		JPanel draggablePanel = new JPanel();
+		draggablePanel.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				AppWindow.setLocation(AppWindow.getX() + e.getX() - mouseX, AppWindow.getY() + e.getY() - mouseY);
+			}
+		});
+		draggablePanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				mouseX = e.getX();
+				mouseY = e.getY();
+			}
+		});
+		draggablePanel.setLayout(null);
+		draggablePanel.setBackground(Color.BLACK);
+		draggablePanel.setBounds(-2, 0, 825, 20);
+		AppWindow.getContentPane().add(draggablePanel);
+		
+		JLabel exitButton = new JLabel("X");
+		exitButton.setBounds(795, 0, 30, 24);
+		draggablePanel.add(exitButton);
+		exitButton.setForeground(Color.WHITE);
+		exitButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
+					System.exit(0);
+				}
+			}
+		});
+		
+		exitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		exitButton.setFont(new Font("Arial", Font.BOLD, 16));
 	}
 	
 	public void menuClicked(JPanel panel) {

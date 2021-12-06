@@ -10,7 +10,7 @@ public class PanelInfo extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelInfo() {
-		setBounds(0, 0, 465, 573);
+		setBounds(0, 0, 481, 592);
 		setLayout(null);
 		
 		JLabel lblBenvenutoNelleInfo = new JLabel("BENVENUTO NELLE INFO");

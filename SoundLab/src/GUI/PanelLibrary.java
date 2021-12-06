@@ -10,7 +10,7 @@ public class PanelLibrary extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelLibrary() {
-		setBounds(0, 0, 465, 573);
+		setBounds(0, 0, 481, 592);
 		setLayout(null);
 		
 		JLabel lblBenvenutoNellaLibreria = new JLabel("BENVENUTO NELLA LIBRERIA");
