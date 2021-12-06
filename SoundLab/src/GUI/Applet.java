@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import Modelli.Utente;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -26,20 +28,20 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.border.LineBorder;
+import GUI.FrontGUI;
 
 public class Applet {
 
-	
-	/**
-	 * Create and launch the frame.
-	 */
+	private PanelHome paneHome;
+	private PanelLibrary paneLibrary;
+	private PanelSearch paneSearch;
+	private PanelInfo paneInfo;
+
 	public Applet(String uname, String psd) {
 		initialize(uname, psd);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize(String uname, String psd) {
 		Utente utente = new Utente(uname , psd);
 		JFrame AppWindow = new JFrame();
@@ -52,6 +54,11 @@ public class Applet {
 		AppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		AppWindow.getContentPane().setLayout(null);
 		
+		paneHome = new PanelHome();
+		paneLibrary = new PanelLibrary();
+		paneSearch = new PanelSearch();
+		paneInfo = new PanelInfo();
+		
 		JPanel panel_Menu = new JPanel();
 		panel_Menu.setBackground(Color.BLACK);
 		panel_Menu.setBounds(0, 0, 327, 603);
@@ -61,12 +68,18 @@ public class Applet {
 		JLabel lbllconLogo = new JLabel("");
 		lbllconLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lbllconLogo.setForeground(new Color(0, 255, 255));
-		lbllconLogo.setBounds(0, 0, 327, 243);
+		lbllconLogo.setBounds(0, 0, 327, 223);
 		panel_Menu.add(lbllconLogo);
 		lbllconLogo.setIcon(new ImageIcon(FrontGUI.class.getResource("/Immagini/FrontLogo.png")));
 		
 		JPanel panel_Home = new JPanel();
-		panel_Home.setBounds(0, 243, 327, 65);
+		panel_Home.addMouseListener(new PanelButtonMouseAdapter(panel_Home) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(paneHome);
+			}
+		});
+		panel_Home.setBounds(0, 251, 327, 65);
 		panel_Menu.add(panel_Home);
 		panel_Home.setBorder(new LineBorder(Color.BLACK, 2, true));
 		panel_Home.setBackground(Color.GRAY);
@@ -79,7 +92,13 @@ public class Applet {
 		panel_Home.add(homeLabel);
 		
 		JPanel panel_Library = new JPanel();
-		panel_Library.setBounds(0, 306, 327, 65);
+		panel_Library.addMouseListener(new PanelButtonMouseAdapter(panel_Library){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(paneLibrary);
+			}
+		});
+		panel_Library.setBounds(0, 314, 327, 65);
 		panel_Menu.add(panel_Library);
 		panel_Library.setBackground(Color.GRAY);
 		panel_Library.setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -92,7 +111,13 @@ public class Applet {
 		panel_Library.add(libraryLabel);
 		
 		JPanel panel_Search = new JPanel();
-		panel_Search.setBounds(0, 369, 327, 65);
+		panel_Search.addMouseListener(new PanelButtonMouseAdapter(panel_Search){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(paneSearch);
+			}
+		});
+		panel_Search.setBounds(0, 377, 327, 65);
 		panel_Menu.add(panel_Search);
 		panel_Search.setBackground(Color.GRAY);
 		panel_Search.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK));
@@ -105,7 +130,18 @@ public class Applet {
 		panel_Search.add(searchLabel);
 		
 		JPanel panel_SignOut = new JPanel();
-		panel_SignOut.setBounds(0, 432, 327, 65);
+		panel_SignOut.addMouseListener(new PanelButtonMouseAdapter(panel_SignOut) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?") == 0) {
+					FrontGUI FrontGUI = new FrontGUI();
+					AppWindow.setVisible(false);
+					AppWindow.dispose();	
+				}
+			}
+		});
+		panel_SignOut.setBounds(0, 440, 327, 65);
 		panel_Menu.add(panel_SignOut);
 		panel_SignOut.setBackground(Color.GRAY);
 		panel_SignOut.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -118,7 +154,13 @@ public class Applet {
 		panel_SignOut.add(signOutLabel);
 		
 		JPanel panel_Info = new JPanel();
-		panel_Info.setBounds(0, 495, 327, 65);
+		panel_Info.addMouseListener(new PanelButtonMouseAdapter(panel_Info){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(paneInfo);
+			}
+		});
+		panel_Info.setBounds(0, 503, 327, 65);
 		panel_Menu.add(panel_Info);
 		panel_Info.setLayout(null);
 		panel_Info.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -137,17 +179,6 @@ public class Applet {
 		creditLabel.setBounds(0, 559, 327, 44);
 		panel_Menu.add(creditLabel);
 		
-		JLabel welcomeLabel = new JLabel("Benvenuto:");
-		welcomeLabel.setBounds(337, 11, 231, 68);
-		AppWindow.getContentPane().add(welcomeLabel);
-		welcomeLabel.setBackground(Color.WHITE);
-		welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
-		
-		JLabel userLabel = new JLabel(utente.getUsername());
-		userLabel.setBounds(431, 26, 106, 39);
-		AppWindow.getContentPane().add(userLabel);
-		userLabel.setFont(new Font("Arial", Font.BOLD, 16));
-		
 		JLabel exitButton = new JLabel("X");
 		exitButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -163,6 +194,76 @@ public class Applet {
 		exitButton.setBounds(782, 0, 30, 24);
 		AppWindow.getContentPane().add(exitButton);
 		
+		JPanel paneMainContent = new JPanel();
+		paneMainContent.setBounds(337, 20, 465, 573);
+		AppWindow.getContentPane().add(paneMainContent);
+		paneMainContent.setLayout(null);
+		paneMainContent.add(paneHome);
 		
+		paneMainContent.add(paneHome);
+		paneMainContent.add(paneLibrary);
+		paneMainContent.add(paneSearch);
+		paneMainContent.add(paneInfo);
+		
+		menuClicked(paneHome);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(Color.BLACK, 2));
+		panel.setBackground(Color.GRAY);
+		panel.setBounds(0, 225, 327, 28);
+		panel_Menu.add(panel);
+		panel.setLayout(null);
+		
+		
+		JLabel welcomeLabel = new JLabel("Benvenuto:");
+		welcomeLabel.setBounds(23, -19, 101, 68);
+		panel.add(welcomeLabel);
+		welcomeLabel.setForeground(new Color(255, 255, 255));
+		welcomeLabel.setBackground(Color.WHITE);
+		welcomeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+		
+		JLabel userLabel = new JLabel(utente.getUsername());
+		userLabel.setForeground(new Color(255, 255, 255));
+		userLabel.setBounds(115, -4, 106, 39);
+		panel.add(userLabel);
+		userLabel.setFont(new Font("Arial", Font.BOLD, 14));
+	}
+	
+	public void menuClicked(JPanel panel) {
+		paneHome.setVisible(false);
+		paneLibrary.setVisible(false);
+		paneSearch.setVisible(false);
+		paneInfo.setVisible(false);
+		
+		panel.setVisible(true);
+	}
+	
+	private class PanelButtonMouseAdapter extends MouseAdapter{
+		
+		JPanel panel;
+		public PanelButtonMouseAdapter(JPanel panel) {
+			this.panel=panel;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			panel.setBackground(Color.DARK_GRAY);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			panel.setBackground(Color.GRAY);	
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			panel.setBackground(Color.DARK_GRAY);
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+			panel.setBackground(Color.LIGHT_GRAY);
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			panel.setBackground(Color.DARK_GRAY);
+		}
 	}
 }
