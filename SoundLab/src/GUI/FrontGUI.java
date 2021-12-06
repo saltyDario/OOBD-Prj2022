@@ -31,9 +31,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FrontGUI {
-	//private Image img_logo = new ImageIcon(FrontGUI.class.getResource("Immagini/FrontLogo.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 	private JTextField Username_Field;
 	private JPasswordField Password_Field;
 
@@ -49,6 +50,7 @@ public class FrontGUI {
 	 */
 	private void initialize() {
 		JFrame LogInWindow = new JFrame();
+		LogInWindow.setUndecorated(true);
 		LogInWindow.setResizable(false);
 		LogInWindow.getContentPane().setBackground(Color.GRAY);
 		LogInWindow.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\dario\\Pictures\\Sfondi\\Sfondi\\PfP\\gonlino.PNG"));
@@ -64,18 +66,13 @@ public class FrontGUI {
 		JPanel LogInScreen = new JPanel();
 		LogInScreen.setBackground(Color.GRAY);
 		LogInScreen.setBorder(new LineBorder(Color.BLACK, 2));
-		LogInScreen.setBounds(0, 0, 758, 449);
+		LogInScreen.setBounds(0, 0, 774, 488);
 		LogInWindow.getContentPane().add(LogInScreen);
 		LogInScreen.setLayout(null);
 		
-		JLabel User_Label = new JLabel("Username:");
-		User_Label.setBounds(149, 216, 124, 53);
-		LogInScreen.add(User_Label);
-		User_Label.setFont(new Font("Arial", Font.BOLD, 20));
-		
 		JPanel User_panel = new JPanel();
 		User_panel.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		User_panel.setBounds(269, 216, 309, 53);
+		User_panel.setBounds(229, 222, 309, 53);
 		LogInScreen.add(User_panel);
 		User_panel.setLayout(null);
 		
@@ -85,39 +82,50 @@ public class FrontGUI {
 		User_panel.add(Username_Field);
 		Username_Field.setColumns(10);
 		
-		JLabel Password_Label = new JLabel("Password:");
-		Password_Label.setBounds(155, 264, 118, 62);
-		LogInScreen.add(Password_Label);
-		Password_Label.setFont(new Font("Arial", Font.BOLD, 20));
+		JLabel UsernameLogo = new JLabel("");
+		UsernameLogo.setHorizontalTextPosition(SwingConstants.CENTER);
+		UsernameLogo.setBounds(240, 8, 59, 38);
+		User_panel.add(UsernameLogo);
+		UsernameLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		UsernameLogo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/listen.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
 		
-		JPanel Password_panel_1 = new JPanel();
-		Password_panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		Password_panel_1.setBounds(269, 273, 309, 53);
-		LogInScreen.add(Password_panel_1);
-		Password_panel_1.setLayout(null);
+		JPanel Password_panel = new JPanel();
+		Password_panel.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		Password_panel.setBounds(229, 279, 309, 53);
+		LogInScreen.add(Password_panel);
+		Password_panel.setLayout(null);
 		
 		Password_Field = new JPasswordField();
 		Password_Field.setFont(new Font("Arial", Font.PLAIN, 12));
 		Password_Field.setBounds(10, 11, 215, 35);
-		Password_panel_1.add(Password_Field);
+		Password_panel.add(Password_Field);
+		
+		JLabel PasswordLogo = new JLabel("");
+		PasswordLogo.setHorizontalTextPosition(SwingConstants.CENTER);
+		PasswordLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		PasswordLogo.setBounds(235, 8, 59, 38);
+		Password_panel.add(PasswordLogo);
+		PasswordLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		PasswordLogo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/key.png")).getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)));
+		
 		
 		JPanel TopTitle = new JPanel();
 		TopTitle.setFont(new Font("Arial", Font.PLAIN, 12));
-		TopTitle.setBounds(534, 57, 183, 46);
-		TopTitle.setBackground(Color.DARK_GRAY);
+		TopTitle.setBounds(10, 11, 183, 46);
+		TopTitle.setBackground(Color.GRAY);
 		LogInScreen.add(TopTitle);
 		TopTitle.setLayout(null);
 		
 		JLabel Title = new JLabel("Accedi a SoundLab!");
+		Title.setBackground(Color.GRAY);
 		Title.setBounds(0, 0, 183, 45);
 		TopTitle.add(Title);
-		Title.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		Title.setHorizontalAlignment(SwingConstants.CENTER);
 		Title.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JButton LogIn_Button = new JButton("LOGIN");
 		LogIn_Button.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		LogIn_Button.setBounds(287, 356, 214, 62);
+		LogIn_Button.setBounds(284, 355, 214, 62);
 		LogInScreen.add(LogIn_Button);
 		LogIn_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -166,6 +174,28 @@ public class FrontGUI {
 		LogInScreen.add(FrontLogo);
 		FrontLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		FrontLogo.setIcon(new ImageIcon(FrontGUI.class.getResource("/Immagini/FrontLogo.png")));
+		
+		JLabel exitButton = new JLabel("X");
+		exitButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
+					System.exit(0);
+				}
+			}
+		});
+		exitButton.setFont(new Font("Arial", Font.BOLD, 16));
+		exitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		exitButton.setBounds(744, 0, 30, 24);
+		LogInScreen.add(exitButton);
+		
+		JLabel creditLabel = new JLabel("App delivered by: Marucci, Morace");
+		creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		creditLabel.setForeground(Color.WHITE);
+		creditLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		creditLabel.setBounds(0, 444, 327, 44);
+		LogInScreen.add(creditLabel);
+		
 
 	}
 }
