@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class PanelHome extends JPanel {
 
@@ -15,8 +16,9 @@ public class PanelHome extends JPanel {
 		setVisible(true);
 		
 		JLabel lblNewLabel = new JLabel("BENVENUTO NELLA HOME");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 29));
-		lblNewLabel.setBounds(27, 245, 412, 109);
+		lblNewLabel.setBounds(37, 11, 412, 109);
 		add(lblNewLabel);
 	}
 }

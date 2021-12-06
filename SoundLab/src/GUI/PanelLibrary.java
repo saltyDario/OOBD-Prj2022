@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class PanelLibrary extends JPanel {
 
@@ -14,8 +15,9 @@ public class PanelLibrary extends JPanel {
 		setLayout(null);
 		
 		JLabel lblBenvenutoNellaLibreria = new JLabel("BENVENUTO NELLA LIBRERIA");
+		lblBenvenutoNellaLibreria.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBenvenutoNellaLibreria.setFont(new Font("Arial", Font.BOLD, 29));
-		lblBenvenutoNellaLibreria.setBounds(10, 246, 428, 109);
+		lblBenvenutoNellaLibreria.setBounds(21, 11, 428, 109);
 		add(lblBenvenutoNellaLibreria);
 	}
 

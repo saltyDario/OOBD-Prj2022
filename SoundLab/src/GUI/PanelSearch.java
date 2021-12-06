@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class PanelSearch extends JPanel {
 
@@ -14,8 +15,9 @@ public class PanelSearch extends JPanel {
 		setLayout(null);
 		
 		JLabel lblBenvenutoNellaRicerca = new JLabel("BENVENUTO NELLA RICERCA");
+		lblBenvenutoNellaRicerca.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBenvenutoNellaRicerca.setFont(new Font("Arial", Font.BOLD, 29));
-		lblBenvenutoNellaRicerca.setBounds(10, 239, 428, 109);
+		lblBenvenutoNellaRicerca.setBounds(20, 11, 428, 109);
 		add(lblBenvenutoNellaRicerca);
 	}
 

@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
@@ -74,7 +75,7 @@ public class Applet {
 		JLabel lbllconLogo = new JLabel("");
 		lbllconLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lbllconLogo.setForeground(new Color(0, 255, 255));
-		lbllconLogo.setBounds(0, 22, 327, 202);
+		lbllconLogo.setBounds(0, 20, 327, 205);
 		panel_Menu.add(lbllconLogo);
 		lbllconLogo.setIcon(new ImageIcon(FrontGUI.class.getResource("/Immagini/FrontLogo.png")));
 		
@@ -92,10 +93,17 @@ public class Applet {
 		panel_Home.setLayout(null);
 		
 		JLabel homeLabel = new JLabel("HOME");
+		homeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		homeLabel.setForeground(new Color(245, 245, 245));
 		homeLabel.setFont(new Font("Arial", Font.BOLD, 27));
 		homeLabel.setBounds(119, 11, 89, 44);
 		panel_Home.add(homeLabel);
+		
+		JLabel homeIcon = new JLabel("");
+		homeIcon.setBounds(56, 11, 50, 40);
+		panel_Home.add(homeIcon);
+		homeIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		homeIcon.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/musichome.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
 		
 		JPanel panel_Library = new JPanel();
 		panel_Library.addMouseListener(new PanelButtonMouseAdapter(panel_Library){
@@ -111,10 +119,17 @@ public class Applet {
 		panel_Library.setLayout(null);
 		
 		JLabel libraryLabel = new JLabel("LIBRARY");
+		libraryLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		libraryLabel.setForeground(new Color(245, 245, 245));
 		libraryLabel.setFont(new Font("Arial", Font.BOLD, 27));
 		libraryLabel.setBounds(104, 11, 126, 44);
 		panel_Library.add(libraryLabel);
+		
+		JLabel libraryIcon = new JLabel("");
+		libraryIcon.setBounds(56, 11, 50, 40);
+		panel_Library.add(libraryIcon);
+		libraryIcon.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/library.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+		libraryIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JPanel panel_Search = new JPanel();
 		panel_Search.addMouseListener(new PanelButtonMouseAdapter(panel_Search){
@@ -130,10 +145,17 @@ public class Applet {
 		panel_Search.setLayout(null);
 		
 		JLabel searchLabel = new JLabel("SEARCH");
+		searchLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		searchLabel.setForeground(new Color(245, 245, 245));
 		searchLabel.setFont(new Font("Arial", Font.BOLD, 27));
 		searchLabel.setBounds(96, 11, 132, 44);
 		panel_Search.add(searchLabel);
+		
+		JLabel searchIcon = new JLabel("");
+		searchIcon.setBounds(56, 11, 50, 40);
+		panel_Search.add(searchIcon);
+		searchIcon.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/searchb.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+		searchIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JPanel panel_SignOut = new JPanel();
 		panel_SignOut.addMouseListener(new PanelButtonMouseAdapter(panel_SignOut) {
@@ -154,10 +176,17 @@ public class Applet {
 		panel_SignOut.setLayout(null);
 		
 		JLabel signOutLabel = new JLabel("SIGN OUT");
+		signOutLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		signOutLabel.setForeground(new Color(245, 245, 245));
 		signOutLabel.setFont(new Font("Arial", Font.BOLD, 27));
-		signOutLabel.setBounds(97, 11, 152, 44);
+		signOutLabel.setBounds(98, 11, 152, 44);
 		panel_SignOut.add(signOutLabel);
+		
+		JLabel signOutIcon = new JLabel("");
+		signOutIcon.setBounds(57, 11, 50, 40);
+		panel_SignOut.add(signOutIcon);
+		signOutIcon.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/logout.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+		signOutIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JPanel panel_Info = new JPanel();
 		panel_Info.addMouseListener(new PanelButtonMouseAdapter(panel_Info){
@@ -173,10 +202,17 @@ public class Applet {
 		panel_Info.setBackground(Color.GRAY);
 		
 		JLabel infoLabel = new JLabel("INFO");
+		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		infoLabel.setForeground(new Color(245, 245, 245));
 		infoLabel.setFont(new Font("Arial", Font.BOLD, 27));
-		infoLabel.setBounds(122, 11, 73, 44);
+		infoLabel.setBounds(125, 11, 73, 44);
 		panel_Info.add(infoLabel);
+		
+		JLabel infoIcon = new JLabel("");
+		infoIcon.setBounds(56, 11, 50, 40);
+		panel_Info.add(infoIcon);
+		infoIcon.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/group.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+		infoIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JPanel paneMainContent = new JPanel();
 		paneMainContent.setBounds(332, 24, 486, 588);
@@ -200,7 +236,7 @@ public class Applet {
 		
 		
 		JLabel welcomeLabel = new JLabel("Benvenuto:");
-		welcomeLabel.setBounds(23, -19, 101, 68);
+		welcomeLabel.setBounds(10, -19, 101, 68);
 		panel.add(welcomeLabel);
 		welcomeLabel.setForeground(new Color(255, 255, 255));
 		welcomeLabel.setBackground(Color.WHITE);
@@ -208,7 +244,7 @@ public class Applet {
 		
 		JLabel userLabel = new JLabel(utente.getUsername());
 		userLabel.setForeground(new Color(255, 255, 255));
-		userLabel.setBounds(115, -4, 106, 39);
+		userLabel.setBounds(98, -4, 106, 39);
 		panel.add(userLabel);
 		userLabel.setFont(new Font("Arial", Font.BOLD, 14));
 		
@@ -238,9 +274,10 @@ public class Applet {
 		draggablePanel.setBounds(-2, 0, 825, 20);
 		AppWindow.getContentPane().add(draggablePanel);
 		
-		JLabel exitButton = new JLabel("X");
-		exitButton.setBounds(795, 0, 30, 24);
+		JLabel exitButton = new JLabel("");
+		exitButton.setBounds(798, -2, 27, 24);
 		draggablePanel.add(exitButton);
+		exitButton.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/closered.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
 		exitButton.setForeground(Color.WHITE);
 		exitButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -253,6 +290,20 @@ public class Applet {
 		
 		exitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		exitButton.setFont(new Font("Arial", Font.BOLD, 16));
+		
+		JLabel minimizeButton = new JLabel("");
+		minimizeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AppWindow.setExtendedState(JFrame.ICONIFIED);
+			}
+		});
+		minimizeButton.setBounds(769, -3, 30, 27);
+		draggablePanel.add(minimizeButton);
+		minimizeButton.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/minimize.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH)));
+		minimizeButton.setHorizontalAlignment(SwingConstants.CENTER);
+		minimizeButton.setForeground(Color.WHITE);
+		minimizeButton.setFont(new Font("Arial", Font.BOLD, 16));
 	}
 	
 	public void menuClicked(JPanel panel) {
