@@ -58,13 +58,67 @@ public class Applet {
 		AppWindow.getContentPane().setLayout(null);
 		
 		paneHome = new PanelHome();
+		paneHome.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneHome.setBounds(0, 0, 486, 588);
 		paneLibrary = new PanelLibrary();
+		paneLibrary.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneLibrary.setBounds(0, 0, 486, 588);
 		paneSearch = new PanelSearch();
+		paneSearch.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneSearch.setBounds(0, 0, 486, 588);
 		paneInfo = new PanelInfo();
+		paneInfo.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneInfo.setBounds(0, 0, 486, 588);
+		
+		JPanel draggablePanel = new JPanel();
+		draggablePanel.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				AppWindow.setLocation(AppWindow.getX() + e.getX() - mouseX, AppWindow.getY() + e.getY() - mouseY);
+			}
+		});
+		draggablePanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				mouseX = e.getX();
+				mouseY = e.getY();
+			}
+		});
+		draggablePanel.setLayout(null);
+		draggablePanel.setBackground(Color.BLACK);
+		draggablePanel.setBounds(-2, 0, 825, 20);
+		AppWindow.getContentPane().add(draggablePanel);
+		
+		JLabel exitButton = new JLabel("");
+		exitButton.setBounds(798, -2, 27, 24);
+		draggablePanel.add(exitButton);
+		exitButton.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/closered.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+		exitButton.setForeground(Color.WHITE);
+		exitButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
+					System.exit(0);
+				}
+			}
+		});
+		
+		exitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		exitButton.setFont(new Font("Arial", Font.BOLD, 16));
+		
+		JLabel minimizeButton = new JLabel("");
+		minimizeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AppWindow.setExtendedState(JFrame.ICONIFIED);
+			}
+		});
+		minimizeButton.setBounds(769, -3, 30, 27);
+		draggablePanel.add(minimizeButton);
+		minimizeButton.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/minimize.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH)));
+		minimizeButton.setHorizontalAlignment(SwingConstants.CENTER);
+		minimizeButton.setForeground(Color.WHITE);
+		minimizeButton.setFont(new Font("Arial", Font.BOLD, 16));
 		
 		JPanel panel_Menu = new JPanel();
 		panel_Menu.setBackground(Color.BLACK);
@@ -218,8 +272,8 @@ public class Applet {
 		paneMainContent.setBounds(332, 24, 486, 588);
 		AppWindow.getContentPane().add(paneMainContent);
 		paneMainContent.setLayout(null);
-		paneMainContent.add(paneHome);
 		
+		paneMainContent.add(paneHome);
 		paneMainContent.add(paneHome);
 		paneMainContent.add(paneLibrary);
 		paneMainContent.add(paneSearch);
@@ -227,17 +281,17 @@ public class Applet {
 		
 		menuClicked(paneHome);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.BLACK, 2));
-		panel.setBackground(Color.GRAY);
-		panel.setBounds(0, 225, 327, 28);
-		panel_Menu.add(panel);
-		panel.setLayout(null);
+		JPanel panel_welcome = new JPanel();
+		panel_welcome.setBorder(new LineBorder(Color.BLACK, 2));
+		panel_welcome.setBackground(Color.GRAY);
+		panel_welcome.setBounds(0, 225, 327, 28);
+		panel_Menu.add(panel_welcome);
+		panel_welcome.setLayout(null);
 		
 		
 		JLabel welcomeLabel = new JLabel("Benvenuto:");
 		welcomeLabel.setBounds(10, -19, 101, 68);
-		panel.add(welcomeLabel);
+		panel_welcome.add(welcomeLabel);
 		welcomeLabel.setForeground(new Color(255, 255, 255));
 		welcomeLabel.setBackground(Color.WHITE);
 		welcomeLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -245,7 +299,7 @@ public class Applet {
 		JLabel userLabel = new JLabel(utente.getUsername());
 		userLabel.setForeground(new Color(255, 255, 255));
 		userLabel.setBounds(98, -4, 106, 39);
-		panel.add(userLabel);
+		panel_welcome.add(userLabel);
 		userLabel.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		JLabel creditLabel = new JLabel("App delivered by: Marucci, Morace");
@@ -254,56 +308,6 @@ public class Applet {
 		creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		creditLabel.setForeground(Color.WHITE);
 		creditLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		
-		JPanel draggablePanel = new JPanel();
-		draggablePanel.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				AppWindow.setLocation(AppWindow.getX() + e.getX() - mouseX, AppWindow.getY() + e.getY() - mouseY);
-			}
-		});
-		draggablePanel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				mouseX = e.getX();
-				mouseY = e.getY();
-			}
-		});
-		draggablePanel.setLayout(null);
-		draggablePanel.setBackground(Color.BLACK);
-		draggablePanel.setBounds(-2, 0, 825, 20);
-		AppWindow.getContentPane().add(draggablePanel);
-		
-		JLabel exitButton = new JLabel("");
-		exitButton.setBounds(798, -2, 27, 24);
-		draggablePanel.add(exitButton);
-		exitButton.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/closered.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
-		exitButton.setForeground(Color.WHITE);
-		exitButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
-					System.exit(0);
-				}
-			}
-		});
-		
-		exitButton.setHorizontalAlignment(SwingConstants.CENTER);
-		exitButton.setFont(new Font("Arial", Font.BOLD, 16));
-		
-		JLabel minimizeButton = new JLabel("");
-		minimizeButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AppWindow.setExtendedState(JFrame.ICONIFIED);
-			}
-		});
-		minimizeButton.setBounds(769, -3, 30, 27);
-		draggablePanel.add(minimizeButton);
-		minimizeButton.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/minimize.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH)));
-		minimizeButton.setHorizontalAlignment(SwingConstants.CENTER);
-		minimizeButton.setForeground(Color.WHITE);
-		minimizeButton.setFont(new Font("Arial", Font.BOLD, 16));
 	}
 	
 	public void menuClicked(JPanel panel) {
@@ -315,7 +319,7 @@ public class Applet {
 		panel.setVisible(true);
 	}
 	
-	private class PanelButtonMouseAdapter extends MouseAdapter{
+	public class PanelButtonMouseAdapter extends MouseAdapter{
 		
 		JPanel panel;
 		public PanelButtonMouseAdapter(JPanel panel) {
