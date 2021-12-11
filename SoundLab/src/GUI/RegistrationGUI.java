@@ -29,6 +29,9 @@ import javax.swing.JPasswordField;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
+
+import Connessione.RegisterConnection;
+
 import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JMonthChooser;
 import javax.swing.JButton;
@@ -135,11 +138,11 @@ public class RegistrationGUI {
 		usernameField.setBounds(10, 11, 215, 35);
 		UsernamePanel.add(usernameField);
 		
-		JLabel UsernameLogo = new JLabel("");
-		UsernameLogo.setHorizontalTextPosition(SwingConstants.CENTER);
-		UsernameLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		UsernameLogo.setBounds(221, -11, 103, 74);
-		UsernamePanel.add(UsernameLogo);
+		JLabel usernameLabel = new JLabel("Username");
+		usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		usernameLabel.setBounds(225, 2, 68, 53);
+		UsernamePanel.add(usernameLabel);
+		usernameLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		
 		JPanel PasswordPanel = new JPanel();
 		PasswordPanel.setLayout(null);
@@ -153,11 +156,11 @@ public class RegistrationGUI {
 		passwordField.setBounds(10, 11, 215, 35);
 		PasswordPanel.add(passwordField);
 		
-		JLabel PasswordLogo = new JLabel("");
-		PasswordLogo.setHorizontalTextPosition(SwingConstants.CENTER);
-		PasswordLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		PasswordLogo.setBounds(222, -5, 92, 62);
-		PasswordPanel.add(PasswordLogo);
+		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		passwordLabel.setBounds(225, 2, 68, 53);
+		PasswordPanel.add(passwordLabel);
+		passwordLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		
 		JPanel EmailPanel = new JPanel();
 		EmailPanel.setLayout(null);
@@ -172,11 +175,11 @@ public class RegistrationGUI {
 		emailField.setBounds(10, 11, 215, 35);
 		EmailPanel.add(emailField);
 		
-		JLabel EmailLogo = new JLabel("");
-		EmailLogo.setHorizontalTextPosition(SwingConstants.CENTER);
-		EmailLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		EmailLogo.setBounds(221, -10, 103, 74);
-		EmailPanel.add(EmailLogo);
+		JLabel emailLabel = new JLabel("Email");
+		emailLabel.setBounds(224, 2, 46, 53);
+		EmailPanel.add(emailLabel);
+		emailLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		emailLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		
 		JPanel GenderPanel = new JPanel();
 		GenderPanel.setLayout(null);
@@ -191,11 +194,11 @@ public class RegistrationGUI {
 		genderField.setBounds(10, 11, 215, 35);
 		GenderPanel.add(genderField);
 		
-		JLabel genderLogo = new JLabel("");
-		genderLogo.setHorizontalTextPosition(SwingConstants.CENTER);
-		genderLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		genderLogo.setBounds(221, -10, 103, 74);
-		GenderPanel.add(genderLogo);
+		JLabel genderLabel = new JLabel("Sesso");
+		genderLabel.setBounds(225, 2, 46, 53);
+		GenderPanel.add(genderLabel);
+		genderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		genderLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		
 		JPanel DataPanel = new JPanel();
 		DataPanel.setLayout(null);
@@ -208,53 +211,30 @@ public class RegistrationGUI {
 		dateChooser.setBounds(10, 11, 215, 35);
 		DataPanel.add(dateChooser);
         dateChooser.setDateFormatString("y/MM/d");
-		
-		JLabel dataLogo = new JLabel("");
-		dataLogo.setHorizontalTextPosition(SwingConstants.CENTER);
-		dataLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		dataLogo.setBounds(221, -10, 103, 74);
-		DataPanel.add(dataLogo);
+        
+        JLabel nascitaLabel = new JLabel("Data nascita");
+        nascitaLabel.setBounds(215, 0, 102, 53);
+        DataPanel.add(nascitaLabel);
+        nascitaLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        nascitaLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		
 		JButton Register_Button = new JButton("REGISTER");
 		Register_Button.addActionListener(new ActionListener() {
-			
-
-			
 			public void actionPerformed(ActionEvent e) {
 				
-				String url = "jdbc:postgresql://localhost:5432/SoundLab";
-				try{
-					Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
+				String eccoUs = usernameField.getText();
+				String eccoPsd = passwordField.getText();
+				String eccoEmail = emailField.getText();
+				String eccoGender = genderField.getText();
+				Date eccoData = new Date(dateChooser.getDate().getTime());
+				boolean ok;
 					
-					
-					String eccoUs = usernameField.getText();
-					String eccoPsd = passwordField.getText();
-					String eccoEmail = emailField.getText();
-					String eccoGender = genderField.getText();
-					Date eccoData = new Date(dateChooser.getDate().getTime());
-					
-					
-					PreparedStatement st = con.prepareStatement("INSERT INTO utente(username, password, email, sesso, datanascita) values(?, ?, ?, ?, ?)");
-					st.setString(1, eccoUs);
-					st.setString(2, eccoPsd);
-					st.setString(3, eccoEmail);
-					st.setString(4, eccoGender);
-					st.setDate(5, eccoData);
-					st.executeUpdate();
-					st.close();
-			
-					int colonne = Statement.RETURN_GENERATED_KEYS;
-					
-					if(colonne > 0) {
-						JOptionPane.showMessageDialog(null, "Registrazione effettuata con successo!.");
-						RegistrationFrame.dispose();
-
-					}
-					con.close();
-					
-				}catch(SQLException c){
-					JOptionPane.showMessageDialog(null, "Registrazione non riuscita, ritenta.");
-					
+				RegisterConnection registrazione = new RegisterConnection();
+				ok = registrazione.ritornaRegistrazione(eccoUs, eccoPsd, eccoEmail, eccoGender, eccoData);
+				
+				if(ok == true) {
+					JOptionPane.showMessageDialog(null, "Registrazione effettuata con successo!.");
+					RegistrationFrame.dispose();
 				}
 			}
 		});
@@ -275,30 +255,5 @@ public class RegistrationGUI {
 		Register_Button.setBackground(Color.WHITE);
 		Register_Button.setBounds(169, 510, 214, 62);
 		panelRegistration.add(Register_Button);
-		
-		JLabel lblNewLabel = new JLabel("Username:");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
-		lblNewLabel.setBounds(10, 222, 102, 53);
-		panelRegistration.add(lblNewLabel);
-		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setFont(new Font("Arial", Font.BOLD, 13));
-		lblPassword.setBounds(10, 277, 102, 53);
-		panelRegistration.add(lblPassword);
-		
-		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Arial", Font.BOLD, 13));
-		lblEmail.setBounds(10, 332, 102, 53);
-		panelRegistration.add(lblEmail);
-		
-		JLabel lblSesso = new JLabel("Sesso:");
-		lblSesso.setFont(new Font("Arial", Font.BOLD, 13));
-		lblSesso.setBounds(10, 387, 102, 53);
-		panelRegistration.add(lblSesso);
-		
-		JLabel lblDataDiNascita = new JLabel("Data di nascita:");
-		lblDataDiNascita.setFont(new Font("Arial", Font.BOLD, 13));
-		lblDataDiNascita.setBounds(10, 442, 102, 53);
-		panelRegistration.add(lblDataDiNascita);
 	}
 }

@@ -14,6 +14,7 @@ import java.awt.Window;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import Connessione.LogInConnection;
 import GUI.Applet.PanelButtonMouseAdapter;
 
 import javax.swing.JPasswordField;
@@ -210,36 +211,15 @@ public class FrontGUI {
 			public void actionPerformed(ActionEvent e) {
 				String uname = Username_Field.getText();
 				String psd = Password_Field.getText();
+				boolean ok;
 				
-				String url = "jdbc:postgresql://localhost:5432/SoundLab";
-				try {
-					Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
-					String eccoUs = null;
-					String eccoPsd = null;
-					
-					while(!(uname.equals(eccoUs) && psd.equals(eccoPsd))){
-						
-					String getUser = "SELECT Username FROM Utente where Username = '" + uname + "'";
-					Statement richiestaUsername = con.createStatement();
-					ResultSet gotUser = richiestaUsername.executeQuery(getUser);
-					gotUser.next();
-					eccoUs = gotUser.getString("username");
-					
-					String getPassword = "SELECT Password FROM Utente where Password = '"+ psd + "'";
-					Statement richiestaPassword = con.createStatement();
-					ResultSet gotPassword = richiestaPassword.executeQuery(getPassword);
-					gotPassword.next();
-					eccoPsd = gotPassword.getString("password");
-					
-					con.close();
-					}
+				LogInConnection login = new LogInConnection();
+				ok = login.ritornaConnessione(uname, psd);
+				
+				if(ok == true) {
 					JOptionPane.showMessageDialog(null, "Log in effettuato con successo!.");
-					
 					LogInWindow.setVisible(false);
 					Applet mainPage = new Applet(uname, psd);
-					
-				}catch(SQLException c) {
-					JOptionPane.showMessageDialog(null, "Log in non riuscito, ritenta o registrati se non l'hai ancora fatto");
 				}
 			}
 		});

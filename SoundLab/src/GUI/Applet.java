@@ -150,7 +150,7 @@ public class Applet {
 		homeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		homeLabel.setForeground(new Color(245, 245, 245));
 		homeLabel.setFont(new Font("Arial", Font.BOLD, 27));
-		homeLabel.setBounds(119, 11, 89, 44);
+		homeLabel.setBounds(0, 0, 327, 65);
 		panel_Home.add(homeLabel);
 		
 		JLabel homeIcon = new JLabel("");
@@ -176,7 +176,7 @@ public class Applet {
 		libraryLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		libraryLabel.setForeground(new Color(245, 245, 245));
 		libraryLabel.setFont(new Font("Arial", Font.BOLD, 27));
-		libraryLabel.setBounds(104, 11, 126, 44);
+		libraryLabel.setBounds(0, 0, 327, 65);
 		panel_Library.add(libraryLabel);
 		
 		JLabel libraryIcon = new JLabel("");
@@ -202,7 +202,7 @@ public class Applet {
 		searchLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		searchLabel.setForeground(new Color(245, 245, 245));
 		searchLabel.setFont(new Font("Arial", Font.BOLD, 27));
-		searchLabel.setBounds(96, 11, 132, 44);
+		searchLabel.setBounds(0, 0, 327, 65);
 		panel_Search.add(searchLabel);
 		
 		JLabel searchIcon = new JLabel("");
@@ -216,7 +216,7 @@ public class Applet {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?") == 0) {
+				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler uscire?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
 					FrontGUI FrontGUI = new FrontGUI();
 					AppWindow.setVisible(false);
 					AppWindow.dispose();	
@@ -233,7 +233,7 @@ public class Applet {
 		signOutLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		signOutLabel.setForeground(new Color(245, 245, 245));
 		signOutLabel.setFont(new Font("Arial", Font.BOLD, 27));
-		signOutLabel.setBounds(98, 11, 152, 44);
+		signOutLabel.setBounds(0, 0, 327, 65);
 		panel_SignOut.add(signOutLabel);
 		
 		JLabel signOutIcon = new JLabel("");
@@ -259,7 +259,7 @@ public class Applet {
 		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		infoLabel.setForeground(new Color(245, 245, 245));
 		infoLabel.setFont(new Font("Arial", Font.BOLD, 27));
-		infoLabel.setBounds(125, 11, 73, 44);
+		infoLabel.setBounds(0, 0, 327, 65);
 		panel_Info.add(infoLabel);
 		
 		JLabel infoIcon = new JLabel("");
