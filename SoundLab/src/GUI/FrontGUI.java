@@ -239,7 +239,7 @@ public class FrontGUI {
 					Applet mainPage = new Applet(uname, psd);
 					
 				}catch(SQLException c) {
-					JOptionPane.showMessageDialog(null, "Log in non riuscito, ritenta.");
+					JOptionPane.showMessageDialog(null, "Log in non riuscito, ritenta o registrati se non l'hai ancora fatto");
 				}
 			}
 		});

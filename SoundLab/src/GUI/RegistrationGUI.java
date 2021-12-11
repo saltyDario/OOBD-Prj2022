@@ -20,6 +20,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
@@ -137,7 +138,7 @@ public class RegistrationGUI {
 		JLabel UsernameLogo = new JLabel("");
 		UsernameLogo.setHorizontalTextPosition(SwingConstants.CENTER);
 		UsernameLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		UsernameLogo.setBounds(221, -10, 103, 74);
+		UsernameLogo.setBounds(221, -11, 103, 74);
 		UsernamePanel.add(UsernameLogo);
 		
 		JPanel PasswordPanel = new JPanel();
@@ -206,8 +207,7 @@ public class RegistrationGUI {
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(10, 11, 215, 35);
 		DataPanel.add(dateChooser);
-		dateChooser.setDateFormatString("y-MM-d");
-		dateChooser.setBorder(new LineBorder(Color.BLACK, 2, true));
+        dateChooser.setDateFormatString("y/MM/d");
 		
 		JLabel dataLogo = new JLabel("");
 		dataLogo.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -218,38 +218,38 @@ public class RegistrationGUI {
 		JButton Register_Button = new JButton("REGISTER");
 		Register_Button.addActionListener(new ActionListener() {
 			
+
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				String url = "jdbc:postgresql://localhost:5432/SoundLab";
 				try{
 					Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
 					
+					
 					String eccoUs = usernameField.getText();
 					String eccoPsd = passwordField.getText();
 					String eccoEmail = emailField.getText();
 					String eccoGender = genderField.getText();
-					Toolkit eccoData = dateChooser.getToolkit();
-							
-					String insertForm = "INSERT INTO utente(username, password, email, sesso, datanascita) values(?, ?, ?, ?, ?)";
+					Date eccoData = new Date(dateChooser.getDate().getTime());
 					
 					
-					
-					//String insertForm = "INSERT INTO utente(username, password, email, sesso, datanascita) values('"+ eccoUs +"', '"+ eccoPsd +"', '"+ eccoEmail + "', '"+ eccoGender + "', '"+ eccoData +"')";
-					PreparedStatement richiestaInserimento = con.prepareStatement(insertForm, Statement.RETURN_GENERATED_KEYS);
-					
-					richiestaInserimento.setString(1, eccoUs);
-					richiestaInserimento.setString(2, eccoPsd);
-					richiestaInserimento.setString(3, eccoEmail);
-					richiestaInserimento.setString(4, eccoGender);
-					//richiestaInserimento.setString(5, eccoData);
-					
-					int colonne = richiestaInserimento.executeUpdate(insertForm);
+					PreparedStatement st = con.prepareStatement("INSERT INTO utente(username, password, email, sesso, datanascita) values(?, ?, ?, ?, ?)");
+					st.setString(1, eccoUs);
+					st.setString(2, eccoPsd);
+					st.setString(3, eccoEmail);
+					st.setString(4, eccoGender);
+					st.setDate(5, eccoData);
+					st.executeUpdate();
+					st.close();
+			
+					int colonne = Statement.RETURN_GENERATED_KEYS;
 					
 					if(colonne > 0) {
 						JOptionPane.showMessageDialog(null, "Registrazione effettuata con successo!.");
 						RegistrationFrame.dispose();
+
 					}
-					
 					con.close();
 					
 				}catch(SQLException c){
@@ -258,6 +258,7 @@ public class RegistrationGUI {
 				}
 			}
 		});
+		
 		Register_Button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -274,5 +275,30 @@ public class RegistrationGUI {
 		Register_Button.setBackground(Color.WHITE);
 		Register_Button.setBounds(169, 510, 214, 62);
 		panelRegistration.add(Register_Button);
+		
+		JLabel lblNewLabel = new JLabel("Username:");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
+		lblNewLabel.setBounds(10, 222, 102, 53);
+		panelRegistration.add(lblNewLabel);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setFont(new Font("Arial", Font.BOLD, 13));
+		lblPassword.setBounds(10, 277, 102, 53);
+		panelRegistration.add(lblPassword);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Arial", Font.BOLD, 13));
+		lblEmail.setBounds(10, 332, 102, 53);
+		panelRegistration.add(lblEmail);
+		
+		JLabel lblSesso = new JLabel("Sesso:");
+		lblSesso.setFont(new Font("Arial", Font.BOLD, 13));
+		lblSesso.setBounds(10, 387, 102, 53);
+		panelRegistration.add(lblSesso);
+		
+		JLabel lblDataDiNascita = new JLabel("Data di nascita:");
+		lblDataDiNascita.setFont(new Font("Arial", Font.BOLD, 13));
+		lblDataDiNascita.setBounds(10, 442, 102, 53);
+		panelRegistration.add(lblDataDiNascita);
 	}
 }
