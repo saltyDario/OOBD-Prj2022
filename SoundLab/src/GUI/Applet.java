@@ -60,7 +60,7 @@ public class Applet {
 		paneHome = new PanelHome();
 		paneHome.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneHome.setBounds(0, 0, 486, 588);
-		paneLibrary = new PanelLibrary();
+		paneLibrary = new PanelLibrary(utente.getUsername(), utente.getId());
 		paneLibrary.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneLibrary.setBounds(0, 0, 486, 588);
 		paneSearch = new PanelSearch();

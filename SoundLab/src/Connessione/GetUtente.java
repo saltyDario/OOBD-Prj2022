@@ -36,7 +36,7 @@ public class GetUtente {
             }
 			
 		}catch(SQLException c) {
-			JOptionPane.showMessageDialog(null, "Non andato");
+			JOptionPane.showMessageDialog(null, "Non è stato possibile ricevere l'utente.");
 		}
 	}
 	
