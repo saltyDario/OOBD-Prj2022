@@ -15,6 +15,7 @@ public class Utente {
 	public Utente(String us) {
 		username = us;
 		GetUtente utente = new GetUtente(username);
+		id_utente = utente.getIdUtente();
 	}
 	
 	public String getUsername() {
