@@ -40,13 +40,13 @@ public class Applet {
 	private PanelInfo paneInfo;
 	private int mouseX, mouseY;
 	
-	public Applet(String uname, String psd) {
-		initialize(uname, psd);
+	public Applet(String uname) {
+		initialize(uname);
 	}
 
 
-	private void initialize(String uname, String psd) {
-		Utente utente = new Utente(uname , psd);
+	private void initialize(String uname) {
+		Utente utente = new Utente(uname);
 		JFrame AppWindow = new JFrame();
 		AppWindow.setResizable(false);
 		AppWindow.setUndecorated(true);

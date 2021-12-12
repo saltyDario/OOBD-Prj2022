@@ -219,7 +219,7 @@ public class FrontGUI {
 				if(ok == true) {
 					JOptionPane.showMessageDialog(null, "Log in effettuato con successo!.");
 					LogInWindow.setVisible(false);
-					Applet mainPage = new Applet(uname, psd);
+					Applet mainPage = new Applet(uname);
 				}
 			}
 		});
