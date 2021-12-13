@@ -8,14 +8,22 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import Connessione.LibConnection;
+import Modelli.Libreria;
+
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class PanelLibrary extends JPanel {
-
+	
+	private int numero_playlist;
+	
 	public PanelLibrary(String username, int id_utente) {
 		setBackground(Color.GRAY);
 		setBounds(0, 0, 481, 592);
@@ -89,6 +97,14 @@ public class PanelLibrary extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				refreshPanel.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				LibConnection libreria = new LibConnection();
+				numero_playlist = libreria.ritornaLibreria(id_utente);
+				
+				Libreria libreria_utente = new Libreria(numero_playlist);
+				
 			}
 		});
 		refreshPanel.setLayout(null);

@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Connessione.PlaylistConnection;
 import Modelli.Playlist;
 
 import java.awt.Color;
@@ -58,8 +59,15 @@ public class AddPlaylist extends JDialog {
 							public void actionPerformed(ActionEvent e) {
 								String nome = playlistName_field.getText();
 								String genere = playlistGenre_field.getText();
-								Playlist newPlaylist = new Playlist(idutente, nome, genere);
-								addPlaylistDialog.dispose();
+								boolean ok;
+								
+								PlaylistConnection newplaylist = new PlaylistConnection();
+								ok = newplaylist.ritornaPlaylist(idutente, nome, genere);
+								
+								if(ok == true) {
+									JOptionPane.showMessageDialog(null, "Playlist creata con successo!.");
+									addPlaylistDialog.dispose();
+								}
 							}
 						});
 						okButton.setBounds(164, 220, 141, 60);
