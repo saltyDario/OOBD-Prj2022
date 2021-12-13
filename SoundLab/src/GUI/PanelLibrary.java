@@ -64,7 +64,8 @@ public class PanelLibrary extends JPanel {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AddPlaylist addplaylist = new AddPlaylist(id_utente);
+				AddPlaylist addplaylist = new AddPlaylist(id_utente, numero_playlist);
+				System.out.println(""+ numero_playlist);
 			}
 		});
 		plusPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -104,7 +105,7 @@ public class PanelLibrary extends JPanel {
 				numero_playlist = libreria.ritornaLibreria(id_utente);
 				
 				Libreria libreria_utente = new Libreria(numero_playlist);
-				
+				System.out.println(""+ numero_playlist);
 			}
 		});
 		refreshPanel.setLayout(null);

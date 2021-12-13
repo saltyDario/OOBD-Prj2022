@@ -34,11 +34,11 @@ public class AddPlaylist extends JDialog {
 	private JTextField playlistName_field;
 	private JTextField playlistGenre_field;
 	
-	public AddPlaylist(int idutente) {
-		initialize(idutente);
+	public AddPlaylist(int idutente, int numeroplaylist) {
+		initialize(idutente, numeroplaylist);
 	}
 	
-	private void initialize(int idutente) {
+	private void initialize(int idutente, int numeroplaylist) {
 		JPanel contentPanel = new JPanel();
 		JDialog addPlaylistDialog = new JDialog();
 		addPlaylistDialog.setResizable(false);
@@ -62,7 +62,8 @@ public class AddPlaylist extends JDialog {
 								boolean ok;
 								
 								PlaylistConnection newplaylist = new PlaylistConnection();
-								ok = newplaylist.ritornaPlaylist(idutente, nome, genere);
+								int numero_playlist = numeroplaylist + 1;
+								ok = newplaylist.ritornaPlaylist(idutente, nome, genere, numero_playlist);
 								
 								if(ok == true) {
 									JOptionPane.showMessageDialog(null, "Playlist creata con successo!.");

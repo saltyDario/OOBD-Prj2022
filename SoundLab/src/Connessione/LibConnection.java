@@ -22,7 +22,7 @@ public class LibConnection {
 		try {
 		Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
 		
-		String getLibreria = "select num_playlist from libreria where id_libreria = '" + id_utente + "'";
+		String getLibreria = "SELECT num_playlist FROM libreria WHERE id_libreria = '" + id_utente + "'";
 		Statement richiestaLibreria = con.createStatement();
 		ResultSet gotLibreria = richiestaLibreria.executeQuery(getLibreria);
 		gotLibreria.next();
