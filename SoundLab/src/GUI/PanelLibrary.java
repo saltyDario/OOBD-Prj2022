@@ -28,7 +28,7 @@ public class PanelLibrary extends JPanel {
 		add(panel_Title);
 		panel_Title.setLayout(null);
 		
-		JLabel labelBenvenuto = new JLabel("Libreria di <dynamic>");
+		JLabel labelBenvenuto = new JLabel("Libreria di "+ username);
 		labelBenvenuto.setForeground(Color.WHITE);
 		labelBenvenuto.setBounds(8, 10, 331, 35);
 		panel_Title.add(labelBenvenuto);
@@ -54,10 +54,14 @@ public class PanelLibrary extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				plusPanel.setBackground(Color.DARK_GRAY);
 			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AddPlaylist addplaylist = new AddPlaylist(id_utente);
+			}
 		});
 		plusPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
 		plusPanel.setBackground(Color.GRAY);
-		plusPanel.setBounds(433, 82, 38, 37);
+		plusPanel.setBounds(433, 72, 38, 37);
 		add(plusPanel);
 		plusPanel.setLayout(null);
 		
@@ -90,7 +94,7 @@ public class PanelLibrary extends JPanel {
 		refreshPanel.setLayout(null);
 		refreshPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
 		refreshPanel.setBackground(Color.GRAY);
-		refreshPanel.setBounds(396, 82, 38, 37);
+		refreshPanel.setBounds(396, 72, 38, 37);
 		add(refreshPanel);
 		
 		JLabel refreshLabel = new JLabel("");
@@ -101,8 +105,8 @@ public class PanelLibrary extends JPanel {
 		
 		JPanel playlistPanel = new JPanel();
 		playlistPanel.setBackground(Color.GRAY);
-		playlistPanel.setBounds(0, 120, 481, 472);
+		playlistPanel.setBounds(2, 113, 477, 473);
 		add(playlistPanel);
-		playlistPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		playlistPanel.setLayout(null);
 	}
 }
