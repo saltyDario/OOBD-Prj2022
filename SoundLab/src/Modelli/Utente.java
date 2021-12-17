@@ -2,7 +2,7 @@ package Modelli;
 
 import java.util.Date;
 
-import Connessione.GetUtente;
+import ImplementazioniPostgresDAO.GetUtenteDAO;
 
 public class Utente {
 	private int id_utente;
@@ -14,7 +14,7 @@ public class Utente {
 	
 	public Utente(String us) {
 		username = us;
-		GetUtente utente = new GetUtente(username);
+		GetUtenteDAO utente = new GetUtenteDAO(username);
 		id_utente = utente.getIdUtente();
 	}
 	

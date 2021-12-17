@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-import Connessione.LibConnection;
+import ImplementazioniPostgresDAO.LibConnectionDAO;
 import Modelli.Libreria;
 
 import javax.swing.ImageIcon;
@@ -101,7 +101,7 @@ public class PanelLibrary extends JPanel {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				LibConnection libreria = new LibConnection();
+				LibConnectionDAO libreria = new LibConnectionDAO();
 				numero_playlist = libreria.ritornaLibreria(id_utente);
 				
 				Libreria libreria_utente = new Libreria(numero_playlist);

@@ -1,4 +1,4 @@
-package Connessione;
+package ImplementazioniPostgresDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-public class GetUtente {
+public class GetUtenteDAO {
 	
 	private String eccoUs;
 	private int ecco_Id = 0;
@@ -17,7 +17,7 @@ public class GetUtente {
 	private Date ecco_DataN = null;
 	private String ecco_TipoUt = null; 
 	
-	public GetUtente(String username) {
+	public GetUtenteDAO(String username) {
 		String url = "jdbc:postgresql://localhost:5432/SoundLab";
 		eccoUs = username;
 		try {

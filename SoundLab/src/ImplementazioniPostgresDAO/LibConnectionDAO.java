@@ -1,4 +1,4 @@
-package Connessione;
+package ImplementazioniPostgresDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,10 +8,10 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-public class LibConnection {
+public class LibConnectionDAO {
 	private int numero_playlist;
 	
-	public LibConnection() {
+	public LibConnectionDAO() {
 
 		}
 	

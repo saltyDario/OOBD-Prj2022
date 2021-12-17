@@ -47,6 +47,7 @@ public class Applet {
 
 	private void initialize(String uname) {
 		Utente utente = new Utente(uname);
+		
 		JFrame AppWindow = new JFrame();
 		AppWindow.setResizable(false);
 		AppWindow.setUndecorated(true);

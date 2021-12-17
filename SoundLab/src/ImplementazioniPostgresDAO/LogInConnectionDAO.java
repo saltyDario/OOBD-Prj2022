@@ -1,4 +1,4 @@
-package Connessione;
+package ImplementazioniPostgresDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import GUI.Applet;
 
-public class LogInConnection {
+public class LogInConnectionDAO {
 	
 	public boolean ritornaConnessione(String username, String password) {
 		String url = "jdbc:postgresql://localhost:5432/SoundLab";

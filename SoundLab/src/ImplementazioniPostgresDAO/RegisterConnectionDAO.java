@@ -1,4 +1,4 @@
-package Connessione;
+package ImplementazioniPostgresDAO;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-public class RegisterConnection {
+public class RegisterConnectionDAO {
 
 	public boolean ritornaRegistrazione(String username, String password, String email, String sesso, Date data) {
 		String url = "jdbc:postgresql://localhost:5432/SoundLab";

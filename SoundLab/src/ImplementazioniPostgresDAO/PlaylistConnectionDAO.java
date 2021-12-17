@@ -1,4 +1,4 @@
-package Connessione;
+package ImplementazioniPostgresDAO;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-public class PlaylistConnection {
+public class PlaylistConnectionDAO {
 
 	public boolean ritornaPlaylist(int idutente, String nome, String genere, int numeroPlaylist) {
 		String url = "jdbc:postgresql://localhost:5432/SoundLab";

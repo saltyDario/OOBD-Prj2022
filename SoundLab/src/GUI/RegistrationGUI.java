@@ -30,7 +30,7 @@ import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
 
-import Connessione.RegisterConnection;
+import ImplementazioniPostgresDAO.RegisterConnectionDAO;
 
 import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JMonthChooser;
@@ -229,7 +229,7 @@ public class RegistrationGUI {
 				Date eccoData = new Date(dateChooser.getDate().getTime());
 				boolean ok;
 					
-				RegisterConnection registrazione = new RegisterConnection();
+				RegisterConnectionDAO registrazione = new RegisterConnectionDAO();
 				ok = registrazione.ritornaRegistrazione(eccoUs, eccoPsd, eccoEmail, eccoGender, eccoData);
 				
 				if(ok == true) {
