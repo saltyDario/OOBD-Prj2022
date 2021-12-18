@@ -14,6 +14,7 @@ import java.awt.Window;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import DAO.UtenteDAO;
 import GUI.Applet.PanelButtonMouseAdapter;
 import ImplementazioniPostgresDAO.LogInConnectionDAO;
 
@@ -213,13 +214,15 @@ public class FrontGUI {
 				String psd = Password_Field.getText();
 				boolean ok;
 				
-				LogInConnectionDAO login = new LogInConnectionDAO();
-				ok = login.ritornaConnessione(uname, psd);
+				UtenteDAO login = new LogInConnectionDAO();
+				ok = login.logInDB(uname, psd);
 				
 				if(ok == true) {
 					JOptionPane.showMessageDialog(null, "Log in effettuato con successo!.");
 					LogInWindow.setVisible(false);
 					Applet mainPage = new Applet(uname);
+				}else {
+					JOptionPane.showMessageDialog(null, "Log in non riuscito, ritenta o registrati se non l'hai ancora fatto.");
 				}
 			}
 		});

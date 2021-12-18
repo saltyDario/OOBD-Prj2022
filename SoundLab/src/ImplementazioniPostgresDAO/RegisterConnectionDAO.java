@@ -10,9 +10,23 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-public class RegisterConnectionDAO {
+import Connessione.Connessione;
+import DAO.UtenteDAO;
 
-	public boolean ritornaRegistrazione(String username, String password, String email, String sesso, Date data) {
+public class RegisterConnectionDAO implements UtenteDAO {
+
+	private Connection connection;
+	
+	public RegisterConnectionDAO() {
+		try {
+			connection = Connessione.getInstance().getConnection();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public boolean registerInDB(String username, String password, String email, String sesso, Date data) {
 		String url = "jdbc:postgresql://localhost:5432/SoundLab";
 		boolean ok = false;
 		try {			
@@ -37,4 +51,13 @@ public class RegisterConnectionDAO {
 		}
 		return ok;
 	}
+	
+	@Override
+	public boolean logInDB(String username, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }
+
+

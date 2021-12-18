@@ -1,5 +1,6 @@
 package Modelli;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 import ImplementazioniPostgresDAO.GetUtenteDAO;
@@ -37,4 +38,5 @@ public class Utente {
 	public String getTipoUtente() {
 		return tipo_ut;
 	}
+	
 }

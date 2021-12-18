@@ -8,29 +8,33 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-public class LibConnectionDAO {
+import Connessione.Connessione;
+import DAO.LibreriaDAO;
+
+public class LibConnectionDAO implements LibreriaDAO{
+	
 	private int numero_playlist;
+	private Connection connection;
 	
 	public LibConnectionDAO() {
-
+		try {
+			connection = Connessione.getInstance().getConnection();
+		}catch(SQLException e) {
+			e.printStackTrace();
 		}
+	}
 	
 	public int ritornaLibreria(int id_utente) {
 		
-		String url = "jdbc:postgresql://localhost:5432/SoundLab";
-		
-		try {
-		Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
-		
+		try {	
 		String getLibreria = "SELECT num_playlist FROM libreria WHERE id_libreria = '" + id_utente + "'";
-		Statement richiestaLibreria = con.createStatement();
+		Statement richiestaLibreria = connection.createStatement();
 		ResultSet gotLibreria = richiestaLibreria.executeQuery(getLibreria);
 		gotLibreria.next();
 		numero_playlist = gotLibreria.getInt("num_playlist");
 		}catch(SQLException c){
-			JOptionPane.showMessageDialog(null, "Recupero non riuscito, riprova.");
+			c.printStackTrace();
 		}
-		
 		return numero_playlist;
 	}
 }

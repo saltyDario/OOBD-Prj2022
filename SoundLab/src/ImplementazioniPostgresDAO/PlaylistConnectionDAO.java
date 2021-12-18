@@ -9,41 +9,36 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-public class PlaylistConnectionDAO {
+import Connessione.Connessione;
+import DAO.PlaylistDAO;
 
-	public boolean ritornaPlaylist(int idutente, String nome, String genere, int numeroPlaylist) {
-		String url = "jdbc:postgresql://localhost:5432/SoundLab";
+public class PlaylistConnectionDAO implements PlaylistDAO{
+	private Connection connection;
+	
+	public PlaylistConnectionDAO() {
+		try {
+			connection = Connessione.getInstance().getConnection();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean ritornaPlaylist(int idutente, String nome, String genere) {
 		boolean ok = false;
+		
 		try {			
-			Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
-			
-			PreparedStatement st = con.prepareStatement("INSERT INTO playlist(id_libappartenenza, nome, genere) values(?, ?, ?)");
+			PreparedStatement st = connection.prepareStatement("INSERT INTO playlist(id_libappartenenza, nome, genere) values(?, ?, ?)");
 			st.setInt(1, idutente);
 			st.setString(2, nome);
 			st.setString(3, genere);
 			st.executeUpdate();
 			st.close();
 			
-
-			
-			
 			int colonne = Statement.RETURN_GENERATED_KEYS;
 			if(colonne > 0) {
 				ok = true;
 			}
-			con.close();
-			
-			ok = false;
-			Connection conn = DriverManager.getConnection(url, "Gesualdo", "pippo");
-			
-			PreparedStatement st2 = conn.prepareStatement("UPDATE libreria set num_playlist = '"+ numeroPlaylist + "' where id_libreria = '" + idutente +"'");
-			st2.executeUpdate();
-			st2.close();
-			int colonne2 = Statement.RETURN_GENERATED_KEYS;
-			if(colonne2 > 0) {
-				ok = true;
-			}
-			
+			connection.close();
 
 		}catch(SQLException c) {
 			JOptionPane.showMessageDialog(null, "SQL exception.");

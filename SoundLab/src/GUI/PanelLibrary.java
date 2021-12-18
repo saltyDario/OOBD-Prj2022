@@ -9,6 +9,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
+import DAO.LibreriaDAO;
 import ImplementazioniPostgresDAO.LibConnectionDAO;
 import Modelli.Libreria;
 
@@ -18,6 +19,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class PanelLibrary extends JPanel {
@@ -64,8 +66,7 @@ public class PanelLibrary extends JPanel {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AddPlaylist addplaylist = new AddPlaylist(id_utente, numero_playlist);
-				System.out.println(""+ numero_playlist);
+				AddPlaylist addplaylist = new AddPlaylist(id_utente);
 			}
 		});
 		plusPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -101,11 +102,11 @@ public class PanelLibrary extends JPanel {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				LibConnectionDAO libreria = new LibConnectionDAO();
+				LibreriaDAO libreria = new LibConnectionDAO();
 				numero_playlist = libreria.ritornaLibreria(id_utente);
 				
 				Libreria libreria_utente = new Libreria(numero_playlist);
-				System.out.println(""+ numero_playlist);
+				
 			}
 		});
 		refreshPanel.setLayout(null);

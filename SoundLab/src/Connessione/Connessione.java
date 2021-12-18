@@ -16,7 +16,7 @@ public class Connessione {
 	public Connessione() throws SQLException{
 		try {
 			Class.forName(driver);
-			Connection con = DriverManager.getConnection(url, username, password);
+			connection = DriverManager.getConnection(url, username, password);
 			
 		}catch(ClassNotFoundException ex) {
 			System.out.println("Problema DataBase: " + ex.getMessage());
