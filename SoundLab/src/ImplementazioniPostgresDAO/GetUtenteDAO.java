@@ -9,6 +9,8 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import Connessione.Connessione;
+
 public class GetUtenteDAO {
 	
 	private String eccoUs;
@@ -16,13 +18,14 @@ public class GetUtenteDAO {
 	private String ecco_Email = null;
 	private Date ecco_DataN = null;
 	private String ecco_TipoUt = null; 
+	private Connection con;
 	
 	public GetUtenteDAO(String username) {
-		String url = "jdbc:postgresql://localhost:5432/SoundLab";
+		
 		eccoUs = username;
 		try {
-			Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
 			
+			con = Connessione.getInstance().getConnection();
 				
 			String getUser = "select id_utente, email, datanascita, tipo_ut from utente where username = '"+ username + "'";
 			Statement richiestaUsername = con.createStatement();

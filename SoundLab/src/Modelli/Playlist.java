@@ -33,6 +33,8 @@ public class Playlist {
 		return preferita;
 	}
 	
-	
+	public void setnumeroTracce(int numerotracce) {
+		numero_tracce = numerotracce;
+	}
 	
 }

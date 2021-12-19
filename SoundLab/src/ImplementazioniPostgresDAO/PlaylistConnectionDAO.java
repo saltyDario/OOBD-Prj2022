@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 
 import Connessione.Connessione;
 import DAO.PlaylistDAO;
+import Modelli.Libreria;
+import Modelli.Playlist;
 
 public class PlaylistConnectionDAO implements PlaylistDAO{
 	private Connection connection;
@@ -44,6 +46,12 @@ public class PlaylistConnectionDAO implements PlaylistDAO{
 			JOptionPane.showMessageDialog(null, "SQL exception.");
 		}
 		return ok;
+	}
+
+	@Override
+	public Libreria scaricaPlaylist(int idutente) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

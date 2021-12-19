@@ -21,6 +21,7 @@ import java.awt.GridLayout;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.AbstractListModel;
 
 public class PanelLibrary extends JPanel {
 	
@@ -105,7 +106,9 @@ public class PanelLibrary extends JPanel {
 				LibreriaDAO libreria = new LibConnectionDAO();
 				numero_playlist = libreria.ritornaLibreria(id_utente);
 				
-				Libreria libreria_utente = new Libreria(numero_playlist);
+				
+				
+				//Libreria libreria_utente = new Libreria(numero_playlist);
 				
 			}
 		});
@@ -126,5 +129,10 @@ public class PanelLibrary extends JPanel {
 		playlistPanel.setBounds(2, 113, 477, 473);
 		add(playlistPanel);
 		playlistPanel.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(82, 85, 286, 211);
+		playlistPanel.add(panel);
+		panel.setLayout(null);
 	}
 }
