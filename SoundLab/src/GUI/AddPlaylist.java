@@ -9,9 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import DAO.LibreriaDAO;
 import DAO.PlaylistDAO;
 import ImplementazioniPostgresDAO.PlaylistConnectionDAO;
+import Modelli.Libreria;
 import Modelli.Playlist;
+import Modelli.Utente;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -35,11 +38,11 @@ public class AddPlaylist extends JDialog {
 	private JTextField playlistName_field;
 	private JTextField playlistGenre_field;
 	
-	public AddPlaylist(int idutente) {
-		initialize(idutente);
+	public AddPlaylist(int idutente, String username) {
+		initialize(idutente, username);
 	}
 	
-	private void initialize(int idutente) {
+	private void initialize(int idutente, String username) {
 		JPanel contentPanel = new JPanel();
 		JDialog addPlaylistDialog = new JDialog();
 		addPlaylistDialog.setResizable(false);
@@ -62,9 +65,14 @@ public class AddPlaylist extends JDialog {
 								String genere = playlistGenre_field.getText();
 								boolean ok;
 								
-								PlaylistDAO newplaylist = new PlaylistConnectionDAO();
+								Utente u = new Utente(username);
+								Playlist p = new Playlist(idutente, nome, genere);
+								u.getLibreria().addPlaylist(p);
+								
+								LibreriaDAO ld = new PlaylistConnectionDAO();
+								//PlaylistDAO newplaylist = new PlaylistConnectionDAO();
 
-								ok = newplaylist.ritornaPlaylist(idutente, nome, genere);
+								ok = ld.addPlaylist(idutente, nome, genere);
 								
 								if(ok == true) {
 									JOptionPane.showMessageDialog(null, "Playlist creata con successo!.");

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import Connessione.Connessione;
 import DAO.LibreriaDAO;
+import Modelli.Libreria;
 
 public class LibConnectionDAO implements LibreriaDAO{
 	
@@ -37,5 +38,19 @@ public class LibConnectionDAO implements LibreriaDAO{
 		}
 		return numero_playlist;
 	}
+
+	@Override
+	public boolean addPlaylist(int idutente, String nome, String genere) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Libreria leggiLibreria(int idutente) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
 
