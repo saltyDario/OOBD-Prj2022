@@ -1,21 +1,19 @@
 package ImplementazioniPostgresDAO;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import Connessione.Connessione;
-import DAO.PlaylistDAO;
+import Modelli.Libreria;
 import Modelli.Playlist;
 
-public class GetPlaylistDAO implements PlaylistDAO{
-	
-	private static Connection connection;
+public class GetPlaylistDAO {
+
+	private Libreria libreria;
+	private Connection connection;
+	private ResultSet rs = null;
 	
 	public GetPlaylistDAO() {
 		try {
@@ -24,48 +22,33 @@ public class GetPlaylistDAO implements PlaylistDAO{
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public boolean ritornaPlaylist(int idutente, String nome, String genere) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
-	
-    @Override
-	public List<Playlist> scaricaPlaylist(int idutente, int num_playlist) {
-		List<Playlist> result = new ArrayList<Playlist>(num_playlist);
-		PreparedStatement scaricaPlaylistPS;
-		
-		String nome_playlist = null;
-		String genere_playlist = null;
-		int numerotracce = 0;
+	public Libreria scaricaPlaylist(int idutente) {
 		
 		try {
-			//String getPlaylist = "SELECT nome, genere, numerotracce FROM playlist WHERE id_libappartenenza = '" + idutente + "'";
-			scaricaPlaylistPS = connection.prepareStatement(
-					"SELECT nome, genere, numerotracce FROM playlist WHERE id_libappartenenza = '" + idutente + "'");
-			ResultSet rs = scaricaPlaylistPS.executeQuery();
+			String sqlQuery = "select nome, genere, numerotracce from playlist where id_libappartenenza in(select id_libreria from libreria where id_libreria = '"+ idutente +"')";
+			Statement st = connection.createStatement();
+			rs = st.executeQuery(sqlQuery);
+			
+			Libreria library = new Libreria();
+			library.creaLibreria();
 			
 			while(rs.next()) {
-				 nome_playlist = rs.getString("nome");
-				 genere_playlist = rs.getString("genere");
-				 numerotracce = rs.getInt("numerotracce");
-	             System.out.println(""+nome_playlist);
-
+				 String nome_playlist = rs.getString("nome");
+				 String genere_playlist = rs.getString("genere");
+				 int numero_tracce = rs.getInt("numerotracce");
+				 
 				 Playlist nomeobj = new Playlist(idutente, nome_playlist, genere_playlist);
-				 System.out.println(""+nome_playlist);
-				 nomeobj.setnumeroTracce(numerotracce);
-				 result.add(nomeobj);
+				 nomeobj.setnumeroTracce(numero_tracce);
+				 
+				 library.aggiungiPlaylist();
 			}
-			rs.close();
-			connection.close();
-		}catch(SQLException e) {
+			
+		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		return result;
+
+		return libreria;
 	}
 	
-	
-
 }

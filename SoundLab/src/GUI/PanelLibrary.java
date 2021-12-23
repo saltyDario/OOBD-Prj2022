@@ -10,19 +10,12 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 
 import DAO.LibreriaDAO;
-import DAO.PlaylistDAO;
 import ImplementazioniPostgresDAO.LibConnectionDAO;
-import ImplementazioniPostgresDAO.PlaylistConnectionDAO;
 import Modelli.Libreria;
-import Modelli.Playlist;
-import Modelli.Utente;
 
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JList;
@@ -33,17 +26,11 @@ import javax.swing.AbstractListModel;
 public class PanelLibrary extends JPanel {
 	
 	private int numero_playlist;
-	private ElencoLibreria elencoLib;
-
-	
 	
 	public PanelLibrary(String username, int id_utente) {
 		setBackground(Color.GRAY);
 		setBounds(0, 0, 481, 592);
 		setLayout(null);
-		elencoLib = new ElencoLibreria(id_utente, username);
-		elencoLib.setBorder(new LineBorder(Color.BLACK, 2, true));
-		elencoLib.setBounds(2, 113, 477, 473);
 		
 		JPanel panel_Title = new JPanel();
 		panel_Title.setBackground(Color.GRAY);
@@ -80,7 +67,7 @@ public class PanelLibrary extends JPanel {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AddPlaylist addplaylist = new AddPlaylist(id_utente, username);
+				AddPlaylist addplaylist = new AddPlaylist(id_utente);
 			}
 		});
 		plusPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -116,24 +103,10 @@ public class PanelLibrary extends JPanel {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Utente u = new Utente(username);
-				LibreriaDAO l = new PlaylistConnectionDAO();
-				u.setLibreria(l.leggiLibreria(id_utente));
-				
-				//elencoLib.setVisible(true);
-				
-				/*List<Playlist> lista = new ArrayList<Playlist>();
-				
 				LibreriaDAO libreria = new LibConnectionDAO();
 				numero_playlist = libreria.ritornaLibreria(id_utente);
 				
-				PlaylistDAO plst = new PlaylistConnectionDAO();
-				lista = plst.scaricaPlaylist(id_utente, numero_playlist);
-
-				for (int i=0; i<numero_playlist; i++) {
-				  String nomep = lista.get(i).getNomePlaylist();
-				  System.out.println(""+nomep);
-				}*/
+				
 				
 				//Libreria libreria_utente = new Libreria(numero_playlist);
 				
@@ -156,5 +129,10 @@ public class PanelLibrary extends JPanel {
 		playlistPanel.setBounds(2, 113, 477, 473);
 		add(playlistPanel);
 		playlistPanel.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(82, 85, 286, 211);
+		playlistPanel.add(panel);
+		panel.setLayout(null);
 	}
 }
