@@ -11,7 +11,7 @@ public class Utente {
 	private String email;
 	private Date data_nascita;
 	private String tipo_ut; 
-	
+	private Libreria libreria;
 	
 	public Utente(String us) {
 		username = us;
@@ -37,6 +37,14 @@ public class Utente {
 	
 	public String getTipoUtente() {
 		return tipo_ut;
+	}
+	
+	public void setLibreria(Libreria libreria) {
+		this.libreria = libreria;
+	}
+	
+	public Libreria getLibreria() {
+		return libreria;
 	}
 	
 }

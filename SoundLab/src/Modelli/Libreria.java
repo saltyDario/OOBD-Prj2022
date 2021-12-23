@@ -1,21 +1,26 @@
 package Modelli;
 
+import java.util.ArrayList;
+
 public class Libreria {
-	
-	public Libreria() {
-		
-		
-		
-	}
 
-	public void aggiungiPlaylist() {
-		// TODO Auto-generated method stub
-		
-	}
+    private ArrayList<Playlist> playlist;
 
-	public void creaLibreria() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+    public Libreria(int id_libreria) {
+        playlist = new ArrayList<Playlist>();
+    }
+
+    public ArrayList<Playlist> getPlaylist(){
+        return playlist;
+    }
+
+    public void creaLibreria() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void addPlaylist(Playlist p) {
+        playlist.add(p);
+    }
+
 }

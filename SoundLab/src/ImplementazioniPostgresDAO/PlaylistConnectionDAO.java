@@ -47,13 +47,5 @@ public class PlaylistConnectionDAO implements PlaylistDAO{
 		}
 		return ok;
 	}
-
-	@Override
-	public Libreria scaricaPlaylist(int idutente) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 	
 }

@@ -7,6 +7,4 @@ public interface PlaylistDAO {
 
 	boolean ritornaPlaylist(int idutente, String nome, String genere);
 	
-	Libreria scaricaPlaylist(int idutente);
-	
 }

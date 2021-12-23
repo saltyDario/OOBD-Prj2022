@@ -12,10 +12,14 @@ import javax.swing.border.LineBorder;
 import DAO.LibreriaDAO;
 import ImplementazioniPostgresDAO.LibConnectionDAO;
 import Modelli.Libreria;
+import Modelli.Playlist;
+import Modelli.Utente;
 
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JList;
@@ -103,12 +107,19 @@ public class PanelLibrary extends JPanel {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				LibreriaDAO libreria = new LibConnectionDAO();
-				numero_playlist = libreria.ritornaLibreria(id_utente);
+				Libreria libs;
 				
+				Utente u = new Utente(username);
+				LibreriaDAO l = new LibConnectionDAO();
+				libs = l.ritornaLibreria(id_utente);
 				
+				ArrayList<Playlist> lista_playlist = new ArrayList<Playlist>();
+				lista_playlist = libs.getPlaylist();
 				
-				//Libreria libreria_utente = new Libreria(numero_playlist);
+				String[] str = new String[lista_playlist.size()];
+				
+				//JList<Playlist> list = new JList<>(lista_playlist.toArray(str));
+				
 				
 			}
 		});
@@ -130,9 +141,5 @@ public class PanelLibrary extends JPanel {
 		add(playlistPanel);
 		playlistPanel.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(82, 85, 286, 211);
-		playlistPanel.add(panel);
-		panel.setLayout(null);
 	}
 }

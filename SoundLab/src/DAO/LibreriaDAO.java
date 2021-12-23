@@ -1,9 +1,11 @@
 package DAO;
 
+import Modelli.Libreria;
+
 public interface LibreriaDAO {
 
-	int ritornaLibreria(int id_utente);
-	
-	
+	Libreria ritornaLibreria(int id_utente);
+
+	Libreria leggiLibreria(int id_utente);
 	
 }
