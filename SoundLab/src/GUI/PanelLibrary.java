@@ -8,6 +8,7 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import DAO.LibreriaDAO;
 import ImplementazioniPostgresDAO.LibConnectionDAO;
@@ -26,10 +27,21 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JTable;
 
 public class PanelLibrary extends JPanel {
 	
 	private int numero_playlist;
+	private String[] str;
+	
+	//private DefaultListModel<String> model = new DefaultListModel<>();
+	//private JList<String> list = new JList<>(model);
+	
+	DefaultTableModel modelTable = new DefaultTableModel();
+	String headers[] = { "Nome", "Tracce" };
+	private JTable table = new JTable();
+	
 	
 	public PanelLibrary(String username, int id_utente) {
 		setBackground(Color.GRAY);
@@ -86,6 +98,12 @@ public class PanelLibrary extends JPanel {
 		plusLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/plus.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
 		plusLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
+		JPanel playlistPanel = new JPanel();
+		playlistPanel.setBackground(Color.GRAY);
+		playlistPanel.setBounds(2, 113, 477, 473);
+		add(playlistPanel);
+		playlistPanel.setLayout(null);
+		
 		JPanel refreshPanel = new JPanel();
 		refreshPanel.setToolTipText("Refresh Playlist.");
 		refreshPanel.addMouseListener(new MouseAdapter() {
@@ -116,13 +134,34 @@ public class PanelLibrary extends JPanel {
 				ArrayList<Playlist> lista_playlist = new ArrayList<Playlist>();
 				lista_playlist = libs.getPlaylist();
 				
-				String[] str = new String[lista_playlist.size()];
+				/*str = new String[lista_playlist.size()];
+				for(int i = 0; i < lista_playlist.size(); i++) {
+					str[i] = lista_playlist.get(i).getNomePlaylist();
+				}
 				
-				//JList<Playlist> list = new JList<>(lista_playlist.toArray(str));
+				list = new JList<>(str);
+				for (int i=0; i < lista_playlist.size(); i++){
+				    model.addElement(str[i]);
+				}*/
 				
-				
+				table = new JTable();
+				for (int i = 0; i < lista_playlist.size(); i++) {
+					modelTable.addRow(new Object[] { String.valueOf(lista_playlist.get(i).getNomePlaylist()),
+							String.valueOf(lista_playlist.get(i).getNumeroTracce())});
+					}
 			}
 		});
+		
+		//JList<Object> list = new JList<Object>(str);
+		/*list.setBounds(286, 21, 167, 387);
+		playlistPanel.add(list);*/
+		
+		//table = new JTable();
+		modelTable.setColumnIdentifiers(headers);
+		table.setModel(modelTable);
+		table.setBounds(0, 0, 477, 473);
+		playlistPanel.add(table);
+		
 		refreshPanel.setLayout(null);
 		refreshPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
 		refreshPanel.setBackground(Color.GRAY);
@@ -135,11 +174,6 @@ public class PanelLibrary extends JPanel {
 		refreshLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		refreshLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/refreshing.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
 		
-		JPanel playlistPanel = new JPanel();
-		playlistPanel.setBackground(Color.GRAY);
-		playlistPanel.setBounds(2, 113, 477, 473);
-		add(playlistPanel);
-		playlistPanel.setLayout(null);
-		
 	}
+	
 }
