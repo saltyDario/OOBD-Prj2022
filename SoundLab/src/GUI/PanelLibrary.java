@@ -4,10 +4,13 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
 
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.LibreriaDAO;
@@ -29,6 +32,7 @@ import javax.swing.JScrollPane;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 public class PanelLibrary extends JPanel {
 	
@@ -38,10 +42,14 @@ public class PanelLibrary extends JPanel {
 	//private DefaultListModel<String> model = new DefaultListModel<>();
 	//private JList<String> list = new JList<>(model);
 	
-	DefaultTableModel modelTable = new DefaultTableModel();
+	DefaultTableModel modelTable = new DefaultTableModel() {
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
 	String headers[] = { "Nome", "Tracce" };
 	private JTable table = new JTable();
-	
 	
 	public PanelLibrary(String username, int id_utente) {
 		setBackground(Color.GRAY);
@@ -100,7 +108,7 @@ public class PanelLibrary extends JPanel {
 		
 		JPanel playlistPanel = new JPanel();
 		playlistPanel.setBackground(Color.GRAY);
-		playlistPanel.setBounds(2, 113, 477, 473);
+		playlistPanel.setBounds(4, 111, 477, 473);
 		add(playlistPanel);
 		playlistPanel.setLayout(null);
 		
@@ -145,6 +153,7 @@ public class PanelLibrary extends JPanel {
 				}*/
 				
 				table = new JTable();
+				modelTable.setRowCount(0);
 				for (int i = 0; i < lista_playlist.size(); i++) {
 					modelTable.addRow(new Object[] { String.valueOf(lista_playlist.get(i).getNomePlaylist()),
 							String.valueOf(lista_playlist.get(i).getNumeroTracce())});
@@ -152,12 +161,36 @@ public class PanelLibrary extends JPanel {
 			}
 		});
 		
+
+		
 		//JList<Object> list = new JList<Object>(str);
 		/*list.setBounds(286, 21, 167, 387);
 		playlistPanel.add(list);*/
 		
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point punto = mouseEvent.getPoint();
+		        int righe = table.rowAtPoint(punto);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		            System.out.println("okokok");
+		        }
+		    }
+		});
+		
+		/*table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            
+	        }
+	    });*/
 		//table = new JTable();
 		modelTable.setColumnIdentifiers(headers);
+		table.setGridColor(Color.BLACK);
+		table.setFont(new Font("Arial", Font.PLAIN, 14));
+		table.setForeground(Color.WHITE);
+		table.setBackground(Color.GRAY);
+		table.setShowVerticalLines(false);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(modelTable);
 		table.setBounds(0, 0, 477, 473);
 		playlistPanel.add(table);
