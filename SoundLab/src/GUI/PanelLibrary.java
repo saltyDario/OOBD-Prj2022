@@ -33,6 +33,8 @@ import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.JScrollBar;
+import java.awt.Component;
 
 public class PanelLibrary extends JPanel {
 	
@@ -108,7 +110,7 @@ public class PanelLibrary extends JPanel {
 		
 		JPanel playlistPanel = new JPanel();
 		playlistPanel.setBackground(Color.GRAY);
-		playlistPanel.setBounds(4, 111, 477, 473);
+		playlistPanel.setBounds(2, 111, 477, 473);
 		add(playlistPanel);
 		playlistPanel.setLayout(null);
 		
@@ -167,6 +169,22 @@ public class PanelLibrary extends JPanel {
 		/*list.setBounds(286, 21, 167, 387);
 		playlistPanel.add(list);*/
 		
+		/*table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            
+	        }
+	    });*/
+		//table = new JTable();
+		modelTable.setColumnIdentifiers(headers);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBackground(Color.GRAY);
+		scrollPane.setBorder(new LineBorder(Color.GRAY, 2));
+		scrollPane.setBounds(0, 0, 477, 473);
+		playlistPanel.add(scrollPane);
+		scrollPane.setViewportView(table);
+		
 		table.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
@@ -177,23 +195,14 @@ public class PanelLibrary extends JPanel {
 		        }
 		    }
 		});
-		
-		/*table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-	        public void valueChanged(ListSelectionEvent event) {
-	            
-	        }
-	    });*/
-		//table = new JTable();
-		modelTable.setColumnIdentifiers(headers);
 		table.setGridColor(Color.BLACK);
 		table.setFont(new Font("Arial", Font.PLAIN, 14));
-		table.setForeground(Color.WHITE);
-		table.setBackground(Color.GRAY);
+		table.setForeground(Color.BLACK);
+		table.setBackground(Color.WHITE);
 		table.setShowVerticalLines(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(modelTable);
-		table.setBounds(0, 0, 477, 473);
-		playlistPanel.add(table);
+		table.setRowHeight(45);
 		
 		refreshPanel.setLayout(null);
 		refreshPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -208,5 +217,4 @@ public class PanelLibrary extends JPanel {
 		refreshLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/refreshing.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
 		
 	}
-	
 }
