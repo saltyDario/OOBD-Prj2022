@@ -1,13 +1,22 @@
 package GUI;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Point;
+
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import DAO.TracciaDAO;
+import ImplementazioniPostgresDAO.GetTracceDAO;
+import Modelli.Traccia;
+
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
@@ -15,15 +24,23 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class PanelSearch extends JPanel {
-	private JTable resultTable;
 	private JTextField searchField;
 
-	/**
-	 * Create the panel.
-	 */
+	DefaultTableModel modelTable = new DefaultTableModel() {
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
+	String headers[] = { "Nome", "Genere", "Tipo Canzone", "Anno", "Artista" };
+	private JTable table = new JTable();
+	
 	public PanelSearch() {
 		setBackground(Color.GRAY);
 		setBounds(0, 0, 481, 592);
@@ -46,18 +63,8 @@ public class PanelSearch extends JPanel {
 		JPanel searchPanel = new JPanel();
 		searchPanel.setLayout(null);
 		searchPanel.setBackground(Color.GRAY);
-		searchPanel.setBounds(2, 88, 477, 473);
+		searchPanel.setBounds(2, 68, 477, 180);
 		add(searchPanel);
-		
-		resultTable = new JTable();
-		resultTable.setShowVerticalLines(false);
-		resultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		resultTable.setGridColor(Color.BLACK);
-		resultTable.setForeground(Color.WHITE);
-		resultTable.setFont(new Font("Arial", Font.PLAIN, 14));
-		resultTable.setBackground(Color.GRAY);
-		resultTable.setBounds(38, 199, 396, 239);
-		searchPanel.add(resultTable);
 		
 		searchField = new JTextField();
 		searchField.setBounds(249, 43, 165, 37);
@@ -73,9 +80,34 @@ public class PanelSearch extends JPanel {
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int box = tipoQueryBox.getSelectedIndex();
+				String nome = searchField.getText(); 
+				
 				switch (box) {
 				case 1:
-				//System.out.print("1");
+				ArrayList<Traccia> list = new ArrayList<Traccia>();
+				TracciaDAO t = new GetTracceDAO();
+				list = t.ritornaTracce(nome);
+				
+				int grandezza = list.size();
+				/*for(int i = 0; i < grandezza; i++) {
+					System.out.println(""+ list.get(i).getNomeTraccia());
+					System.out.println(""+ list.get(i).getGenereTraccia());
+					System.out.println(""+ list.get(i).getTipoTraccia());
+					System.out.println(""+ list.get(i).getAnnoTraccia());
+					System.out.println(""+ list.get(i).getCantanti());
+				}*/
+				
+				table = new JTable();
+				modelTable.setRowCount(0);
+				for (int i = 0; i < grandezza; i++) {
+					modelTable.addRow(new Object[] { String.valueOf(list.get(i).getNomeTraccia()),
+							String.valueOf(list.get(i).getGenereTraccia()),
+							String.valueOf(list.get(i).getTipoTraccia()),
+							String.valueOf(list.get(i).getAnnoTraccia()),
+							String.valueOf(list.get(i).getCantanti())
+					});
+					}
+				
 				
 				break;
 				case 2:
@@ -89,6 +121,36 @@ public class PanelSearch extends JPanel {
 				}
 			}
 		});
+		
+		modelTable.setColumnIdentifiers(headers);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBackground(Color.GRAY);
+		scrollPane.setBorder(new LineBorder(Color.GRAY, 2));
+		scrollPane.setBounds(2, 259, 477, 322);
+		add(scrollPane);
+		scrollPane.setViewportView(table);
+		
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point punto = mouseEvent.getPoint();
+		        int righe = table.rowAtPoint(punto);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		            System.out.println("okokok");
+		        }
+		    }
+		});
+		table.setGridColor(Color.BLACK);
+		table.setFont(new Font("Arial", Font.PLAIN, 14));
+		table.setForeground(Color.BLACK);
+		table.setBackground(Color.WHITE);
+		table.setShowVerticalLines(false);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(modelTable);
+		table.setRowHeight(45);
+		
 		searchButton.setBounds(188, 122, 89, 23);
 		searchPanel.add(searchButton);
 	}
