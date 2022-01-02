@@ -26,7 +26,7 @@ public class GetTracceDAO implements TracciaDAO{
 	public ArrayList<Traccia> ritornaTracce(String nomeTraccia) {
 		PreparedStatement scaricaTracce;
         ArrayList<Traccia> list = new ArrayList<Traccia>();
-
+        
         String nome_traccia = null;
         int anno;
         String genere_traccia = null;
@@ -34,10 +34,11 @@ public class GetTracceDAO implements TracciaDAO{
         String cantante = null;
         
         try {
-        scaricaTracce = connection.prepareStatement(
-        		"select nometraccia, anno, genere, tipo_can, a.nome from traccia as t, artista as a "
-        		+ "where lower(nometraccia) = lower('"+ nomeTraccia +"') and id_artista in (select album.id_artista from album "
-        		+ "where album.id_traccia = t.id_traccia)");
+        scaricaTracce = connection.prepareStatement("select t.id_traccia, nometraccia, anno, genere, tipo_can, string_agg(distinct a.nome, ',') from traccia as t, artista as a\n"
+        		+ "where lower(nometraccia) = lower('"+nomeTraccia+"') and a.id_artista in (select album.id_artista\n"
+        		+ "                                                   from album\n"
+        		+ "                                                   where album.id_traccia = t.id_traccia)\n"
+        		+ "group by t.id_traccia");
         ResultSet rs = scaricaTracce.executeQuery();
 
         while(rs.next()) {
@@ -45,7 +46,7 @@ public class GetTracceDAO implements TracciaDAO{
              anno = rs.getInt("anno");
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
-             cantante = rs.getString("nome");
+             cantante = rs.getString("string_agg");
              //System.out.println(""+ nome_traccia);
              
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);

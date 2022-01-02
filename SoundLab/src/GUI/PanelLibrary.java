@@ -50,7 +50,7 @@ public class PanelLibrary extends JPanel {
 			return false;
 		}
 	};
-	String headers[] = { "Nome", "Tracce" };
+	String headers[] = { "Nome", "Tracce", "Genere", "Preferita" };
 	private JTable table = new JTable();
 	
 	public PanelLibrary(String username, int id_utente) {
@@ -158,7 +158,9 @@ public class PanelLibrary extends JPanel {
 				modelTable.setRowCount(0);
 				for (int i = 0; i < lista_playlist.size(); i++) {
 					modelTable.addRow(new Object[] { String.valueOf(lista_playlist.get(i).getNomePlaylist()),
-							String.valueOf(lista_playlist.get(i).getNumeroTracce())});
+							String.valueOf(lista_playlist.get(i).getNumeroTracce()),
+							String.valueOf(lista_playlist.get(i).getGenere()),
+							String.valueOf(lista_playlist.get(i).getFavorite())});
 					}
 			}
 		});

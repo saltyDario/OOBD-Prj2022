@@ -63,17 +63,17 @@ public class PanelSearch extends JPanel {
 		JPanel searchPanel = new JPanel();
 		searchPanel.setLayout(null);
 		searchPanel.setBackground(Color.GRAY);
-		searchPanel.setBounds(2, 68, 477, 180);
+		searchPanel.setBounds(2, 60, 477, 180);
 		add(searchPanel);
 		
 		searchField = new JTextField();
-		searchField.setBounds(249, 43, 165, 37);
+		searchField.setBounds(150, 75, 176, 35);
 		searchPanel.add(searchField);
 		searchField.setColumns(10);
 		
 		JComboBox tipoQueryBox = new JComboBox();
 		tipoQueryBox.setModel(new DefaultComboBoxModel(new String[] {"Select", "Traccia", "Artista", "Album"}));
-		tipoQueryBox.setBounds(38, 41, 162, 38);
+		tipoQueryBox.setBounds(150, 20, 176, 53);
 		searchPanel.add(tipoQueryBox);
 		
 		JButton searchButton = new JButton("Ricerca");
@@ -128,7 +128,7 @@ public class PanelSearch extends JPanel {
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBackground(Color.GRAY);
 		scrollPane.setBorder(new LineBorder(Color.GRAY, 2));
-		scrollPane.setBounds(2, 259, 477, 322);
+		scrollPane.setBounds(2, 250, 477, 335);
 		add(scrollPane);
 		scrollPane.setViewportView(table);
 		
@@ -151,7 +151,7 @@ public class PanelSearch extends JPanel {
 		table.setModel(modelTable);
 		table.setRowHeight(45);
 		
-		searchButton.setBounds(188, 122, 89, 23);
+		searchButton.setBounds(188, 122, 98, 29);
 		searchPanel.add(searchButton);
 	}
 }

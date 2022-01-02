@@ -7,7 +7,7 @@ public class Playlist {
 	int id_appar;
 	int id_playlist;
 	int numero_tracce;
-	boolean preferita;
+	String preferita;
 	String nome_playlist;
 	String genere_playlist;
 	
@@ -29,12 +29,21 @@ public class Playlist {
 		return numero_tracce;
 	}
 	
-	public boolean getFavorite() {
+	public String getFavorite() {
 		return preferita;
 	}
 	
 	public void setnumeroTracce(int numerotracce) {
 		numero_tracce = numerotracce;
+	}
+	
+	public void setFavorite(String pref) {
+		
+		if(pref.equals("true")) {
+			preferita = "☆";
+		}else {
+			preferita = " ";
+		}
 	}
 	
 }

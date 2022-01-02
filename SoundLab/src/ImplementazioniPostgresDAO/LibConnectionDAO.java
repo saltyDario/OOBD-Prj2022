@@ -33,21 +33,26 @@ public class LibConnectionDAO implements LibreriaDAO{
         String nome_playlist = null;
         String genere_playlist = null;
         int numerotracce = 0;
+        String preferita = "false";
 
         try {
         scaricaPlaylistPS = connection.prepareStatement(
-                "SELECT nome, genere, numerotracce FROM playlist WHERE id_libappartenenza = '" + id_utente + "'");
+                "SELECT nome, genere, numerotracce, preferita FROM playlist WHERE id_libappartenenza = '" + id_utente + "'");
         ResultSet rs = scaricaPlaylistPS.executeQuery();
 
         while(rs.next()) {
              nome_playlist = rs.getString("nome");
              genere_playlist = rs.getString("genere");
              numerotracce = rs.getInt("numerotracce");
-             //System.out.println(""+nome_playlist);
+             preferita = rs.getString("preferita");
+             //System.out.println(""+preferita);
              
              Playlist nomeobj = new Playlist(id_utente, nome_playlist, genere_playlist);
              nomeobj.setnumeroTracce(numerotracce);
+             nomeobj.setFavorite(preferita);
+             
              l.addPlaylist(nomeobj);
+             
              connection.close();
         }
         rs.close();
