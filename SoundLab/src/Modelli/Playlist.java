@@ -40,7 +40,7 @@ public class Playlist {
 	public void setFavorite(String pref) {
 		
 		if(pref.equals("true")) {
-			preferita = "☆";
+			preferita = "*";
 		}else {
 			preferita = " ";
 		}

@@ -60,4 +60,45 @@ public class GetTracceDAO implements TracciaDAO{
     return list;
 	}
 	
+	
+	public ArrayList<Traccia> ritornaTraccePerArtista(String nomeArtista) {
+		PreparedStatement scaricaTracce;
+        ArrayList<Traccia> list = new ArrayList<Traccia>();
+        
+        String nome_traccia = null;
+        int anno;
+        String genere_traccia = null;
+        String tipo_can = null;
+        String cantante = null;
+        
+        try {
+        scaricaTracce = connection.prepareStatement("select t.id_traccia, nometraccia, anno, genere, tipo_can, string_agg(distinct a1.nome, ',') from traccia as t, artista as a, artista as a1\n"
+        		+ "where lower(a.nome) = lower('"+ nomeArtista +"') and a.id_artista in (select album.id_artista\n"
+        		+ "                                                   from album\n"
+        		+ "                                                   where album.id_traccia = t.id_traccia)\n"
+        		+ "                            and a1.id_artista in (select al.id_artista\n"
+        		+ "                                                 from album as al\n"
+        		+ "                                                 where al.id_traccia = t.id_traccia)\n"
+        		+ "group by t.id_traccia");
+        ResultSet rs = scaricaTracce.executeQuery();
+
+        while(rs.next()) {
+             nome_traccia = rs.getString("nometraccia");
+             anno = rs.getInt("anno");
+             genere_traccia = rs.getString("genere");
+             tipo_can = rs.getString("tipo_can");
+             cantante = rs.getString("string_agg");
+             //System.out.println(""+ nome_traccia);
+             
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             list.add(nomeobj);
+             connection.close();
+        }
+        rs.close();
+    }catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+	}
+	
 }

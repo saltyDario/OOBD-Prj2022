@@ -13,8 +13,11 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.AlbumDAO;
 import DAO.TracciaDAO;
+import ImplementazioniPostgresDAO.GetAlbumDAO;
 import ImplementazioniPostgresDAO.GetTracceDAO;
+import Modelli.Album;
 import Modelli.Traccia;
 
 import javax.swing.JTable;
@@ -39,6 +42,7 @@ public class PanelSearch extends JPanel {
 		}
 	};
 	String headers[] = { "Nome", "Genere", "Tipo Canzone", "Anno", "Artista" };
+	
 	private JTable table = new JTable();
 	
 	public PanelSearch() {
@@ -82,20 +86,20 @@ public class PanelSearch extends JPanel {
 				int box = tipoQueryBox.getSelectedIndex();
 				String nome = searchField.getText(); 
 				
+				ArrayList<Traccia> list = new ArrayList<Traccia>();
+				ArrayList<Album> lista = new ArrayList<Album>();
+				
+				TracciaDAO t = new GetTracceDAO();
+				AlbumDAO a = new GetAlbumDAO();
+				
+				int grandezza;
+				
 				switch (box) {
 				case 1:
-				ArrayList<Traccia> list = new ArrayList<Traccia>();
-				TracciaDAO t = new GetTracceDAO();
+
 				list = t.ritornaTracce(nome);
 				
-				int grandezza = list.size();
-				/*for(int i = 0; i < grandezza; i++) {
-					System.out.println(""+ list.get(i).getNomeTraccia());
-					System.out.println(""+ list.get(i).getGenereTraccia());
-					System.out.println(""+ list.get(i).getTipoTraccia());
-					System.out.println(""+ list.get(i).getAnnoTraccia());
-					System.out.println(""+ list.get(i).getCantanti());
-				}*/
+				grandezza = list.size();
 				
 				table = new JTable();
 				modelTable.setRowCount(0);
@@ -108,13 +112,40 @@ public class PanelSearch extends JPanel {
 					});
 					}
 				
-				
 				break;
 				case 2:
-				//System.out.println("2");
+					
+					list = t.ritornaTraccePerArtista(nome);
+					
+					grandezza = list.size();
+					
+					table = new JTable();
+					modelTable.setRowCount(0);
+					for (int i = 0; i < grandezza; i++) {
+						modelTable.addRow(new Object[] { String.valueOf(list.get(i).getNomeTraccia()),
+								String.valueOf(list.get(i).getGenereTraccia()),
+								String.valueOf(list.get(i).getTipoTraccia()),
+								String.valueOf(list.get(i).getAnnoTraccia()),
+								String.valueOf(list.get(i).getCantanti())
+						});
+						}
+					
 				break;
 				case 3:
-				//System.out.println("3");
+					
+					lista = a.ritornaAlbum(nome);
+					
+					grandezza = lista.size();
+					
+					table = new JTable();
+					modelTable.setRowCount(0);
+					for (int i = 0; i < grandezza; i++) {
+						modelTable.addRow(new Object[] { String.valueOf(lista.get(i).getNomeAlbum()),
+								String.valueOf(""),
+								String.valueOf("Album"),
+								String.valueOf(lista.get(i).getAnnoUscita()),
+								String.valueOf(lista.get(i).getArtistiAlbum())});
+						}
 				break;
 				default:
 				JOptionPane.showMessageDialog(null, "Non hai selezionato un tipo di ricerca, selezionane uno.");
