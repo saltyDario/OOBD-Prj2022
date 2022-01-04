@@ -17,6 +17,9 @@ public class Utente {
 		username = us;
 		GetUtenteDAO utente = new GetUtenteDAO(username);
 		id_utente = utente.getIdUtente();
+		email = utente.getEmail();
+		data_nascita = utente.getDate();
+		tipo_ut = utente.getTipoUt();
 	}
 	
 	public String getUsername() {
