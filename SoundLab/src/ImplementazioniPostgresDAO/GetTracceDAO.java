@@ -34,10 +34,9 @@ public class GetTracceDAO implements TracciaDAO{
         String cantante = null;
         
         try {
-        scaricaTracce = connection.prepareStatement("select t.id_traccia, nometraccia, anno, genere, tipo_can, string_agg(distinct a.nome, ',') from traccia as t, artista as a\n"
-        		+ "where lower(nometraccia) = lower('"+nomeTraccia+"') and a.id_artista in (select album.id_artista\n"
-        		+ "                                                   from album\n"
-        		+ "                                                   where album.id_traccia = t.id_traccia)\n"
+        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
+        		+ "from traccia as t, artista as a, collab as c\n"
+        		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and LOWER(nometraccia) = lower('"+ nomeTraccia + "')\n"
         		+ "group by t.id_traccia");
         ResultSet rs = scaricaTracce.executeQuery();
 
@@ -72,13 +71,11 @@ public class GetTracceDAO implements TracciaDAO{
         String cantante = null;
         
         try {
-        scaricaTracce = connection.prepareStatement("select t.id_traccia, nometraccia, anno, genere, tipo_can, string_agg(distinct a1.nome, ',') from traccia as t, artista as a, artista as a1\n"
-        		+ "where lower(a.nome) = lower('"+ nomeArtista +"') and a.id_artista in (select album.id_artista\n"
-        		+ "                                                   from album\n"
-        		+ "                                                   where album.id_traccia = t.id_traccia)\n"
-        		+ "                            and a1.id_artista in (select al.id_artista\n"
-        		+ "                                                 from album as al\n"
-        		+ "                                                 where al.id_traccia = t.id_traccia)\n"
+        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg( a.nome, ',')\n"
+        		+ "from traccia as t, artista as a, artista as a1, collab as c\r\n"
+        		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and lower(a1.nome) = lower('"+ nomeArtista +"') and a.id_artista in(select c1.id_artista\n"
+        		+ "                                                                                                         from collab as c1\n"
+        		+ "                                                                                                         where c1.id_traccia=t.id_traccia)\n"
         		+ "group by t.id_traccia");
         ResultSet rs = scaricaTracce.executeQuery();
 
@@ -89,6 +86,42 @@ public class GetTracceDAO implements TracciaDAO{
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
              //System.out.println(""+ nome_traccia);
+             
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             list.add(nomeobj);
+             connection.close();
+        }
+        rs.close();
+    }catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+	}
+	
+	public ArrayList<Traccia> ritornaDaAlbum(String nomeAlbum) {
+		PreparedStatement scaricaTracce;
+        ArrayList<Traccia> list = new ArrayList<Traccia>();
+        
+        String nome_traccia = null;
+        int anno;
+        String genere_traccia = null;
+        String tipo_can = null;
+        String cantante = null;
+        
+        try {
+        scaricaTracce = connection.prepareStatement("select t.id_traccia , nometraccia, t.anno, genere, tipo_can, string_agg(art.nome, ',')\r\n"
+        		+ "from traccia as t, artista as art, album as al, collab as c\r\n"
+        		+ "where t.id_album = al.id_album and al.id_artista=al.id_artista and lower(nomealbum) = lower('"+ nomeAlbum + "') and t.id_traccia = c.id_traccia and c.id_artista=art.id_artista\r\n"
+        		+ "group by t.id_traccia");
+        ResultSet rs = scaricaTracce.executeQuery();
+
+        while(rs.next()) {
+            nome_traccia = rs.getString("nometraccia");
+            anno = rs.getInt("anno");
+            genere_traccia = rs.getString("genere");
+            tipo_can = rs.getString("tipo_can");
+            cantante = rs.getString("string_agg");
+             //System.out.println(""+ nome_album);
              
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
              list.add(nomeobj);
