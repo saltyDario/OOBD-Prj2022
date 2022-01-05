@@ -71,16 +71,30 @@ public class PanelSearch extends JPanel {
 		add(searchPanel);
 		
 		searchField = new JTextField();
+		searchField.setBorder(new LineBorder(Color.BLACK, 2, true));
 		searchField.setBounds(150, 75, 176, 35);
 		searchPanel.add(searchField);
 		searchField.setColumns(10);
 		
 		JComboBox tipoQueryBox = new JComboBox();
+		tipoQueryBox.setBorder(new LineBorder(Color.BLACK, 2, true));
 		tipoQueryBox.setModel(new DefaultComboBoxModel(new String[] {"Select", "Traccia", "Artista", "Album"}));
 		tipoQueryBox.setBounds(150, 20, 176, 53);
 		searchPanel.add(tipoQueryBox);
 		
 		JButton searchButton = new JButton("Ricerca");
+		searchButton.setForeground(Color.BLACK);
+		searchButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				searchButton.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchButton.setBackground(Color.WHITE);	
+			}
+		});
+		searchButton.setBorder(new LineBorder(Color.BLACK, 2, true));
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int box = tipoQueryBox.getSelectedIndex();
@@ -157,7 +171,7 @@ public class PanelSearch extends JPanel {
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBackground(Color.GRAY);
 		scrollPane.setBorder(new LineBorder(Color.GRAY, 2));
-		scrollPane.setBounds(2, 250, 477, 335);
+		scrollPane.setBounds(2, 241, 477, 344);
 		add(scrollPane);
 		scrollPane.setViewportView(table);
 		

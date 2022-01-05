@@ -41,7 +41,9 @@ public class AddPlaylist extends JDialog {
 	
 	private void initialize(int idutente) {
 		JPanel contentPanel = new JPanel();
+		contentPanel.setBackground(Color.GRAY);
 		JDialog addPlaylistDialog = new JDialog();
+		addPlaylistDialog.getContentPane().setBackground(Color.WHITE);
 		addPlaylistDialog.setResizable(false);
 		addPlaylistDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		addPlaylistDialog.setTitle("Aggiungi Playlist.");
@@ -53,30 +55,6 @@ public class AddPlaylist extends JDialog {
 		contentPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
 		addPlaylistDialog.getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
-		{
-						
-						JButton okButton = new JButton("Aggiungi");
-						okButton.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								String nome = playlistName_field.getText();
-								String genere = playlistGenre_field.getText();
-								boolean ok;
-								
-								PlaylistDAO newplaylist = new PlaylistConnectionDAO();
-
-								ok = newplaylist.ritornaPlaylist(idutente, nome, genere);
-								
-								if(ok == true) {
-									JOptionPane.showMessageDialog(null, "Playlist creata con successo!.");
-									addPlaylistDialog.dispose();
-								}
-							}
-						});
-						okButton.setBounds(164, 220, 141, 60);
-						contentPanel.add(okButton);
-						okButton.setActionCommand("OK");
-						getRootPane().setDefaultButton(okButton);
-					}
 		{
 			JPanel draggablePanel = new JPanel();
 			draggablePanel.addMouseMotionListener(new MouseMotionAdapter() {
@@ -117,7 +95,7 @@ public class AddPlaylist extends JDialog {
 			playlistName_panel.setLayout(null);
 			playlistName_panel.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 			playlistName_panel.setBackground(Color.WHITE);
-			playlistName_panel.setBounds(78, 105, 309, 53);
+			playlistName_panel.setBounds(71, 105, 309, 53);
 			contentPanel.add(playlistName_panel);
 			{
 				playlistName_field = new JTextField();
@@ -129,7 +107,7 @@ public class AddPlaylist extends JDialog {
 			{
 				JLabel playlistName_Label = new JLabel("Nome");
 				playlistName_Label.setFont(new Font("Arial", Font.BOLD, 12));
-				playlistName_Label.setBounds(215, 0, 94, 53);
+				playlistName_Label.setBounds(230, 0, 69, 53);
 				playlistName_panel.add(playlistName_Label);
 				playlistName_Label.setHorizontalTextPosition(SwingConstants.CENTER);
 				playlistName_Label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -140,7 +118,7 @@ public class AddPlaylist extends JDialog {
 			playlistGenre_panel.setLayout(null);
 			playlistGenre_panel.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 			playlistGenre_panel.setBackground(Color.WHITE);
-			playlistGenre_panel.setBounds(78, 160, 309, 53);
+			playlistGenre_panel.setBounds(71, 160, 309, 53);
 			contentPanel.add(playlistGenre_panel);
 			{
 				playlistGenre_field = new JTextField();
@@ -151,26 +129,64 @@ public class AddPlaylist extends JDialog {
 			}
 			{
 				JLabel playlistGenre_Label = new JLabel("Genere*");
-				playlistGenre_Label.setBounds(220, 0, 98, 53);
+				playlistGenre_Label.setBounds(235, 0, 64, 53);
 				playlistGenre_panel.add(playlistGenre_Label);
 				playlistGenre_Label.setFont(new Font("Arial", Font.BOLD, 12));
 				playlistGenre_Label.setHorizontalTextPosition(SwingConstants.CENTER);
 				playlistGenre_Label.setHorizontalAlignment(SwingConstants.CENTER);
 			}
 		}
+		
+		JPanel panel_Title = new JPanel();
+		panel_Title.setLayout(null);
+		panel_Title.setBorder(new LineBorder(Color.BLACK, 2, true));
+		panel_Title.setBackground(Color.GRAY);
+		panel_Title.setBounds(52, 22, 347, 57);
+		contentPanel.add(panel_Title);
+		
+		JLabel lblAggiungiPlaylist = new JLabel("Aggiungi Playlist");
+		lblAggiungiPlaylist.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAggiungiPlaylist.setForeground(Color.WHITE);
+		lblAggiungiPlaylist.setFont(new Font("Arial", Font.BOLD, 29));
+		lblAggiungiPlaylist.setBounds(8, 10, 331, 35);
+		panel_Title.add(lblAggiungiPlaylist);
 		{
-			JPanel dialog_Panel = new JPanel();
-			dialog_Panel.setBounds(101, 31, 262, 53);
-			contentPanel.add(dialog_Panel);
-			dialog_Panel.setLayout(null);
-			{
-				JLabel titleLabel = new JLabel("Aggiungi una playlist:");
-				titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
-				titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				titleLabel.setBounds(0, 0, 262, 53);
-				dialog_Panel.add(titleLabel);
-			}
-		}
-	}
+						
+						JButton okButton = new JButton("Aggiungi");
+						okButton.setForeground(Color.BLACK);
+						okButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+						okButton.setBackground(Color.WHITE);
+						okButton.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseEntered(MouseEvent e) {
+								okButton.setBackground(Color.DARK_GRAY);
+							}
+							@Override
+							public void mouseExited(MouseEvent e) {
+								okButton.setBackground(Color.WHITE);	
+							}
+						});
+						okButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								String nome = playlistName_field.getText();
+								String genere = playlistGenre_field.getText();
+								boolean ok;
+								
+								PlaylistDAO newplaylist = new PlaylistConnectionDAO();
 
+								ok = newplaylist.ritornaPlaylist(idutente, nome, genere);
+								
+								if(ok == true) {
+									JOptionPane.showMessageDialog(null, "Playlist creata con successo!.");
+									addPlaylistDialog.dispose();
+								}
+							}
+						});
+						okButton.setBounds(154, 233, 141, 47);
+						okButton.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+						contentPanel.add(okButton);
+						okButton.setActionCommand("OK");
+						getRootPane().setDefaultButton(okButton);
+					}
+	}
 }

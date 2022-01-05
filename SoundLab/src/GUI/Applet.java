@@ -137,7 +137,7 @@ public class Applet {
 		JPanel panel_Home = new JPanel();
 		panel_Home.addMouseListener(new PanelButtonMouseAdapter(panel_Home) {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				menuClicked(paneHome);
 			}
 		});
@@ -163,7 +163,7 @@ public class Applet {
 		JPanel panel_Library = new JPanel();
 		panel_Library.addMouseListener(new PanelButtonMouseAdapter(panel_Library){
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				menuClicked(paneLibrary);
 			}
 		});
@@ -189,7 +189,7 @@ public class Applet {
 		JPanel panel_Search = new JPanel();
 		panel_Search.addMouseListener(new PanelButtonMouseAdapter(panel_Search){
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				menuClicked(paneSearch);
 			}
 		});
@@ -246,7 +246,7 @@ public class Applet {
 		JPanel panel_Info = new JPanel();
 		panel_Info.addMouseListener(new PanelButtonMouseAdapter(panel_Info){
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				menuClicked(paneInfo);
 			}
 		});
