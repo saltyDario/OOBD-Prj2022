@@ -175,12 +175,12 @@ public class PanelLibrary extends JPanel {
 		        Point punto = mouseEvent.getPoint();
 		        int righe = table.rowAtPoint(punto);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-		            TracciaDAO t = new GetTracceDAO();
 		            
-		            Object nomePlaylist = GetData(table, table.getSelectedRow(), 0);
-		            System.out.println(""+ nomePlaylist.toString());
+		        	TracciaDAO t = new GetTracceDAO();
+		            //Object obj = GetData(table, table.getSelectedRow(), 0);
 		            
-		            list = t.ritornaTracce(nomePlaylist.toString());
+		            int id_playlist = lista_playlist.get(table.getSelectedRow()).getIDPlaylist();
+		            list = t.ritornaTraccePlaylist(id_playlist);
 		            
 		    		//playlistPane = new PlaylistGUI(list);
 		        }

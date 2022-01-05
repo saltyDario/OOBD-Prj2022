@@ -11,10 +11,11 @@ public class Playlist {
 	String nome_playlist;
 	String genere_playlist;
 	
-	public Playlist(int id_utente, String nome, String genere) {
+	public Playlist(int id_utente, String nome, String genere, int idPlaylist) {
 		id_appar = id_utente;
 		nome_playlist = nome;
 		genere_playlist = genere;
+		id_playlist = idPlaylist;
 	}
 	
 	public String getNomePlaylist() {
@@ -46,4 +47,7 @@ public class Playlist {
 		}
 	}
 	
+	public int getIDPlaylist() {
+		return id_playlist;
+	}
 }

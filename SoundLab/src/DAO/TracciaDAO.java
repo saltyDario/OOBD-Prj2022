@@ -11,4 +11,6 @@ public interface TracciaDAO {
 	public ArrayList<Traccia> ritornaTraccePerArtista(String nomeArtista);
 	
 	public ArrayList<Traccia> ritornaDaAlbum(String nomeAlbum);
+	
+	public ArrayList<Traccia> ritornaTraccePlaylist(int idPlaylist);
 }
