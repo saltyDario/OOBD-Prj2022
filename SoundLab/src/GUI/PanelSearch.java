@@ -87,8 +87,10 @@ public class PanelSearch extends JPanel {
 				String nome = searchField.getText(); 
 				
 				ArrayList<Traccia> list = new ArrayList<Traccia>();
+				ArrayList<Album> lista = new ArrayList<Album>();
 				
 				TracciaDAO t = new GetTracceDAO();
+				AlbumDAO a = new GetAlbumDAO();
 				
 				int grandezza;
 				
@@ -131,18 +133,18 @@ public class PanelSearch extends JPanel {
 				break;
 				case 3:
 					
-					list = t.ritornaDaAlbum(nome);
+					lista = a.ritornaAlbum(nome);
 					
-					grandezza = list.size();
+					grandezza = lista.size();
 					
 					table = new JTable();
 					modelTable.setRowCount(0);
 					for (int i = 0; i < grandezza; i++) {
-						modelTable.addRow(new Object[] { String.valueOf(list.get(i).getNomeTraccia()),
-								String.valueOf(list.get(i).getGenereTraccia()),
-								String.valueOf(list.get(i).getAnnoTraccia()),
-								String.valueOf(list.get(i).getTipoTraccia()),
-								String.valueOf(list.get(i).getCantanti())});
+						modelTable.addRow(new Object[] { String.valueOf(lista.get(i).getNomeAlbum()),
+								String.valueOf(""),
+								String.valueOf("Album"),
+								String.valueOf(lista.get(i).getAnnoUscita()),
+								String.valueOf(lista.get(i).getArtistiAlbum())});
 						}
 				break;
 				default:

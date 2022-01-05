@@ -18,7 +18,7 @@ public class PanelHome extends JPanel {
 		JLabel lblNewLabel = new JLabel("BENVENUTO NELLA HOME");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 29));
-		lblNewLabel.setBounds(30, 11, 412, 109);
+		lblNewLabel.setBounds(37, 11, 412, 109);
 		add(lblNewLabel);
 	}
 }

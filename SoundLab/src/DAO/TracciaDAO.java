@@ -9,6 +9,4 @@ public interface TracciaDAO {
 	public ArrayList<Traccia> ritornaTracce(String nomeTraccia);
 	
 	public ArrayList<Traccia> ritornaTraccePerArtista(String nomeArtista);
-	
-	public ArrayList<Traccia> ritornaDaAlbum(String nomeAlbum);
 }
