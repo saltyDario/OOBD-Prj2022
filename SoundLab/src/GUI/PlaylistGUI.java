@@ -34,9 +34,12 @@ public class PlaylistGUI extends JPanel {
 	
 	public PlaylistGUI(ArrayList<Traccia> list) {
 		
+		setBounds(0, 0, 477, 473);
 		setBackground(Color.GRAY);
 		setLayout(null);
 		setVisible(true);
+		
+		System.out.println(""+list.get(0).getAnnoTraccia());
 		
 		grandezza = list.size();
 		
@@ -57,7 +60,7 @@ public class PlaylistGUI extends JPanel {
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBackground(Color.GRAY);
 		scrollPane.setBorder(new LineBorder(Color.GRAY, 2));
-		scrollPane.setBounds(0, 53, 477, 420);
+		scrollPane.setBounds(0, 0, 477, 473);
 		add(scrollPane);
 		scrollPane.setViewportView(table);
 		

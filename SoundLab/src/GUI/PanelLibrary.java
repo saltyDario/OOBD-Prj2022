@@ -41,7 +41,8 @@ import java.awt.Component;
 
 public class PanelLibrary extends JPanel {
 	
-	//private PlaylistGUI playlistPane;
+	private JPanel paneMainContent;
+	private PlaylistGUI playlistPane;
 	
 	private int numero_playlist;
 	private String[] str;
@@ -66,6 +67,12 @@ public class PanelLibrary extends JPanel {
 		setBounds(0, 0, 481, 592);
 		setLayout(null);
 		
+		paneMainContent = new JPanel();
+		paneMainContent.setBounds(5, 114, 471, 468);
+		add(paneMainContent);
+		paneMainContent.setLayout(null);
+
+				
 		JPanel panel_Title = new JPanel();
 		panel_Title.setBackground(Color.GRAY);
 		panel_Title.setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -121,6 +128,8 @@ public class PanelLibrary extends JPanel {
 		playlistPanel.setBounds(2, 111, 477, 473);
 		add(playlistPanel);
 		playlistPanel.setLayout(null);
+		
+
 		
 		JPanel refreshPanel = new JPanel();
 		refreshPanel.setToolTipText("Refresh Playlist.");
@@ -182,10 +191,22 @@ public class PanelLibrary extends JPanel {
 		            int id_playlist = lista_playlist.get(table.getSelectedRow()).getIDPlaylist();
 		            list = t.ritornaTraccePlaylist(id_playlist);
 		            
-		    		//playlistPane = new PlaylistGUI(list);
+		    		
+		            
+		            System.out.println(""+id_playlist);
+		            	    		
+		    		playlistPane = new PlaylistGUI(list);	
+		    		playlistPane.setBounds(0, 0, 477, 473);
+		    		paneMainContent.add(playlistPane);
+		    		playlistPane.setVisible(true);
 		        }
 		    }
 		});
+		
+
+		
+		
+		
 		table.setGridColor(Color.BLACK);
 		table.setFont(new Font("Arial", Font.PLAIN, 14));
 		table.setForeground(Color.BLACK);
@@ -256,14 +277,13 @@ public class PanelLibrary extends JPanel {
 		downloadLabel.setBounds(0, 0, 38, 37);
 		downloadLibPanel.add(downloadLabel);
 		
-		JPanel paneMainContent = new JPanel();
-		paneMainContent.setBounds(5, 114, 471, 468);
-		this.add(paneMainContent);
-		paneMainContent.setLayout(null);
+		
+		//playlist_open.setVisible(true);
 		//paneMainContent.add(playlistPane);
 	}
+
 	
-	 public Object GetData(JTable table, int row_index, int col_index){
+	 /*public Object GetData(JTable table, int row_index, int col_index){
 		  return table.getModel().getValueAt(row_index, col_index);
-		  }
+		  }*/
 }
