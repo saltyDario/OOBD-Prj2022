@@ -57,6 +57,16 @@ public class PanelLibrary extends JPanel {
 	String headers[] = { "Nome", "Tracce", "Genere", "Preferita" };
 	private JTable table = new JTable();
 	
+	
+	DefaultTableModel modelTableTracce = new DefaultTableModel() {
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
+	String headersTracce[] = {  "Nome", "Genere", "Tipo Canzone", "Anno", "Artista" };
+	private JTable tableTracce = new JTable();
+	
 	public PanelLibrary(String username, int id_utente) {
 		Utente u = new Utente(username);
 		
@@ -201,7 +211,7 @@ public class PanelLibrary extends JPanel {
 		downloadLibPanel.setToolTipText("Refresh Playlist.");
 		downloadLibPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
 		downloadLibPanel.setBackground(Color.GRAY);
-		downloadLibPanel.setBounds(4, 72, 38, 37);
+		downloadLibPanel.setBounds(215, 72, 38, 37);
 		add(downloadLibPanel);
 		
 		JLabel downloadLabel = new JLabel("");
@@ -211,6 +221,8 @@ public class PanelLibrary extends JPanel {
 		downloadLibPanel.add(downloadLabel);
 		
 		modelTable.setColumnIdentifiers(headers);
+		modelTableTracce.setColumnIdentifiers(headersTracce);
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
@@ -219,6 +231,58 @@ public class PanelLibrary extends JPanel {
 		scrollPane.setBounds(0, 0, 477, 473);
 		playlistPanel.add(scrollPane);
 		scrollPane.setViewportView(table);
+		
+		JScrollPane scrollPaneTracce = new JScrollPane();
+		scrollPaneTracce.getViewport().setBackground(Color.WHITE);
+		scrollPaneTracce.setBackground(Color.GRAY);
+		scrollPaneTracce.setBorder(new LineBorder(Color.GRAY, 2));
+		scrollPaneTracce.setBounds(0, 0, 477, 473);
+		playlistPanel.add(scrollPaneTracce);
+		scrollPaneTracce.setViewportView(tableTracce);
+		
+		JPanel backPanel = new JPanel();
+		backPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backPanel.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				backPanel.setBackground(Color.GRAY);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				backPanel.setBackground(Color.LIGHT_GRAY);
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				backPanel.setBackground(Color.DARK_GRAY);
+				
+				scrollPaneTracce.setVisible(false);
+				backPanel.setVisible(false);
+	            scrollPane.setVisible(true);
+	            refreshPanel.setVisible(true);
+	            plusPanel.setVisible(true);
+	            downloadLibPanel.setVisible(true);
+			}
+		});
+		backPanel.setLayout(null);
+		backPanel.setToolTipText("Avvia la Libreria.");
+		backPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
+		backPanel.setBackground(Color.GRAY);
+		backPanel.setBounds(4, 72, 82, 37);
+		add(backPanel);
+		backPanel.setVisible(false);
+		
+		JLabel backLabel = new JLabel("");
+		backLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/arrow.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
+		backLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		backLabel.setBounds(0, 0, 82, 37);
+		backPanel.add(backLabel);
 		
 		table.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
@@ -238,6 +302,17 @@ public class PanelLibrary extends JPanel {
 			            refreshPanel.setVisible(false);
 			            plusPanel.setVisible(false);
 			            downloadLibPanel.setVisible(false);
+			            
+						modelTableTracce.setRowCount(0);
+						for (int i = 0; i < list.size(); i++) {
+							modelTableTracce.addRow(new Object[] { String.valueOf(list.get(i).getNomeTraccia()),
+									String.valueOf(list.get(i).getGenereTraccia()),
+									String.valueOf(list.get(i).getTipoTraccia()),
+									String.valueOf(list.get(i).getAnnoTraccia()),
+									String.valueOf(list.get(i).getCantanti())});
+							}
+						backPanel.setVisible(true);
+			            scrollPaneTracce.setVisible(true);
 			            System.out.println(""+id_playlist);
 		            }else {
 		            	JOptionPane.showMessageDialog(null, "La Playlist "+ obj +" e' vuota");
@@ -245,6 +320,16 @@ public class PanelLibrary extends JPanel {
 		        }
 		    }
 		});
+		
+		tableTracce.setGridColor(Color.BLACK);
+		tableTracce.setFont(new Font("Arial", Font.PLAIN, 14));
+		tableTracce.setForeground(Color.BLACK);
+		tableTracce.setBackground(Color.WHITE);
+		tableTracce.setShowVerticalLines(false);
+		tableTracce.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableTracce.setModel(modelTableTracce);
+		tableTracce.setRowHeight(45);
+		
 		
 		table.setGridColor(Color.BLACK);
 		table.setFont(new Font("Arial", Font.PLAIN, 14));

@@ -36,15 +36,15 @@ public class PanelHome extends JPanel {
 		esploraPanel.setLayout(null);
 		
 		JPanel esploraArtistiPanel = new JPanel();
-		esploraArtistiPanel.setBounds(10, 48, 135, 125);
+		esploraArtistiPanel.setBounds(300, 327, 135, 125);
 		esploraPanel.add(esploraArtistiPanel);
 		
 		JPanel esploraTracce = new JPanel();
-		esploraTracce.setBounds(155, 48, 135, 125);
+		esploraTracce.setBounds(300, 191, 135, 125);
 		esploraPanel.add(esploraTracce);
 		
 		JPanel esploraAlbum = new JPanel();
-		esploraAlbum.setBounds(300, 48, 135, 125);
+		esploraAlbum.setBounds(300, 55, 135, 125);
 		esploraPanel.add(esploraAlbum);
 		
 		JLabel lblEsplora = new JLabel("Esplora:");
