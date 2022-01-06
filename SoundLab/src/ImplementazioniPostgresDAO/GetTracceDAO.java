@@ -169,5 +169,116 @@ public class GetTracceDAO implements TracciaDAO{
     }
     return list;
     }
+
+	@Override
+	public ArrayList<Traccia> ritornaTracceDaAnno(int annoTraccia) {
+		PreparedStatement scaricaTracce;
+        ArrayList<Traccia> list = new ArrayList<Traccia>();
+        
+        String nome_traccia = null;
+        int anno;
+        String genere_traccia = null;
+        String tipo_can = null;
+        String cantante = null;
+        
+        try {
+        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
+        		+ "from traccia as t, artista as a, collab as c\n"
+        		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and t.anno = '"+ annoTraccia + "'\n"
+        		+ "group by t.id_traccia");
+        ResultSet rs = scaricaTracce.executeQuery();
+
+        while(rs.next()) {
+             nome_traccia = rs.getString("nometraccia");
+             anno = rs.getInt("anno");
+             genere_traccia = rs.getString("genere");
+             tipo_can = rs.getString("tipo_can");
+             cantante = rs.getString("string_agg");
+             //System.out.println(""+ nome_traccia);
+             
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             list.add(nomeobj);
+             connection.close();
+        }
+        rs.close();
+    }catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+	}
+
+	@Override
+	public ArrayList<Traccia> ritornaTracceDaTipo(String tipoCanzone) {
+		PreparedStatement scaricaTracce;
+        ArrayList<Traccia> list = new ArrayList<Traccia>();
+        
+        String nome_traccia = null;
+        int anno;
+        String genere_traccia = null;
+        String tipo_can = null;
+        String cantante = null;
+        
+        try {
+        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
+        		+ "from traccia as t, artista as a, collab as c\n"
+        		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and LOWER(tipo_can) = lower('"+ tipoCanzone + "')\n"
+        		+ "group by t.id_traccia");
+        ResultSet rs = scaricaTracce.executeQuery();
+
+        while(rs.next()) {
+             nome_traccia = rs.getString("nometraccia");
+             anno = rs.getInt("anno");
+             genere_traccia = rs.getString("genere");
+             tipo_can = rs.getString("tipo_can");
+             cantante = rs.getString("string_agg");
+             //System.out.println(""+ nome_traccia);
+             
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             list.add(nomeobj);
+             connection.close();
+        }
+        rs.close();
+    }catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+	}
+
+	@Override
+	public ArrayList<Traccia> ritornaTracceDaGenere(String genereTraccia) {
+		PreparedStatement scaricaTracce;
+        ArrayList<Traccia> list = new ArrayList<Traccia>();
+        
+        String nome_traccia = null;
+        int anno;
+        String genere_traccia = null;
+        String tipo_can = null;
+        String cantante = null;
+        
+        try {
+        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
+        		+ "from traccia as t, artista as a, collab as c\n"
+        		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and LOWER(genere) = lower('"+ genereTraccia + "')\n"
+        		+ "group by t.id_traccia");
+        ResultSet rs = scaricaTracce.executeQuery();
+
+        while(rs.next()) {
+             nome_traccia = rs.getString("nometraccia");
+             anno = rs.getInt("anno");
+             genere_traccia = rs.getString("genere");
+             tipo_can = rs.getString("tipo_can");
+             cantante = rs.getString("string_agg");
+             //System.out.println(""+ nome_traccia);
+             
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             list.add(nomeobj);
+             connection.close();
+        }
+        rs.close();
+    }catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+	}
 	
 }

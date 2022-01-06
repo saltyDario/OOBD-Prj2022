@@ -313,7 +313,6 @@ public class PanelLibrary extends JPanel {
 							}
 						backPanel.setVisible(true);
 			            scrollPaneTracce.setVisible(true);
-			            System.out.println(""+id_playlist);
 		            }else {
 		            	JOptionPane.showMessageDialog(null, "La Playlist "+ obj +" e' vuota");
 		            }
