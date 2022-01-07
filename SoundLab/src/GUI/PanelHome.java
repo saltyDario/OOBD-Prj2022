@@ -86,6 +86,33 @@ public class PanelHome extends JPanel {
 		add(esploraPanel);
 		esploraPanel.setLayout(null);
 		
+		JScrollPane scrollPaneArtisti = new JScrollPane();
+		scrollPaneArtisti.getViewport().setBackground(Color.WHITE);
+		scrollPaneArtisti.setBackground(Color.GRAY);
+		scrollPaneArtisti.setBorder(new LineBorder(Color.GRAY, 2));
+		scrollPaneArtisti.setBounds(10, 118, 455, 466);
+		add(scrollPaneArtisti);
+		scrollPaneArtisti.setViewportView(tableArtisti);
+		scrollPaneArtisti.setVisible(false);
+		
+		JScrollPane scrollPaneAlbum = new JScrollPane();
+		scrollPaneAlbum.getViewport().setBackground(Color.WHITE);
+		scrollPaneAlbum.setBackground(Color.GRAY);
+		scrollPaneAlbum.setBorder(new LineBorder(Color.GRAY, 2));
+		scrollPaneAlbum.setBounds(10, 118, 455, 466);
+		add(scrollPaneAlbum);
+		scrollPaneAlbum.setViewportView(tableAlbum);
+		scrollPaneAlbum.setVisible(false);
+		
+		JScrollPane scrollPaneTracce = new JScrollPane();
+		scrollPaneTracce.getViewport().setBackground(Color.WHITE);
+		scrollPaneTracce.setBackground(Color.GRAY);
+		scrollPaneTracce.setBorder(new LineBorder(Color.GRAY, 2));
+		scrollPaneTracce.setBounds(10, 118, 455, 466);
+		add(scrollPaneTracce);
+		scrollPaneTracce.setViewportView(tableTracce);
+		scrollPaneTracce.setVisible(false);
+		
 		JPanel backPanel = new JPanel();
 		backPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -109,6 +136,9 @@ public class PanelHome extends JPanel {
 				backPanel.setBackground(Color.DARK_GRAY);
 				esploraPanel.setVisible(true);
 				backPanel.setVisible(false);
+				scrollPaneArtisti.setVisible(false);
+				scrollPaneAlbum.setVisible(false);
+				scrollPaneTracce.setVisible(false);
 			}
 		});
 		backPanel.setLayout(null);
@@ -124,30 +154,6 @@ public class PanelHome extends JPanel {
 		backLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		backLabel.setBounds(0, 0, 82, 37);
 		backPanel.add(backLabel);
-		
-		JScrollPane scrollPaneArtisti = new JScrollPane();
-		scrollPaneArtisti.getViewport().setBackground(Color.WHITE);
-		scrollPaneArtisti.setBackground(Color.GRAY);
-		scrollPaneArtisti.setBorder(new LineBorder(Color.GRAY, 2));
-		scrollPaneArtisti.setBounds(10, 118, 455, 466);
-		add(scrollPaneArtisti);
-		scrollPaneArtisti.setViewportView(tableArtisti);
-		
-		JScrollPane scrollPaneAlbum = new JScrollPane();
-		scrollPaneAlbum.getViewport().setBackground(Color.WHITE);
-		scrollPaneAlbum.setBackground(Color.GRAY);
-		scrollPaneAlbum.setBorder(new LineBorder(Color.GRAY, 2));
-		scrollPaneAlbum.setBounds(10, 118, 455, 466);
-		add(scrollPaneAlbum);
-		scrollPaneAlbum.setViewportView(tableAlbum);
-		
-		JScrollPane scrollPaneTracce = new JScrollPane();
-		scrollPaneTracce.getViewport().setBackground(Color.WHITE);
-		scrollPaneTracce.setBackground(Color.GRAY);
-		scrollPaneTracce.setBorder(new LineBorder(Color.GRAY, 2));
-		scrollPaneTracce.setBounds(10, 118, 455, 466);
-		add(scrollPaneTracce);
-		scrollPaneTracce.setViewportView(tableTracce);
 		
 		tableArtisti.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
@@ -167,6 +173,7 @@ public class PanelHome extends JPanel {
 		tableArtisti.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableArtisti.setModel(modelArtisti);
 		tableArtisti.setRowHeight(45);
+		//tableArtisti.setVisible(false);
 		
 		tableAlbum.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
@@ -186,6 +193,7 @@ public class PanelHome extends JPanel {
 		tableAlbum.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableAlbum.setModel(modelAlbum);
 		tableAlbum.setRowHeight(45);
+		//tableAlbum.setVisible(false);
 		
 		tableTracce.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
@@ -205,6 +213,11 @@ public class PanelHome extends JPanel {
 		tableTracce.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableTracce.setModel(modelTracce);
 		tableTracce.setRowHeight(45);
+		//tableTracce.setVisible(false);
+		
+		modelArtisti.setColumnIdentifiers(headersArtisti);
+		modelAlbum.setColumnIdentifiers(headersAlbum);
+		modelTracce.setColumnIdentifiers(headersTracce);
 		
 		JPanel panel_Title = new JPanel();
 		panel_Title.setLayout(null);
@@ -300,7 +313,6 @@ public class PanelHome extends JPanel {
 			}
 		});
 		
-		modelArtisti.setColumnIdentifiers(headersArtisti);
 		goButtonArtisti.setFont(new Font("Arial", Font.BOLD, 12));
 		goButtonArtisti.setBounds(343, 55, 61, 35);
 		esploraArtisti.add(goButtonArtisti);
@@ -481,7 +493,30 @@ public class PanelHome extends JPanel {
 				}
 				break;
 				case 2:
+                    lista_traccia = t.ritornaTracceDaGenere(testo);
 					
+					grandezza = lista_traccia.size();
+					
+					tableTracce = new JTable();
+					modelTracce.setRowCount(0);
+					for (int i = 0; i < grandezza; i++) {
+						modelTracce.addRow(new Object[] { String.valueOf(lista_traccia.get(i).getNomeTraccia()),
+								String.valueOf(lista_traccia.get(i).getGenereTraccia()),
+								String.valueOf(lista_traccia.get(i).getTipoTraccia()),
+								String.valueOf(lista_traccia.get(i).getAnnoTraccia()),
+								String.valueOf(lista_traccia.get(i).getCantanti())
+						});
+						}
+					
+					if(lista_traccia.size() > 0) {
+						esploraPanel.setVisible(false);
+						scrollPaneTracce.setVisible(true);
+						backPanel.setVisible(true);
+					}else {
+						JOptionPane.showMessageDialog(null, "La ricerca non ha prodotto risultati.");
+					}	
+				break;
+				case 3:
 					lista_traccia = t.ritornaTracceDaTipo(testo);
 					
 					grandezza = lista_traccia.size();
@@ -504,31 +539,7 @@ public class PanelHome extends JPanel {
 					}else {
 						JOptionPane.showMessageDialog(null, "La ricerca non ha prodotto risultati.");
 					}
-				break;
-				case 3:
 					
-                    lista_traccia = t.ritornaTracceDaGenere(testo);
-					
-					grandezza = lista_traccia.size();
-					
-					tableTracce = new JTable();
-					modelTracce.setRowCount(0);
-					for (int i = 0; i < grandezza; i++) {
-						modelTracce.addRow(new Object[] { String.valueOf(lista_traccia.get(i).getNomeTraccia()),
-								String.valueOf(lista_traccia.get(i).getGenereTraccia()),
-								String.valueOf(lista_traccia.get(i).getTipoTraccia()),
-								String.valueOf(lista_traccia.get(i).getAnnoTraccia()),
-								String.valueOf(lista_traccia.get(i).getCantanti())
-						});
-						}
-					
-					if(lista_traccia.size() > 0) {
-						esploraPanel.setVisible(false);
-						scrollPaneTracce.setVisible(true);
-						backPanel.setVisible(true);
-					}else {
-						JOptionPane.showMessageDialog(null, "La ricerca non ha prodotto risultati.");
-					}
 				break;
 				default:
 				JOptionPane.showMessageDialog(null, "Non hai selezionato un tipo di ricerca, selezionane uno.");

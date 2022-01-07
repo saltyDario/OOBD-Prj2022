@@ -71,11 +71,16 @@ public class GetTracceDAO implements TracciaDAO{
         String cantante = null;
         
         try {
-        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(distinct a.nome, ',')\n"
-        		+ "from traccia as t, artista as a, artista as a1, collab as c\r\n"
-        		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and lower(a1.nome) = lower('"+ nomeArtista +"') and a.id_artista in(select c1.id_artista\n"
-        		+ "                                                                                                         from collab as c1\n"
-        		+ "                                                                                                         where c1.id_traccia=t.id_traccia)\n"
+        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, anno, genere, tipo_can, string_agg(distinct a1.nome, ',')\n"
+        		+ "from traccia as t, collab as c, artista as a, artista as a1\n"
+        		+ "where lower(a.nome) = lower('"+ nomeArtista +"') and t.id_traccia=c.id_traccia and a.id_artista in (select c1.id_artista\n"
+        		+ "                                                                             from collab as c1\r\n"
+        		+ "                                                                             where c1.id_traccia=t.id_traccia)\n"
+        		+ "                                                        and a1.id_artista in (select c2.id_artista\n"
+        		+ "                                                                             from collab as c2\n"
+        		+ "                                                                             where c2.id_traccia=t.id_traccia)\n"
+        		+ "\n"
+        		+ "\n"
         		+ "group by t.id_traccia");
         ResultSet rs = scaricaTracce.executeQuery();
 
@@ -258,7 +263,7 @@ public class GetTracceDAO implements TracciaDAO{
         try {
         scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
         		+ "from traccia as t, artista as a, collab as c\n"
-        		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and LOWER(genere) = lower('"+ genereTraccia + "')\n"
+        		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and lower(genere) = lower('"+ genereTraccia + "')\n"
         		+ "group by t.id_traccia");
         ResultSet rs = scaricaTracce.executeQuery();
 

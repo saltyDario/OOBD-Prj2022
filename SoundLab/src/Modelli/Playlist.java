@@ -1,5 +1,7 @@
 package Modelli;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Date;
 
 public class Playlist {
@@ -41,7 +43,7 @@ public class Playlist {
 	public void setFavorite(String pref) {
 		
 		if(pref.equals("true")) {
-			preferita = "*";
+			preferita = "Pref";
 		}else {
 			preferita = " ";
 		}

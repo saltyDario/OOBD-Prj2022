@@ -38,6 +38,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollBar;
 import java.awt.Component;
+import javax.swing.DebugGraphics;
 
 public class PanelLibrary extends JPanel {
 	

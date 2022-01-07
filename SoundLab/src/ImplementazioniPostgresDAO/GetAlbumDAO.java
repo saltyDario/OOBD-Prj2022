@@ -32,14 +32,14 @@ public class GetAlbumDAO implements AlbumDAO{
         int anno_album;
         
         try {
-            scaricaAlbum = connection.prepareStatement("select nomealbum, ar.nome, anno\n"
+            scaricaAlbum = connection.prepareStatement("select nomealbum, nome, anno\n"
             		+ "from album as al, artista as ar\n"
             		+ "where al.id_artista=ar.id_artista and lower(nomealbum) = lower('" + nome +"')");
             ResultSet rs = scaricaAlbum.executeQuery();
 
             while(rs.next()) {
                  nome_album = rs.getString("nomealbum");
-                 nome_artista = rs.getString("ar.nome");
+                 nome_artista = rs.getString("nome");
                  anno_album = rs.getInt("anno");
                  //System.out.println(""+ nome_traccia);
                  
@@ -71,7 +71,7 @@ public class GetAlbumDAO implements AlbumDAO{
 
             while(rs.next()) {
                  nome_album = rs.getString("nomealbum");
-                 nome_artista = rs.getString("ar.nome");
+                 nome_artista = rs.getString("nome");
                  anno_album = rs.getInt("anno");
                  //System.out.println(""+ nome_traccia);
                  
@@ -98,12 +98,12 @@ public class GetAlbumDAO implements AlbumDAO{
         try {
             scaricaAlbum = connection.prepareStatement("select nomealbum, ar.nome, anno\n"
             		+ "from album as al, artista as ar\n"
-            		+ "where al.id_artista=ar.id_artista and lower(anno) = lower('" + annoAlbum +"')");
+            		+ "where al.id_artista=ar.id_artista and anno = " + annoAlbum +"");
             ResultSet rs = scaricaAlbum.executeQuery();
 
             while(rs.next()) {
                  nome_album = rs.getString("nomealbum");
-                 nome_artista = rs.getString("ar.nome");
+                 nome_artista = rs.getString("nome");
                  anno_album = rs.getInt("anno");
                  //System.out.println(""+ nome_traccia);
                  
