@@ -172,7 +172,6 @@ public class PanelLibrary extends JPanel {
 		
 		
 		JPanel downloadLibPanel = new JPanel();
-		downloadLibPanel.setToolTipText("Avvia la Libreria.");
 		downloadLibPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -208,7 +207,7 @@ public class PanelLibrary extends JPanel {
 			}
 		});
 		downloadLibPanel.setLayout(null);
-		downloadLibPanel.setToolTipText("Refresh Playlist.");
+		downloadLibPanel.setToolTipText("Avvia libreria.");
 		downloadLibPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
 		downloadLibPanel.setBackground(Color.GRAY);
 		downloadLibPanel.setBounds(215, 72, 38, 37);
@@ -271,7 +270,7 @@ public class PanelLibrary extends JPanel {
 			}
 		});
 		backPanel.setLayout(null);
-		backPanel.setToolTipText("Avvia la Libreria.");
+		backPanel.setToolTipText("Torna alla Libreria.");
 		backPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
 		backPanel.setBackground(Color.GRAY);
 		backPanel.setBounds(4, 72, 82, 37);

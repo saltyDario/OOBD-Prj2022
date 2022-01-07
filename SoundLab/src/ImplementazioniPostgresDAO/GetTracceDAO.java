@@ -71,7 +71,7 @@ public class GetTracceDAO implements TracciaDAO{
         String cantante = null;
         
         try {
-        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg( a.nome, ',')\n"
+        scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(distinct a.nome, ',')\n"
         		+ "from traccia as t, artista as a, artista as a1, collab as c\r\n"
         		+ "where t.id_traccia = c.id_traccia and c.id_artista = a.id_artista and lower(a1.nome) = lower('"+ nomeArtista +"') and a.id_artista in(select c1.id_artista\n"
         		+ "                                                                                                         from collab as c1\n"
