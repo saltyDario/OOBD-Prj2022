@@ -238,7 +238,7 @@ public class Applet {
 		panel_SignOut.add(signOutLabel);
 		
 		JLabel signOutIcon = new JLabel("");
-		signOutIcon.setBounds(57, 11, 50, 40);
+		signOutIcon.setBounds(52, 11, 50, 40);
 		panel_SignOut.add(signOutIcon);
 		signOutIcon.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/logout.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
 		signOutIcon.setHorizontalAlignment(SwingConstants.CENTER);

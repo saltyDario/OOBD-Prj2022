@@ -223,7 +223,7 @@ public class PanelHome extends JPanel {
 		panel_Title.setLayout(null);
 		panel_Title.setBorder(new LineBorder(Color.BLACK, 2, true));
 		panel_Title.setBackground(Color.GRAY);
-		panel_Title.setBounds(64, 0, 347, 57);
+		panel_Title.setBounds(68, 0, 347, 57);
 		add(panel_Title);
 		
 		JLabel lblHome = new JLabel("Home");
@@ -256,6 +256,17 @@ public class PanelHome extends JPanel {
 		esploraArtisti.add(comboBoxArtisti);
 		
 		JButton goButtonArtisti = new JButton("VAI");
+		goButtonArtisti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				goButtonArtisti.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				goButtonArtisti.setBackground(Color.WHITE);	
+			}
+		});
+		goButtonArtisti.setBorder(new LineBorder(Color.BLACK, 2, true));
 		goButtonArtisti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int box = comboBoxArtisti.getSelectedIndex();
@@ -348,6 +359,17 @@ public class PanelHome extends JPanel {
 		esploraAlbum.add(comboBoxAlbum);
 		
 		JButton goButtonAlbum = new JButton("VAI");
+		goButtonAlbum.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				goButtonAlbum.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				goButtonAlbum.setBackground(Color.WHITE);	
+			}
+		});
+		goButtonAlbum.setBorder(new LineBorder(Color.BLACK, 2, true));
 		goButtonAlbum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int box = comboBoxAlbum.getSelectedIndex();
@@ -454,6 +476,17 @@ public class PanelHome extends JPanel {
 		esploraTracce.add(comboBoxTracce);
 		
 		JButton goButtonTracce = new JButton("VAI");
+		goButtonTracce.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				goButtonTracce.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				goButtonTracce.setBackground(Color.WHITE);	
+			}
+		});
+		goButtonTracce.setBorder(new LineBorder(Color.BLACK, 2, true));
 		goButtonTracce.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int box = comboBoxTracce.getSelectedIndex();

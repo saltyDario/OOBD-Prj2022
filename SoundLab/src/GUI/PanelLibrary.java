@@ -14,9 +14,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.LibreriaDAO;
+import DAO.PlaylistDAO;
 import DAO.TracciaDAO;
 import ImplementazioniPostgresDAO.GetTracceDAO;
 import ImplementazioniPostgresDAO.LibConnectionDAO;
+import ImplementazioniPostgresDAO.PlaylistConnectionDAO;
 import Modelli.Libreria;
 import Modelli.Playlist;
 import Modelli.Traccia;
@@ -43,7 +45,9 @@ import javax.swing.DebugGraphics;
 public class PanelLibrary extends JPanel {
 	
 	private int numero_playlist;
+	private int id_playlist;
 	private String[] str;
+	private String playlist_pref;
 	
 	private Libreria libs;
 	private ArrayList<Playlist> lista_playlist = new ArrayList<Playlist>();
@@ -132,10 +136,66 @@ public class PanelLibrary extends JPanel {
 		add(playlistPanel);
 		playlistPanel.setLayout(null);
 		
-
+		JPanel refreshPanelPlaylist = new JPanel();
+		refreshPanelPlaylist.setToolTipText("Refresh Playlist.");
+		refreshPanelPlaylist.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				refreshPanelPlaylist.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				refreshPanelPlaylist.setBackground(Color.GRAY);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				refreshPanelPlaylist.setBackground(Color.LIGHT_GRAY);
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				refreshPanelPlaylist.setBackground(Color.DARK_GRAY);
+				
+	        	TracciaDAO t = new GetTracceDAO();
+	            int id_playlist_loc = id_playlist;
+	      
+	            list = t.ritornaTraccePlaylist(id_playlist_loc);
+	            
+		        System.out.println(""+ id_playlist_loc);
+		        
+					modelTableTracce.setRowCount(0);
+					for (int i = 0; i < list.size(); i++) {
+						modelTableTracce.addRow(new Object[] { String.valueOf(list.get(i).getNomeTraccia()),
+								String.valueOf(list.get(i).getGenereTraccia()),
+								String.valueOf(list.get(i).getTipoTraccia()),
+								String.valueOf(list.get(i).getAnnoTraccia()),
+								String.valueOf(list.get(i).getCantanti())});
+						}
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		refreshPanelPlaylist.setLayout(null);
+		refreshPanelPlaylist.setBorder(new LineBorder(Color.BLACK, 2, true));
+		refreshPanelPlaylist.setBackground(Color.GRAY);
+		refreshPanelPlaylist.setBounds(396, 72, 38, 37);
+		add(refreshPanelPlaylist);
+		refreshPanelPlaylist.setVisible(false);
+		
+		JLabel refreshLabelPl = new JLabel("");
+		refreshLabelPl.setBounds(0, 0, 38, 37);
+		refreshPanelPlaylist.add(refreshLabelPl);
+		refreshLabelPl.setHorizontalAlignment(SwingConstants.CENTER);
+		refreshLabelPl.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/refreshing.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
 		
 		JPanel refreshPanel = new JPanel();
-		refreshPanel.setToolTipText("Refresh Playlist.");
+		refreshPanel.setToolTipText("Refresh Libreria.");
+		refreshPanel.setLayout(null);
+		refreshPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
+		refreshPanel.setBackground(Color.GRAY);
+		refreshPanel.setBounds(396, 72, 38, 37);
+		add(refreshPanel);
 		refreshPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -211,7 +271,7 @@ public class PanelLibrary extends JPanel {
 		downloadLibPanel.setToolTipText("Avvia libreria.");
 		downloadLibPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
 		downloadLibPanel.setBackground(Color.GRAY);
-		downloadLibPanel.setBounds(215, 72, 38, 37);
+		downloadLibPanel.setBounds(219, 72, 38, 37);
 		add(downloadLibPanel);
 		
 		JLabel downloadLabel = new JLabel("");
@@ -219,6 +279,63 @@ public class PanelLibrary extends JPanel {
 		downloadLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		downloadLabel.setBounds(0, 0, 38, 37);
 		downloadLibPanel.add(downloadLabel);
+		
+		JPanel prefPlaylistPanel = new JPanel();
+		prefPlaylistPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				prefPlaylistPanel.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				prefPlaylistPanel.setBackground(Color.GRAY);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				prefPlaylistPanel.setBackground(Color.LIGHT_GRAY);
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				prefPlaylistPanel.setBackground(Color.DARK_GRAY);
+				
+				String ok = null;
+
+				if(playlist_pref.equals("Pref")) {
+					playlist_pref = "true";
+				}else {
+					playlist_pref = "false";
+				}
+				//System.out.println(""+ playlist_pref);
+				int id_playlist_loc = id_playlist;
+				
+				PlaylistDAO p = new PlaylistConnectionDAO();
+				ok = p.togglePreferita(id_playlist_loc, playlist_pref);
+				
+				if(ok.equals("true")) {
+					JOptionPane.showMessageDialog(null, "La Playlist è adesso preferita.");
+				}else if(ok.equals("false")){
+					JOptionPane.showMessageDialog(null, "La Playlist è adesso non più preferita.");
+				}
+			}
+		});
+		prefPlaylistPanel.setLayout(null);
+		prefPlaylistPanel.setToolTipText("Inserisci/rimuovi la playlist dai preferiti.");
+		prefPlaylistPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
+		prefPlaylistPanel.setBackground(Color.GRAY);
+		prefPlaylistPanel.setBounds(219, 72, 38, 37);
+		add(prefPlaylistPanel);
+		prefPlaylistPanel.setVisible(false);
+		
+		JLabel prefLabel = new JLabel("");
+		prefLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/star.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
+		prefLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		prefLabel.setBounds(0, 0, 38, 37);
+		prefPlaylistPanel.add(prefLabel);
+		
 		
 		modelTable.setColumnIdentifiers(headers);
 		modelTableTracce.setColumnIdentifiers(headersTracce);
@@ -241,6 +358,72 @@ public class PanelLibrary extends JPanel {
 		scrollPaneTracce.setViewportView(tableTracce);
 		
 		JPanel backPanel = new JPanel();
+		backPanel.setLayout(null);
+		backPanel.setToolTipText("Torna alla Libreria.");
+		backPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
+		backPanel.setBackground(Color.GRAY);
+		backPanel.setBounds(4, 72, 82, 37);
+		add(backPanel);
+		backPanel.setVisible(false);
+		
+		JPanel binPanel = new JPanel();
+		binPanel.setToolTipText("Elimina Playlist.");
+		binPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				binPanel.setBackground(Color.DARK_GRAY);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				binPanel.setBackground(Color.GRAY);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				binPanel.setBackground(Color.LIGHT_GRAY);
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				binPanel.setBackground(Color.DARK_GRAY);
+				
+				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler eliminare la playlist?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
+					PlaylistDAO p = new PlaylistConnectionDAO();
+					boolean ok;
+					
+					ok = p.eliminaPlaylist(id_playlist);
+					if(ok == true) {
+						JOptionPane.showMessageDialog(null, "Playlist eliminata con successo.");
+						
+						scrollPaneTracce.setVisible(false);
+						backPanel.setVisible(false);
+						prefPlaylistPanel.setVisible(false);
+						refreshPanelPlaylist.setVisible(false);
+						binPanel.setVisible(false);
+			            scrollPane.setVisible(true);
+			            refreshPanel.setVisible(true);
+			            plusPanel.setVisible(true);
+			            downloadLibPanel.setVisible(true);
+					}
+					
+				}	
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		binPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
+		binPanel.setBackground(Color.GRAY);
+		binPanel.setBounds(433, 72, 38, 37);
+		add(binPanel);
+		binPanel.setLayout(null);
+		binPanel.setVisible(false);
+		
+		JLabel binLabel = new JLabel("");
+		binLabel.setBounds(0, 0, 38, 37);
+		binPanel.add(binLabel);
+		binLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/bin.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
+		binLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		backPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -264,19 +447,15 @@ public class PanelLibrary extends JPanel {
 				
 				scrollPaneTracce.setVisible(false);
 				backPanel.setVisible(false);
+				prefPlaylistPanel.setVisible(false);
+				refreshPanelPlaylist.setVisible(false);
+				binPanel.setVisible(false);
 	            scrollPane.setVisible(true);
 	            refreshPanel.setVisible(true);
 	            plusPanel.setVisible(true);
 	            downloadLibPanel.setVisible(true);
 			}
 		});
-		backPanel.setLayout(null);
-		backPanel.setToolTipText("Torna alla Libreria.");
-		backPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
-		backPanel.setBackground(Color.GRAY);
-		backPanel.setBounds(4, 72, 82, 37);
-		add(backPanel);
-		backPanel.setVisible(false);
 		
 		JLabel backLabel = new JLabel("");
 		backLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/arrow.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
@@ -294,7 +473,8 @@ public class PanelLibrary extends JPanel {
 		        	TracciaDAO t = new GetTracceDAO();
 		            Object obj = GetData(table, table.getSelectedRow(), 0);
 		            
-		            int id_playlist = lista_playlist.get(table.getSelectedRow()).getIDPlaylist();
+		            id_playlist = lista_playlist.get(table.getSelectedRow()).getIDPlaylist();
+		            playlist_pref = lista_playlist.get(table.getSelectedRow()).getFavorite();
 		            list = t.ritornaTraccePlaylist(id_playlist);
 		            
 		            if(list.size() > 0) {
@@ -311,8 +491,11 @@ public class PanelLibrary extends JPanel {
 									String.valueOf(list.get(i).getAnnoTraccia()),
 									String.valueOf(list.get(i).getCantanti())});
 							}
+						prefPlaylistPanel.setVisible(true);
+						refreshPanelPlaylist.setVisible(true);
 						backPanel.setVisible(true);
 			            scrollPaneTracce.setVisible(true);
+			            binPanel.setVisible(true);
 		            }else {
 		            	JOptionPane.showMessageDialog(null, "La Playlist "+ obj +" e' vuota");
 		            }
@@ -338,12 +521,6 @@ public class PanelLibrary extends JPanel {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(modelTable);
 		table.setRowHeight(45);
-		
-		refreshPanel.setLayout(null);
-		refreshPanel.setBorder(new LineBorder(Color.BLACK, 2, true));
-		refreshPanel.setBackground(Color.GRAY);
-		refreshPanel.setBounds(396, 72, 38, 37);
-		add(refreshPanel);
 		
 		JLabel refreshLabel = new JLabel("");
 		refreshLabel.setBounds(0, 0, 38, 37);
