@@ -27,12 +27,12 @@ public class RegisterConnectionDAO implements UtenteDAO {
 
 	@Override
 	public boolean registerInDB(String username, String password, String email, String sesso, Date data) {
-		String url = "jdbc:postgresql://localhost:5432/SoundLab";
+		
 		boolean ok = false;
+		
 		try {			
-			Connection con = DriverManager.getConnection(url, "Gesualdo", "pippo");
 			
-			PreparedStatement st = con.prepareStatement("INSERT INTO utente(username, password, email, sesso, datanascita) values(?, ?, ?, ?, ?)");
+			PreparedStatement st = connection.prepareStatement("INSERT INTO utente(username, password, email, sesso, datanascita) values(?, ?, ?, ?, ?)");
 			st.setString(1, username);
 			st.setString(2, password);
 			st.setString(3, email);
@@ -45,7 +45,7 @@ public class RegisterConnectionDAO implements UtenteDAO {
 			if(colonne > 0) {
 				ok = true;
 			}
-			con.close();
+			connection.close();
 		}catch(SQLException c) {
 			JOptionPane.showMessageDialog(null, "Registrazione non riuscita, ritenta.");
 		}

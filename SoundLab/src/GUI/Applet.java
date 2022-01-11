@@ -58,13 +58,13 @@ public class Applet {
 		AppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		AppWindow.getContentPane().setLayout(null);
 		
-		paneHome = new PanelHome();
+		paneHome = new PanelHome(utente.getId());
 		paneHome.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneHome.setBounds(0, 0, 486, 588);
 		paneLibrary = new PanelLibrary(utente.getUsername(), utente.getId());
 		paneLibrary.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneLibrary.setBounds(0, 0, 486, 588);
-		paneSearch = new PanelSearch();
+		paneSearch = new PanelSearch(utente.getId());
 		paneSearch.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneSearch.setBounds(0, 0, 486, 588);
 		paneInfo = new PanelInfo();

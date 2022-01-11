@@ -34,7 +34,10 @@ import java.awt.event.ActionEvent;
 
 public class PanelSearch extends JPanel {
 	private JTextField searchField;
-
+	private int id_traccia;
+	private String nome_traccia = null;
+	private ArrayList<Traccia> list = new ArrayList<Traccia>();
+	
 	DefaultTableModel modelTable = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -45,7 +48,7 @@ public class PanelSearch extends JPanel {
 	
 	private JTable table = new JTable();
 	
-	public PanelSearch() {
+	public PanelSearch(int id_utente) {
 		setBackground(Color.GRAY);
 		setBounds(0, 0, 481, 592);
 		setLayout(null);
@@ -99,8 +102,6 @@ public class PanelSearch extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int box = tipoQueryBox.getSelectedIndex();
 				String nome = searchField.getText(); 
-				
-				ArrayList<Traccia> list = new ArrayList<Traccia>();
 				
 				TracciaDAO t = new GetTracceDAO();
 				
@@ -177,11 +178,15 @@ public class PanelSearch extends JPanel {
 		
 		table.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
-		        JTable table =(JTable) mouseEvent.getSource();
+		        JTable table = (JTable) mouseEvent.getSource();
 		        Point punto = mouseEvent.getPoint();
 		        int righe = table.rowAtPoint(punto);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-		            System.out.println("okokok");
+		        	
+		        	id_traccia = list.get(table.getSelectedRow()).getIdTraccia();
+		        	nome_traccia = list.get(table.getSelectedRow()).getNomeTraccia();
+		        	
+		            AscoltoAggiungiTraccia addtrack = new AscoltoAggiungiTraccia(id_utente, id_traccia, nome_traccia);
 		        }
 		    }
 		});

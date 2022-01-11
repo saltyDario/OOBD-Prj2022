@@ -503,6 +503,23 @@ public class PanelLibrary extends JPanel {
 		    }
 		});
 		
+		
+		tableTracce.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		    	
+		        JTable table = (JTable) mouseEvent.getSource();
+		        Point punto = mouseEvent.getPoint();
+		        int righe = table.rowAtPoint(punto);
+		        
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		            
+		            Object obj = GetData(table, table.getSelectedRow(), 0);
+		            int id_traccia = list.get(table.getSelectedRow()).getIdTraccia(); 
+		            int grandezza_playlist = lista_playlist.size();
+		            AscoltoRimuoviTraccia paneltrack = new AscoltoRimuoviTraccia(id_utente, id_traccia, obj.toString(), grandezza_playlist);
+		}}});
+		
+		
 		tableTracce.setGridColor(Color.BLACK);
 		tableTracce.setFont(new Font("Arial", Font.PLAIN, 14));
 		tableTracce.setForeground(Color.BLACK);

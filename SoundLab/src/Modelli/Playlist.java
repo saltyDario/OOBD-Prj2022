@@ -52,4 +52,9 @@ public class Playlist {
 	public int getIDPlaylist() {
 		return id_playlist;
 	}
+	
+	@Override
+	public String toString() {
+		return nome_playlist;
+	}
 }

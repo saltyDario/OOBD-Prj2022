@@ -20,5 +20,6 @@ public interface TracciaDAO {
 	
 	public ArrayList<Traccia> ritornaTracceDaGenere(String genereTraccia);
 
-
+	public boolean rimuoviTraccia(int id_traccia);
+	
 }

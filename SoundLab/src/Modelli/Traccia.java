@@ -3,14 +3,15 @@ package Modelli;
 public class Traccia {
 	
 	String nome_traccia, genere_traccia, tipo_can, cantanti;
-	int annoUscita;
+	int annoUscita, id_traccia;
 	
-	public Traccia(String nomeTraccia, int anno, String genereTraccia, String tipoCan, String cantante) {
+	public Traccia(String nomeTraccia, int anno, String genereTraccia, String tipoCan, String cantante, int idTraccia) {
 		nome_traccia = nomeTraccia;
 		annoUscita = anno;
 		genere_traccia = genereTraccia;
 		tipo_can = tipoCan;
 		cantanti = cantante;
+		id_traccia = idTraccia;
 	}
 	
 	public String getNomeTraccia() {
@@ -31,6 +32,10 @@ public class Traccia {
 	
 	public String getCantanti() {
 		return cantanti;
+	}
+	
+	public int getIdTraccia() {
+		return id_traccia;
 	}
 	
 }

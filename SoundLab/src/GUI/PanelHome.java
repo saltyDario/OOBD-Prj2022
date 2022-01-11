@@ -40,6 +40,10 @@ import javax.swing.ImageIcon;
 
 public class PanelHome extends JPanel {
 	
+	private int id_traccia;
+	private String nome_traccia = null;
+	private ArrayList<Traccia> lista_traccia = new ArrayList<Traccia>();
+	
 	DefaultTableModel modelArtisti = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -75,7 +79,7 @@ public class PanelHome extends JPanel {
 	private JTextField fieldTracce;
 
 
-	public PanelHome() {
+	public PanelHome(int id_utente) {
 		setBackground(Color.GRAY);
 		setBounds(0, 0, 481, 592);
 		setLayout(null);
@@ -201,7 +205,11 @@ public class PanelHome extends JPanel {
 		        Point punto = mouseEvent.getPoint();
 		        int righe = table.rowAtPoint(punto);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-		            System.out.println("okokok");
+		        	
+		        	id_traccia = lista_traccia.get(table.getSelectedRow()).getIdTraccia();
+		        	nome_traccia = lista_traccia.get(table.getSelectedRow()).getNomeTraccia();
+		        	
+		        	AscoltoAggiungiTraccia addtrack = new AscoltoAggiungiTraccia(id_utente, id_traccia, nome_traccia);
 		        }
 		    }
 		});
@@ -491,8 +499,6 @@ public class PanelHome extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int box = comboBoxTracce.getSelectedIndex();
 				String testo = fieldTracce.getText(); 
-				
-				ArrayList<Traccia> lista_traccia = new ArrayList<Traccia>();
 				
 				TracciaDAO t = new GetTracceDAO();
 				

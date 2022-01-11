@@ -32,6 +32,7 @@ public class GetTracceDAO implements TracciaDAO{
         String genere_traccia = null;
         String tipo_can = null;
         String cantante = null;
+        int id_traccia;
         
         try {
         scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
@@ -41,14 +42,15 @@ public class GetTracceDAO implements TracciaDAO{
         ResultSet rs = scaricaTracce.executeQuery();
 
         while(rs.next()) {
+        	 id_traccia = rs.getInt("id_traccia");
              nome_traccia = rs.getString("nometraccia");
              anno = rs.getInt("anno");
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
-             //System.out.println(""+ nome_traccia);
+             //System.out.println(""+ id_traccia);
              
-             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
              connection.close();
         }
@@ -69,6 +71,7 @@ public class GetTracceDAO implements TracciaDAO{
         String genere_traccia = null;
         String tipo_can = null;
         String cantante = null;
+        int id_traccia;
         
         try {
         scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, anno, genere, tipo_can, string_agg(distinct a1.nome, ',')\n"
@@ -85,6 +88,7 @@ public class GetTracceDAO implements TracciaDAO{
         ResultSet rs = scaricaTracce.executeQuery();
 
         while(rs.next()) {
+        	 id_traccia = rs.getInt("id_traccia");
              nome_traccia = rs.getString("nometraccia");
              anno = rs.getInt("anno");
              genere_traccia = rs.getString("genere");
@@ -92,7 +96,7 @@ public class GetTracceDAO implements TracciaDAO{
              cantante = rs.getString("string_agg");
              //System.out.println(""+ nome_traccia);
              
-             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
              connection.close();
         }
@@ -112,6 +116,7 @@ public class GetTracceDAO implements TracciaDAO{
         String genere_traccia = null;
         String tipo_can = null;
         String cantante = null;
+        int id_traccia;
         
         try {
         scaricaTracce = connection.prepareStatement("select t.id_traccia , nometraccia, t.anno, genere, tipo_can, string_agg(art.nome, ',')\r\n"
@@ -121,6 +126,7 @@ public class GetTracceDAO implements TracciaDAO{
         ResultSet rs = scaricaTracce.executeQuery();
 
         while(rs.next()) {
+        	id_traccia = rs.getInt("id_traccia");
             nome_traccia = rs.getString("nometraccia");
             anno = rs.getInt("anno");
             genere_traccia = rs.getString("genere");
@@ -128,7 +134,7 @@ public class GetTracceDAO implements TracciaDAO{
             cantante = rs.getString("string_agg");
              //System.out.println(""+ nome_album);
              
-             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
              connection.close();
         }
@@ -148,23 +154,25 @@ public class GetTracceDAO implements TracciaDAO{
         String genere_traccia = null;
         String tipo_can = null;
         String cantante = null;
-
+        int id_traccia;
+        
         try {
-        scaricaTracce = connection.prepareStatement("select nometraccia, t.genere, tipo_can, anno, string_agg(art.nome, ',') \r\n"
+        scaricaTracce = connection.prepareStatement("select t.id_traccia, nometraccia, t.genere, tipo_can, anno, string_agg(art.nome, ',') \r\n"
                 + "from traccia as t, aggiungi as a, playlist as p, artista as art, collab as c\r\n"
                 + "where t.id_traccia=a.id_traccia and p.id_playlist=a.id_playlist and t.id_traccia=c.id_traccia and c.id_artista=art.id_artista and p.id_playlist = '" + idPlaylist + "'"
                 + "group by t.id_traccia");
         ResultSet rs = scaricaTracce.executeQuery();
 
         while(rs.next()) {
+        	 id_traccia = rs.getInt("id_traccia");
              nome_traccia = rs.getString("nometraccia");
              anno = rs.getInt("anno");
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
-             //System.out.println(""+ nome_traccia);
+             //System.out.println(""+ id_traccia);
 
-             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
              connection.close();
         }
@@ -185,6 +193,7 @@ public class GetTracceDAO implements TracciaDAO{
         String genere_traccia = null;
         String tipo_can = null;
         String cantante = null;
+        int id_traccia;
         
         try {
         scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
@@ -194,6 +203,7 @@ public class GetTracceDAO implements TracciaDAO{
         ResultSet rs = scaricaTracce.executeQuery();
 
         while(rs.next()) {
+        	 id_traccia = rs.getInt("id_traccia");
              nome_traccia = rs.getString("nometraccia");
              anno = rs.getInt("anno");
              genere_traccia = rs.getString("genere");
@@ -201,7 +211,7 @@ public class GetTracceDAO implements TracciaDAO{
              cantante = rs.getString("string_agg");
              //System.out.println(""+ nome_traccia);
              
-             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
              connection.close();
         }
@@ -222,6 +232,7 @@ public class GetTracceDAO implements TracciaDAO{
         String genere_traccia = null;
         String tipo_can = null;
         String cantante = null;
+        int id_traccia;
         
         try {
         scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
@@ -231,6 +242,7 @@ public class GetTracceDAO implements TracciaDAO{
         ResultSet rs = scaricaTracce.executeQuery();
 
         while(rs.next()) {
+        	 id_traccia = rs.getInt("id_traccia");
              nome_traccia = rs.getString("nometraccia");
              anno = rs.getInt("anno");
              genere_traccia = rs.getString("genere");
@@ -238,7 +250,7 @@ public class GetTracceDAO implements TracciaDAO{
              cantante = rs.getString("string_agg");
              //System.out.println(""+ nome_traccia);
              
-             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
              connection.close();
         }
@@ -259,6 +271,7 @@ public class GetTracceDAO implements TracciaDAO{
         String genere_traccia = null;
         String tipo_can = null;
         String cantante = null;
+        int id_traccia;
         
         try {
         scaricaTracce = connection.prepareStatement("select t.id_traccia ,nometraccia, t.anno, genere, tipo_can, string_agg(a.nome, ',')\n"
@@ -268,6 +281,7 @@ public class GetTracceDAO implements TracciaDAO{
         ResultSet rs = scaricaTracce.executeQuery();
 
         while(rs.next()) {
+        	 id_traccia = rs.getInt("id_traccia");
              nome_traccia = rs.getString("nometraccia");
              anno = rs.getInt("anno");
              genere_traccia = rs.getString("genere");
@@ -275,7 +289,7 @@ public class GetTracceDAO implements TracciaDAO{
              cantante = rs.getString("string_agg");
              //System.out.println(""+ nome_traccia);
              
-             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante);
+             Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
              connection.close();
         }
@@ -284,6 +298,24 @@ public class GetTracceDAO implements TracciaDAO{
         e.printStackTrace();
     }
     return list;
+	}
+	
+	@Override
+	public boolean rimuoviTraccia(int id_traccia) {
+		boolean ok = false;
+		PreparedStatement rimuoviTraccia;
+        
+        try {
+        rimuoviTraccia = connection.prepareStatement("delete from aggiungi where id_traccia = '"+ id_traccia +"'");
+        rimuoviTraccia.executeUpdate(); 
+        
+        ok = true;
+        connection.close();
+        
+    }catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return ok;
 	}
 	
 }
