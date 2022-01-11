@@ -57,7 +57,6 @@ public class AscoltoAggiungiTraccia extends JDialog {
 		
 		int grandezza = lista_playlist.size();
 		
-		
 		JComboBox playlistBox = new JComboBox<Playlist>();
 		playlistBox.setBorder(new LineBorder(Color.BLACK, 2, true));
 		playlistBox.setModel(new DefaultComboBoxModel<Playlist>(lista_playlist.toArray(new Playlist[0])));
@@ -180,40 +179,47 @@ public class AscoltoAggiungiTraccia extends JDialog {
 		btnListen.setBounds(52, 190, 126, 57);
 		contentPanel.add(btnListen);
 		
-		JButton btnRimuovi = new JButton("Add");
-		btnRimuovi.addActionListener(new ActionListener() {
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean ok = false;
 				
 				int box = playlistBox.getSelectedIndex();
 				int id_playlist = lista_playlist.get(box).getIDPlaylist();
 				
-				if(box >= 0) {
-					AggiungiDAO t = new GetAggiungiDAO();
-					ok = t.inserisciTracciaInPlaylist(id_playlist, id_traccia);
-				}
 				
-				if(ok == true) {
-					JOptionPane.showMessageDialog(null, "La traccia "+ nome_traccia +" e' stata aggiunta dalla playlist.");
-					trackHearAdd.dispose();
+				//TODO fixare questo blocco index -1 out of bounds
+				if(lista_playlist.size() == 0) {
+					JOptionPane.showMessageDialog(null, "Non hai selezionato una playlist.");
+				}else {
+					if(box >= 0){
+						AggiungiDAO t = new GetAggiungiDAO();
+						ok = t.inserisciTracciaInPlaylist(id_playlist, id_traccia);
+					}
+		
+					if(ok == true) {
+						JOptionPane.showMessageDialog(null, "La traccia "+ nome_traccia +" e' stata aggiunta dalla playlist.");
+						trackHearAdd.dispose();
+					}
 				}
+
 			}
 		});
-		btnRimuovi.setToolTipText("Rimuovi la canzone dalla playlist.");
-		btnRimuovi.setBorder(new LineBorder(Color.BLACK, 2, true));
-		btnRimuovi.setBackground(Color.WHITE);
-		btnRimuovi.addMouseListener(new MouseAdapter() {
+		btnAdd.setToolTipText("Aggiungi la canzone dalla playlist.");
+		btnAdd.setBorder(new LineBorder(Color.BLACK, 2, true));
+		btnAdd.setBackground(Color.WHITE);
+		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnRimuovi.setBackground(Color.DARK_GRAY);
+				btnAdd.setBackground(Color.DARK_GRAY);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnRimuovi.setBackground(Color.WHITE);	
+				btnAdd.setBackground(Color.WHITE);	
 			}
 		});
-		btnRimuovi.setBounds(273, 190, 126, 57);
-		contentPanel.add(btnRimuovi);
+		btnAdd.setBounds(273, 190, 126, 57);
+		contentPanel.add(btnAdd);
 		
 	}
 }

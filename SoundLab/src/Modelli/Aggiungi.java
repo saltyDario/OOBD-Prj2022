@@ -1,5 +1,5 @@
 package Modelli;
 
-public interface Aggiungi {
+public class Aggiungi {
 
 }

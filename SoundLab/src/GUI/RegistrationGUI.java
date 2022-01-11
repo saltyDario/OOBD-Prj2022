@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
@@ -31,11 +32,13 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
 
 import DAO.UtenteDAO;
-import ImplementazioniPostgresDAO.RegisterConnectionDAO;
+import ImplementazioniPostgresDAO.GetUtenteDAO;
 
 import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JMonthChooser;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
@@ -45,7 +48,6 @@ public class RegistrationGUI {
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JTextField emailField;
-	private JTextField genderField;
 	
 	public RegistrationGUI() {
 		initialize();
@@ -189,11 +191,11 @@ public class RegistrationGUI {
 		GenderPanel.setBounds(122, 387, 309, 53);
 		panelRegistration.add(GenderPanel);
 		
-		genderField = new JTextField();
-		genderField.setFont(new Font("Arial", Font.PLAIN, 16));
-		genderField.setColumns(10);
-		genderField.setBounds(10, 11, 215, 35);
-		GenderPanel.add(genderField);
+		JComboBox genderBox = new JComboBox();
+		genderBox.setBorder(new LineBorder(Color.BLACK, 2, true));
+		genderBox.setModel(new DefaultComboBoxModel(new String[] {"Uomo", "Donna", "Altro"}));
+		genderBox.setBounds(10, 11, 215, 35);
+		GenderPanel.add(genderBox);
 		
 		JLabel genderLabel = new JLabel("Sesso");
 		genderLabel.setBounds(225, 2, 46, 53);
@@ -226,11 +228,26 @@ public class RegistrationGUI {
 				String eccoUs = usernameField.getText();
 				String eccoPsd = passwordField.getText();
 				String eccoEmail = emailField.getText();
-				String eccoGender = genderField.getText();
+				String eccoGender = null;
+				
+				int box = genderBox.getSelectedIndex();
+				
+				switch(box){
+					case 0:
+						eccoGender = "Uomo";
+					break;
+					case 1:
+						eccoGender = "Donna";
+					break;
+					case 2:
+						eccoGender = "Altro";
+					break;
+				}
+				
 				Date eccoData = new Date(dateChooser.getDate().getTime());
 				boolean ok;
 					
-				UtenteDAO registrazione = new RegisterConnectionDAO();
+				UtenteDAO registrazione = new GetUtenteDAO();
 				ok = registrazione.registerInDB(eccoUs, eccoPsd, eccoEmail, eccoGender, eccoData);
 				
 				if(ok == true) {

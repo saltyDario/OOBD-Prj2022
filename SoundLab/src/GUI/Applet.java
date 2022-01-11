@@ -67,7 +67,7 @@ public class Applet {
 		paneSearch = new PanelSearch(utente.getId());
 		paneSearch.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneSearch.setBounds(0, 0, 486, 588);
-		paneInfo = new PanelInfo();
+		paneInfo = new PanelInfo(utente.getId(), utente.getTipoUtente());
 		paneInfo.setBorder(new LineBorder(Color.BLACK, 2, true));
 		paneInfo.setBounds(0, 0, 486, 588);
 		
@@ -247,7 +247,11 @@ public class Applet {
 		panel_Info.addMouseListener(new PanelButtonMouseAdapter(panel_Info){
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				menuClicked(paneInfo);
+				if(utente.getTipoUtente().equals("Admin")) {
+					menuClicked(paneInfo);
+				}else {
+					JOptionPane.showMessageDialog(null, "Non hai i permessi per accedere a questa schermata.");
+				}
 			}
 		});
 		panel_Info.setBounds(0, 503, 327, 65);

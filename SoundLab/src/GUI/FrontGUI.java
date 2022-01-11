@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
 
 import DAO.UtenteDAO;
 import GUI.Applet.PanelButtonMouseAdapter;
-import ImplementazioniPostgresDAO.LogInConnectionDAO;
+import ImplementazioniPostgresDAO.GetUtenteDAO;
 
 import javax.swing.JPasswordField;
 import javax.swing.BorderFactory;
@@ -214,7 +214,7 @@ public class FrontGUI {
 				String psd = Password_Field.getText();
 				boolean ok;
 				
-				UtenteDAO login = new LogInConnectionDAO();
+				UtenteDAO login = new GetUtenteDAO();
 				ok = login.logInDB(uname, psd);
 				
 				if(ok == true) {
