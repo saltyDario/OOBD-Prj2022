@@ -41,11 +41,6 @@ public class Applet {
 	private int mouseX, mouseY;
 	
 	public Applet(String uname) {
-		initialize(uname);
-	}
-
-
-	private void initialize(String uname) {
 		Utente utente = new Utente(uname);
 		
 		JFrame AppWindow = new JFrame();

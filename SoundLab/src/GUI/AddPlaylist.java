@@ -36,10 +36,6 @@ public class AddPlaylist extends JDialog {
 	private JTextField playlistGenre_field;
 	
 	public AddPlaylist(int idutente) {
-		initialize(idutente);
-	}
-	
-	private void initialize(int idutente) {
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBackground(Color.GRAY);
 		JDialog addPlaylistDialog = new JDialog();

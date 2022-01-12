@@ -44,17 +44,8 @@ public class FrontGUI {
 	private JTextField Username_Field;
 	private JPasswordField Password_Field;
 	private int mouseX, mouseY;
-	/**
-	 * Create the application.
-	 */
-	public FrontGUI() {
-		initialize();
-	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public FrontGUI() {
 		JFrame LogInWindow = new JFrame();
 		LogInWindow.setUndecorated(true);
 		LogInWindow.setResizable(false);

@@ -48,15 +48,8 @@ public class RegistrationGUI {
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JTextField emailField;
-	
-	public RegistrationGUI() {
-		initialize();
-	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public RegistrationGUI(){
 		JFrame RegistrationFrame = new JFrame();
 		RegistrationFrame.setUndecorated(true);
 		RegistrationFrame.setResizable(false);

@@ -15,5 +15,4 @@ public interface AscoltoDAO {
 
 	public ArrayList<Ascolto> ritornaAscoltiDaUtente(String nome);
 	
-	
 }

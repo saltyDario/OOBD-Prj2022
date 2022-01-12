@@ -43,13 +43,9 @@ public class AscoltoAggiungiTraccia extends JDialog {
 	private Timestamp ts = new Timestamp(System.currentTimeMillis());
 	private ArrayList<Playlist> lista_playlist = new ArrayList<Playlist>();
 	private Libreria libs;
-	
 	//yyyy/MM/dd HH:mm:ss
+
 	public AscoltoAggiungiTraccia(int id_utente, int id_traccia, String nome_traccia) {
-		initialize(id_utente, id_traccia, nome_traccia);
-	}
-	
-	private void initialize(int id_utente, int id_traccia, String nome_traccia) {
 		
 		LibreriaDAO l = new GetLibreriaDAO();
 		libs = l.ritornaLibreria(id_utente);
@@ -145,6 +141,9 @@ public class AscoltoAggiungiTraccia extends JDialog {
 				LocalTime sera = LocalTime.parse("18:59:59");
 				LocalTime notte = LocalTime.parse("23:59:59");
 				
+				LocalTime notteFonda = LocalTime.parse("00:00:00");
+				LocalTime notteFin = LocalTime.parse("06:59:59");
+				
 				AscoltoDAO a = new GetAscoltoDAO();
 				
 				if(orario.isAfter(mattina) && orario.isBefore(pomeriggio)) {
@@ -153,7 +152,7 @@ public class AscoltoAggiungiTraccia extends JDialog {
 					fasciaoraria = "Pomeriggio";
 				}else if(orario.isAfter(sera) && orario.isBefore(notte)) {
 					fasciaoraria = "Sera";
-				}else if(orario.isAfter(notte) && orario.isBefore(mattina)) {
+				}else if(orario.isAfter(notteFonda) && orario.isBefore(notteFin)) {
 					fasciaoraria = "Notte";
 				}
 

@@ -32,13 +32,9 @@ public class AscoltoRimuoviTraccia extends JDialog {
  
 	private int mouseX, mouseY;
 	private Timestamp ts = new Timestamp(System.currentTimeMillis());
-    
 	//yyyy/MM/dd HH:mm:ss
+
 	public AscoltoRimuoviTraccia(int id_utente, int id_traccia, String nome_traccia, int grandezza_playlist) {
-		initialize(id_utente, id_traccia, nome_traccia, grandezza_playlist);
-	}
-	
-	private void initialize(int id_utente, int id_traccia, String nome_traccia, int grandezza_playlist) {
 		
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBackground(Color.GRAY);

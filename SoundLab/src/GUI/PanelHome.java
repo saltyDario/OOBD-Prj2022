@@ -69,15 +69,13 @@ public class PanelHome extends JPanel {
 	String headersAlbum[] = { "Nome", "Cantante", "Anno"};
 	String headersTracce[] = { "Nome", "Genere", "Tipo Canzone", "Anno", "Artista"};
 
-
-	
 	private JTable tableArtisti = new JTable();
 	private JTable tableAlbum = new JTable();
 	private JTable tableTracce = new JTable();
+	
 	private JTextField fieldArtisti;
 	private JTextField fieldAlbum;
 	private JTextField fieldTracce;
-
 
 	public PanelHome(int id_utente) {
 		setBackground(Color.GRAY);
