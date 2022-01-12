@@ -165,7 +165,7 @@ public class PanelHome extends JPanel {
 		        Point punto = mouseEvent.getPoint();
 		        int righe = table.rowAtPoint(punto);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-		            System.out.println("okokok");
+		            
 		        }
 		    }
 		});
@@ -177,7 +177,6 @@ public class PanelHome extends JPanel {
 		tableArtisti.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableArtisti.setModel(modelArtisti);
 		tableArtisti.setRowHeight(45);
-		//tableArtisti.setVisible(false);
 		
 		tableAlbum.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
@@ -185,7 +184,7 @@ public class PanelHome extends JPanel {
 		        Point punto = mouseEvent.getPoint();
 		        int righe = table.rowAtPoint(punto);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-		            System.out.println("okokok");
+		        	
 		        }
 		    }
 		});
@@ -197,7 +196,6 @@ public class PanelHome extends JPanel {
 		tableAlbum.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableAlbum.setModel(modelAlbum);
 		tableAlbum.setRowHeight(45);
-		//tableAlbum.setVisible(false);
 		
 		tableTracce.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
@@ -221,7 +219,6 @@ public class PanelHome extends JPanel {
 		tableTracce.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableTracce.setModel(modelTracce);
 		tableTracce.setRowHeight(45);
-		//tableTracce.setVisible(false);
 		
 		modelArtisti.setColumnIdentifiers(headersArtisti);
 		modelAlbum.setColumnIdentifiers(headersAlbum);
@@ -448,7 +445,7 @@ public class PanelHome extends JPanel {
 					}
 				break;
 				default:
-				JOptionPane.showMessageDialog(null, "Non hai selezionato un tipo di ricerca, selezionane uno.");					
+					JOptionPane.showMessageDialog(null, "Non hai selezionato un tipo di ricerca, selezionane uno.");					
 				}
 			}
 		});

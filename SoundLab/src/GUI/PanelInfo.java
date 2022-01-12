@@ -133,11 +133,12 @@ public class PanelInfo extends JPanel {
 				String nome = searchField.getText(); 
 				int grandezza;
 				AscoltoDAO a = new GetAscoltoDAO();
+				scrollPaneAsc.setVisible(false);
 				
 				switch (box) {
 				case 1:
 				
-				scrollPaneAsc.setVisible(false);
+				scrollPane.setVisible(true);
 				lista_ascolti = a.ritornaAscoltiDaTraccia(nome);
 				
 				grandezza = lista_ascolti.size();
@@ -172,7 +173,7 @@ public class PanelInfo extends JPanel {
 					
 				break;
 				default:
-				JOptionPane.showMessageDialog(null, "Non hai selezionato un tipo di ricerca, selezionane uno.");
+					JOptionPane.showMessageDialog(null, "Non hai selezionato un tipo di ricerca, selezionane uno.");
 				}
 			}
 		});
@@ -201,8 +202,6 @@ public class PanelInfo extends JPanel {
 		        int righe = table.rowAtPoint(punto);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 		        	
-		        	//id_traccia = list.get(table.getSelectedRow()).getIdTraccia();
-		        	//nome_traccia = list.get(table.getSelectedRow()).getNomeTraccia();
 		        }
 		    }
 		});
@@ -222,9 +221,7 @@ public class PanelInfo extends JPanel {
 		        Point punto = mouseEvent.getPoint();
 		        int righe = table.rowAtPoint(punto);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-		        	
-		        	//id_traccia = list.get(table.getSelectedRow()).getIdTraccia();
-		        	//nome_traccia = list.get(table.getSelectedRow()).getNomeTraccia();
+
 		        }
 		    }
 		});

@@ -31,8 +31,7 @@ public class GetUtenteDAO implements UtenteDAO{
 		}
 	}
 	
-	public boolean getUtenteInDB(String username) {
-		boolean ok = false;
+	public void getUtenteInDB(String username) {
 		
 		String eccoUs = null;
 		String eccoPsd = null;
@@ -51,9 +50,8 @@ public class GetUtenteDAO implements UtenteDAO{
             }
 			
 		}catch(SQLException c) {
-			JOptionPane.showMessageDialog(null, "Non è stato possibile ricevere l'utente.");
+			//c.printStackTrace();
 		}
-		return ok;
 	}
 	
 	@Override
@@ -83,7 +81,7 @@ public class GetUtenteDAO implements UtenteDAO{
 		con.close();
 		}
 	}catch(SQLException c) {
-		c.printStackTrace();
+		//c.printStackTrace();
 	}
 		return ok;
 	}

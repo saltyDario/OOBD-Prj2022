@@ -8,7 +8,7 @@ public interface UtenteDAO {
 	
 	boolean registerInDB(String username, String password, String email, String sesso, Date data);
 	
-	public boolean getUtenteInDB(String username);
+	public void getUtenteInDB(String username);
 	
 	
 }

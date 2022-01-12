@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import DAO.PlaylistDAO;
-import ImplementazioniPostgresDAO.PlaylistConnectionDAO;
+import ImplementazioniPostgresDAO.GetPlaylistDAO;
 import Modelli.Playlist;
 
 import java.awt.Color;
@@ -172,7 +172,7 @@ public class AddPlaylist extends JDialog {
 								String genere = playlistGenre_field.getText();
 								boolean ok;
 								
-								PlaylistDAO newplaylist = new PlaylistConnectionDAO();
+								PlaylistDAO newplaylist = new GetPlaylistDAO();
 
 								ok = newplaylist.ritornaPlaylist(idutente, nome, genere);
 								

@@ -12,7 +12,7 @@ import DAO.TracciaDAO;
 import ImplementazioniPostgresDAO.GetAggiungiDAO;
 import ImplementazioniPostgresDAO.GetAscoltoDAO;
 import ImplementazioniPostgresDAO.GetTracceDAO;
-import ImplementazioniPostgresDAO.LibConnectionDAO;
+import ImplementazioniPostgresDAO.GetLibreriaDAO;
 import Modelli.Libreria;
 import Modelli.Playlist;
 
@@ -51,10 +51,13 @@ public class AscoltoAggiungiTraccia extends JDialog {
 	
 	private void initialize(int id_utente, int id_traccia, String nome_traccia) {
 		
-		LibreriaDAO l = new LibConnectionDAO();
+		LibreriaDAO l = new GetLibreriaDAO();
 		libs = l.ritornaLibreria(id_utente);
 		lista_playlist = libs.getPlaylist();
-		
+		if(lista_playlist.size() == 0) {
+			Playlist dummyPl = new Playlist(0, "Select", null, 0);
+			lista_playlist.add(dummyPl);
+		}
 		int grandezza = lista_playlist.size();
 		
 		JComboBox playlistBox = new JComboBox<Playlist>();
@@ -137,7 +140,6 @@ public class AscoltoAggiungiTraccia extends JDialog {
 				String fasciaoraria = null;
 				
 				LocalTime orario = java.time.LocalTime.now();
-				System.out.println(""+ orario);
 				LocalTime mattina = LocalTime.parse("07:00:00");
 				LocalTime pomeriggio = LocalTime.parse("13:59:59");
 				LocalTime sera = LocalTime.parse("18:59:59");
@@ -183,20 +185,14 @@ public class AscoltoAggiungiTraccia extends JDialog {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean ok = false;
+				int id_playlist = lista_playlist.get(playlistBox.getSelectedIndex()).getIDPlaylist();
 				
-				int box = playlistBox.getSelectedIndex();
-				int id_playlist = lista_playlist.get(box).getIDPlaylist();
-				
-				
-				//TODO fixare questo blocco index -1 out of bounds
-				if(lista_playlist.size() == 0) {
-					JOptionPane.showMessageDialog(null, "Non hai selezionato una playlist.");
+				if(lista_playlist.get(0).getNomePlaylist().equals("Select")) {
+					JOptionPane.showMessageDialog(null, "Non hai creato alcuna playlist, creane una.");
 				}else {
-					if(box >= 0){
-						AggiungiDAO t = new GetAggiungiDAO();
-						ok = t.inserisciTracciaInPlaylist(id_playlist, id_traccia);
-					}
-		
+					AggiungiDAO t = new GetAggiungiDAO();
+					ok = t.inserisciTracciaInPlaylist(id_playlist, id_traccia);
+						
 					if(ok == true) {
 						JOptionPane.showMessageDialog(null, "La traccia "+ nome_traccia +" e' stata aggiunta dalla playlist.");
 						trackHearAdd.dispose();

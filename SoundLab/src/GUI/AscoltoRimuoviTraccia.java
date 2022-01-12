@@ -40,8 +40,6 @@ public class AscoltoRimuoviTraccia extends JDialog {
 	
 	private void initialize(int id_utente, int id_traccia, String nome_traccia, int grandezza_playlist) {
 		
-		//System.out.println(""+ idutente + nome_traccia);
-		
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBackground(Color.GRAY);
 		JDialog trackHearRemove = new JDialog();
@@ -116,7 +114,6 @@ public class AscoltoRimuoviTraccia extends JDialog {
 				String fasciaoraria = null;
 				
 				LocalTime orario = java.time.LocalTime.now();
-				System.out.println(""+ orario);
 				LocalTime mattina = LocalTime.parse("07:00:00");
 				LocalTime pomeriggio = LocalTime.parse("13:59:59");
 				LocalTime sera = LocalTime.parse("18:59:59");

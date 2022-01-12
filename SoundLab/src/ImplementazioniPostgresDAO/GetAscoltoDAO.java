@@ -32,8 +32,7 @@ public class GetAscoltoDAO implements AscoltoDAO{
 		
 		boolean ok = false;
 		 
-		try {			
-			System.out.println(""+ fasciaoraria);
+		try {
 			PreparedStatement st = connection.prepareStatement("INSERT INTO ascolto(id_utente, id_traccia, fasciaoraria, data) values(?, ?, ?, ?)");
 			st.setInt(1, id_utente);
 			st.setInt(2, id_traccia);
@@ -48,8 +47,7 @@ public class GetAscoltoDAO implements AscoltoDAO{
 			}
 			connection.close();
 		}catch(SQLException c) {
-			c.printStackTrace();
-			JOptionPane.showMessageDialog(null, "SQL Exception.");
+			//c.printStackTrace();
 		}
 		return ok;
 	}
@@ -88,7 +86,7 @@ public class GetAscoltoDAO implements AscoltoDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
 	}
@@ -122,7 +120,7 @@ public class GetAscoltoDAO implements AscoltoDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
 	}

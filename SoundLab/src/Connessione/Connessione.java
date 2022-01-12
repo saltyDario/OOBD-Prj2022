@@ -20,7 +20,7 @@ public class Connessione {
 			
 		}catch(ClassNotFoundException ex) {
 			System.out.println("Problema DataBase: " + ex.getMessage());
-			ex.printStackTrace();
+			//ex.printStackTrace();
 		}
 	}
 	

@@ -39,7 +39,7 @@ public class GetAggiungiDAO implements AggiungiDAO{
 			}
 			connection.close();
 		}catch(SQLException c) {
-			c.printStackTrace();
+			//c.printStackTrace();
 			JOptionPane.showMessageDialog(null, "La traccia è già presente nella playlist.");
 		}
 		return ok;

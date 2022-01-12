@@ -48,7 +48,6 @@ public class GetTracceDAO implements TracciaDAO{
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
-             //System.out.println(""+ id_traccia);
              
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
@@ -56,7 +55,7 @@ public class GetTracceDAO implements TracciaDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
 	}
@@ -94,7 +93,6 @@ public class GetTracceDAO implements TracciaDAO{
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
-             //System.out.println(""+ nome_traccia);
              
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
@@ -102,7 +100,7 @@ public class GetTracceDAO implements TracciaDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
 	}
@@ -132,7 +130,6 @@ public class GetTracceDAO implements TracciaDAO{
             genere_traccia = rs.getString("genere");
             tipo_can = rs.getString("tipo_can");
             cantante = rs.getString("string_agg");
-             //System.out.println(""+ nome_album);
              
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
@@ -140,7 +137,7 @@ public class GetTracceDAO implements TracciaDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
 	}
@@ -170,7 +167,6 @@ public class GetTracceDAO implements TracciaDAO{
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
-             //System.out.println(""+ id_traccia);
 
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
@@ -178,7 +174,7 @@ public class GetTracceDAO implements TracciaDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
     }
@@ -209,7 +205,6 @@ public class GetTracceDAO implements TracciaDAO{
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
-             //System.out.println(""+ nome_traccia);
              
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
@@ -217,7 +212,7 @@ public class GetTracceDAO implements TracciaDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
 	}
@@ -248,7 +243,6 @@ public class GetTracceDAO implements TracciaDAO{
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
-             //System.out.println(""+ nome_traccia);
              
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
@@ -256,7 +250,7 @@ public class GetTracceDAO implements TracciaDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
 	}
@@ -287,7 +281,6 @@ public class GetTracceDAO implements TracciaDAO{
              genere_traccia = rs.getString("genere");
              tipo_can = rs.getString("tipo_can");
              cantante = rs.getString("string_agg");
-             //System.out.println(""+ nome_traccia);
              
              Traccia nomeobj = new Traccia(nome_traccia, anno, genere_traccia, tipo_can, cantante, id_traccia);
              list.add(nomeobj);
@@ -295,7 +288,7 @@ public class GetTracceDAO implements TracciaDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return list;
 	}
@@ -313,7 +306,7 @@ public class GetTracceDAO implements TracciaDAO{
         connection.close();
         
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return ok;
 	}

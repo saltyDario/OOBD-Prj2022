@@ -16,10 +16,10 @@ import Modelli.Libreria;
 import Modelli.Playlist;
 import Modelli.Traccia;
 
-public class PlaylistConnectionDAO implements PlaylistDAO{
+public class GetPlaylistDAO implements PlaylistDAO{
 	private Connection connection;
 	
-	public PlaylistConnectionDAO() {
+	public GetPlaylistDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
 		}catch(SQLException e) {
@@ -45,7 +45,7 @@ public class PlaylistConnectionDAO implements PlaylistDAO{
 			connection.close();
 
 		}catch(SQLException c) {
-			JOptionPane.showMessageDialog(null, "SQL exception.");
+			//c.printStackTrace();
 		}
 		return ok;
 	}
@@ -62,7 +62,7 @@ public class PlaylistConnectionDAO implements PlaylistDAO{
 		           setPreferitaFalse.close();
 		           ok = "false";
 		       }catch(SQLException e) {
-		           e.printStackTrace();
+		           //e.printStackTrace();
 		       }
 		}else {
 		       try {
@@ -71,7 +71,7 @@ public class PlaylistConnectionDAO implements PlaylistDAO{
 		           setPreferitaTrue.close();
 		           ok = "true";
 		       }catch(SQLException e) {
-		           e.printStackTrace();
+		           //e.printStackTrace();
 		       }
 		}
 		return ok;
@@ -88,7 +88,7 @@ public class PlaylistConnectionDAO implements PlaylistDAO{
 			connection.close();
 
 		}catch(SQLException c) {
-			JOptionPane.showMessageDialog(null, "SQL exception.");
+			//c.printStackTrace();
 		}
 		return ok;
 	}

@@ -17,8 +17,8 @@ import DAO.LibreriaDAO;
 import DAO.PlaylistDAO;
 import DAO.TracciaDAO;
 import ImplementazioniPostgresDAO.GetTracceDAO;
-import ImplementazioniPostgresDAO.LibConnectionDAO;
-import ImplementazioniPostgresDAO.PlaylistConnectionDAO;
+import ImplementazioniPostgresDAO.GetLibreriaDAO;
+import ImplementazioniPostgresDAO.GetPlaylistDAO;
 import Modelli.Libreria;
 import Modelli.Playlist;
 import Modelli.Traccia;
@@ -159,8 +159,6 @@ public class PanelLibrary extends JPanel {
 	            int id_playlist_loc = id_playlist;
 	      
 	            list = t.ritornaTraccePlaylist(id_playlist_loc);
-	            
-		        System.out.println(""+ id_playlist_loc);
 		        
 					modelTableTracce.setRowCount(0);
 					for (int i = 0; i < list.size(); i++) {
@@ -212,7 +210,7 @@ public class PanelLibrary extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				refreshPanel.setBackground(Color.DARK_GRAY);
-				LibreriaDAO l = new LibConnectionDAO();
+				LibreriaDAO l = new GetLibreriaDAO();
 				
 				libs = l.ritornaLibreria(u.getId());
 				lista_playlist = libs.getPlaylist();
@@ -253,7 +251,7 @@ public class PanelLibrary extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				downloadLibPanel.setBackground(Color.DARK_GRAY);
-				LibreriaDAO l = new LibConnectionDAO();
+				LibreriaDAO l = new GetLibreriaDAO();
 				
 				libs = l.ritornaLibreria(u.getId());
 				lista_playlist = libs.getPlaylist();
@@ -309,10 +307,9 @@ public class PanelLibrary extends JPanel {
 				}else {
 					playlist_pref = "false";
 				}
-				//System.out.println(""+ playlist_pref);
 				int id_playlist_loc = id_playlist;
 				
-				PlaylistDAO p = new PlaylistConnectionDAO();
+				PlaylistDAO p = new GetPlaylistDAO();
 				ok = p.togglePreferita(id_playlist_loc, playlist_pref);
 				
 				if(ok.equals("true")) {
@@ -386,7 +383,7 @@ public class PanelLibrary extends JPanel {
 				binPanel.setBackground(Color.DARK_GRAY);
 				
 				if(JOptionPane.showConfirmDialog(null, "Sei sicuro di voler eliminare la playlist?", "Conferma", JOptionPane.YES_NO_OPTION) == 0) {
-					PlaylistDAO p = new PlaylistConnectionDAO();
+					PlaylistDAO p = new GetPlaylistDAO();
 					boolean ok;
 					
 					ok = p.eliminaPlaylist(id_playlist);
@@ -450,6 +447,7 @@ public class PanelLibrary extends JPanel {
 				prefPlaylistPanel.setVisible(false);
 				refreshPanelPlaylist.setVisible(false);
 				binPanel.setVisible(false);
+				
 	            scrollPane.setVisible(true);
 	            refreshPanel.setVisible(true);
 	            plusPanel.setVisible(true);
@@ -477,7 +475,6 @@ public class PanelLibrary extends JPanel {
 		            playlist_pref = lista_playlist.get(table.getSelectedRow()).getFavorite();
 		            list = t.ritornaTraccePlaylist(id_playlist);
 		            
-		            if(list.size() > 0) {
 			            scrollPane.setVisible(false);
 			            refreshPanel.setVisible(false);
 			            plusPanel.setVisible(false);
@@ -491,14 +488,16 @@ public class PanelLibrary extends JPanel {
 									String.valueOf(list.get(i).getAnnoTraccia()),
 									String.valueOf(list.get(i).getCantanti())});
 							}
+						
 						prefPlaylistPanel.setVisible(true);
 						refreshPanelPlaylist.setVisible(true);
 						backPanel.setVisible(true);
 			            scrollPaneTracce.setVisible(true);
 			            binPanel.setVisible(true);
-		            }else {
-		            	JOptionPane.showMessageDialog(null, "La Playlist "+ obj +" e' vuota");
-		            }
+			            
+			            if(list.size() == 0) {
+							JOptionPane.showMessageDialog(null, "La Playlist "+ obj +" e' vuota");
+						}
 		        }
 		    }
 		});
@@ -545,8 +544,6 @@ public class PanelLibrary extends JPanel {
 		refreshLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		refreshLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Immagini/refreshing.png")).getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
 		
-		//playlist_open.setVisible(true);
-		//paneMainContent.add(playlistPane);
 	}
 
 	 public Object GetData(JTable table, int row_index, int col_index){

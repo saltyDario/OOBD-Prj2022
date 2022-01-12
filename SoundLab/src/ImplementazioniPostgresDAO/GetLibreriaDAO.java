@@ -14,11 +14,11 @@ import DAO.LibreriaDAO;
 import Modelli.Libreria;
 import Modelli.Playlist;
 
-public class LibConnectionDAO implements LibreriaDAO{
+public class GetLibreriaDAO implements LibreriaDAO{
 	
 	private Connection connection;
 	
-	public LibConnectionDAO() {
+	public GetLibreriaDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
 		}catch(SQLException e) {
@@ -47,7 +47,6 @@ public class LibConnectionDAO implements LibreriaDAO{
              numerotracce = rs.getInt("numerotracce");
              preferita = rs.getString("preferita");
              id_playlist = rs.getInt("id_playlist");
-             //System.out.println(""+preferita);
              
              Playlist nomeobj = new Playlist(id_utente, nome_playlist, genere_playlist, id_playlist);
              nomeobj.setnumeroTracce(numerotracce);
@@ -59,15 +58,10 @@ public class LibConnectionDAO implements LibreriaDAO{
         }
         rs.close();
     }catch(SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
     }
     return l;
 	}
 
-	@Override
-	public Libreria leggiLibreria(int id_utente) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 

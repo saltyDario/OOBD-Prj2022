@@ -49,7 +49,7 @@ public class GetArtistiDAO implements ArtistaDAO{
 			}
 			rs.close();
 		}catch(SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return list;
 	}
@@ -80,7 +80,7 @@ public class GetArtistiDAO implements ArtistaDAO{
 			}
 			rs.close();
 		}catch(SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return list;
 	}

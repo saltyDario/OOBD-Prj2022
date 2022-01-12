@@ -16,7 +16,6 @@ public class Libreria {
 
     public void creaLibreria() {
         // TODO Auto-generated method stub
-
     }
 
     public void addPlaylist(Playlist p) {
