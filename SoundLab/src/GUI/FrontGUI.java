@@ -40,11 +40,23 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
+/**
+ * Classe GUI che permette il login o di entrare nel pannello di registrazione.
+ */
 public class FrontGUI {
+	
+	/** The Username field. */
 	private JTextField Username_Field;
+	
+	/** The Password field. */
 	private JPasswordField Password_Field;
+	
+	/** Posizione X,Y del mouse sullo schermo. */
 	private int mouseX, mouseY;
 
+	/**
+	 * Costruttore della classe FrontGUI.
+	 */
 	public FrontGUI() {
 		JFrame LogInWindow = new JFrame();
 		LogInWindow.setUndecorated(true);
@@ -237,29 +249,68 @@ public class FrontGUI {
 		
 	}
 	
+	/**
+	 * The Class PanelButtonMouseAdapter.
+	 */
 	public class PanelButtonMouseAdapter extends MouseAdapter{
 		
+		/** The panel. */
 		JPanel panel;
+		
+		/**
+		 * Instantiates a new panel button mouse adapter.
+		 *
+		 * @param panel the panel
+		 */
 		public PanelButtonMouseAdapter(JPanel panel) {
 			this.panel=panel;
 		}
 		
+		/**
+		 * Mouse clicked.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			panel.setBackground(Color.DARK_GRAY);
 		}
+		
+		/**
+		 * Mouse exited.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		public void mouseExited(MouseEvent e) {
 			panel.setBackground(Color.WHITE);	
 		}
+		
+		/**
+		 * Mouse entered.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			panel.setBackground(Color.DARK_GRAY);
 		}
+		
+		/**
+		 * Mouse pressed.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		public void mousePressed(MouseEvent e) {
 			panel.setBackground(Color.LIGHT_GRAY);
 		}
+		
+		/**
+		 * Mouse released.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			panel.setBackground(Color.DARK_GRAY);

@@ -29,12 +29,25 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Classe GUI che permette l'inserimento di una nuova playlist a partire dal nome ed un genere, estende JDialog.
+ */
 public class AddPlaylist extends JDialog {
  
+	/** Posizione X,Y del mouse sullo schermo. */
 	private int mouseX, mouseY;
+	
+	/** Campo di inserimento del nome della nuova playlist. */
 	private JTextField playlistName_field;
+	
+	/** Campo di inserimento del genere della nuova playlist. */
 	private JTextField playlistGenre_field;
 	
+	/**
+	 * Costruttore della classe.
+	 *
+	 * @param idutente viene passato l'id utente per l'inserimento della eventuale playlist.
+	 */
 	public AddPlaylist(int idutente) {
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBackground(Color.GRAY);

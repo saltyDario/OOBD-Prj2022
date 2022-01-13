@@ -16,9 +16,17 @@ import Modelli.Libreria;
 import Modelli.Playlist;
 import Modelli.Traccia;
 
+/**
+ * Classe di implementazione PostgresDAO che implementa PlaylistDAO
+ */
 public class GetPlaylistDAO implements PlaylistDAO{
+	
+	/** Oggetto di tipo Connection in cui viene aperta l'istanza di connessione */
 	private Connection connection;
 	
+	/**
+	 * Costruttore che si occupa di aprire la connessione
+	 */
 	public GetPlaylistDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
@@ -27,6 +35,14 @@ public class GetPlaylistDAO implements PlaylistDAO{
 		}
 	}
 	
+	/**
+	 * Inserisce la playlist.
+	 *
+	 * @param idutente che sta inserendo la playlist
+	 * @param nome della playlist inserita
+	 * @param genere della playlist inserita
+	 * @return true se inserimento con successo
+	 */
 	public boolean ritornaPlaylist(int idutente, String nome, String genere) {
 		boolean ok = false;
 		
@@ -50,6 +66,13 @@ public class GetPlaylistDAO implements PlaylistDAO{
 		return ok;
 	}
 	
+	/**
+	 * Toggle preferita.
+	 *
+	 * @param id_playlist della playlist selezionata
+	 * @param playlist_pref per sapere se al momento è true o false
+	 * @return la stringa per sapere se la playlist è adesso preferita o no
+	 */
 	public String togglePreferita(int id_playlist, String playlist_pref) {
 		String ok = null;
 		PreparedStatement setPreferitaFalse;
@@ -77,6 +100,12 @@ public class GetPlaylistDAO implements PlaylistDAO{
 		return ok;
 	}
 	
+	/**
+	 * Elimina playlist.
+	 *
+	 * @param id_playlist da eliminare
+	 * @return true, se eliminata con successo
+	 */
 	public boolean eliminaPlaylist(int id_playlist) {
 		boolean ok = false;
 		

@@ -32,22 +32,42 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
+/**
+ * Classe GUI che ci permette di effettuare una ricerca di tracce in base a vari input
+ */
 public class PanelSearch extends JPanel {
+	
+	/** The search field. */
 	private JTextField searchField;
+	
+	/** Variabile contenente id della traccia che si va a selezionare */
 	private int id_traccia;
+	
+	/** Nome della traccia selezionata */
 	private String nome_traccia = null;
+	
+	/** Lista di tracce restituite */
 	private ArrayList<Traccia> list = new ArrayList<Traccia>();
 	
+	/** Tabella che mostra le tracce restituite */
 	DefaultTableModel modelTable = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
 	};
+	
+	/** Header della tabella tracce */
 	String headers[] = { "Nome", "Genere", "Tipo Canzone", "Anno", "Artista" };
 	
+	/** Tabella tracce */
 	private JTable table = new JTable();
 	
+	/**
+	 * Costruttore di PanelSearch
+	 *
+	 * @param id_utente per effettuare determinate operazioni
+	 */
 	public PanelSearch(int id_utente) {
 		setBackground(Color.GRAY);
 		setBounds(0, 0, 481, 592);

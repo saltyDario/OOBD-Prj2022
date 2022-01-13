@@ -43,12 +43,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
 
+/**
+ * Classe GUI che permette la registrazione per poi effettuare il login
+ */
 public class RegistrationGUI {
+	
+	/**  Posizione X,Y del mouse sullo schermo. */
 	int mouseX, mouseY;
+	
+	/** The username field. */
 	private JTextField usernameField;
+	
+	/** The password field. */
 	private JPasswordField passwordField;
+	
+	/** The email field. */
 	private JTextField emailField;
 
+	/**
+	 * Costruttore della classe RegistrationGUI
+	 */
 	public RegistrationGUI(){
 		JFrame RegistrationFrame = new JFrame();
 		RegistrationFrame.setUndecorated(true);

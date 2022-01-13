@@ -33,36 +33,53 @@ import ImplementazioniPostgresDAO.GetUtenteDAO;
 import Modelli.Ascolto;
 import Modelli.Traccia;
 
+/**
+ * Classe GUI che permette ad un utente di tipo admin controllare le statistiche in base a vari valori di input
+ */
 public class PanelInfo extends JPanel {
-		//setBounds(0, 0, 481, 592);
-		//setLayout(null);
 
+	/** The search field. */
 	private JTextField searchField;
-	private int id_traccia;
-	private String nome_traccia = null;
-	private ArrayList<Traccia> list = new ArrayList<Traccia>();
+	
+	/** Lista ascolti ritornata. */
 	private ArrayList<Ascolto> lista_ascolti = new ArrayList<Ascolto>();
 	
+	/** Modello della tabella a partire dalla ricerca di una traccia. */
 	DefaultTableModel modelTable = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
 	};
+	
+	/** Header tabella per ricerca a partire da una traccia */
 	String headers[] = { "Nome", "Numero Ascolti", "Tipo Canzone", "Artista" };
+	
+	/** Tabella ascolti a partire da una traccia. */
 	private JTable table = new JTable();
 	
 	
+	/** Modello della tabella a partire dalla ricerca di un utente. */
 	DefaultTableModel modelTableAsc = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
 	};
+	
+	/** Header tabella per ricerca a partire da un utente */
 	String headers_asc[] = { "Nome", "Fascia Oraria", "Numero Ascolti"};
+	
+	/** Tabella ascolti a partire da un utente. */
 	private JTable table_asc = new JTable();
 	
 	
+	/**
+	 * Costruttore PanelInfo
+	 *
+	 * @param id_utente per utilizzare le funzioni di richiesta
+	 * @param tipo_ut ci permette di accedere a questo pannello
+	 */
 	public PanelInfo(int id_utente, String tipo_ut) {
 		setBackground(Color.GRAY);
 		setBounds(0, 0, 481, 592);

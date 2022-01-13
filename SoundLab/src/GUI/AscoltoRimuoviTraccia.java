@@ -28,12 +28,26 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Classe GUI che permette di ascoltare una traccia o di rimuoverla da una playlist.
+ */
 public class AscoltoRimuoviTraccia extends JDialog {
  
+	/** Posizione X,Y del mouse sullo schermo. */
 	private int mouseX, mouseY;
+	
+	/** Timestamp del tempo attuale  */
 	private Timestamp ts = new Timestamp(System.currentTimeMillis());
 	//yyyy/MM/dd HH:mm:ss
 
+	/**
+	 * Costruttore della classe AscoltoRimuoviTraccia
+	 *
+	 * @param id_utente passato per effettuare i lavori di ascolto e rimozione
+	 * @param id_traccia passato per effettuare i lavori di ascolto e rimozione
+	 * @param nome_traccia passato per effettuare i lavori di ascolto e rimozione
+	 * @param grandezza_playlist passato per effettuare i lavori di ascolto e rimozione
+	 */
 	public AscoltoRimuoviTraccia(int id_utente, int id_traccia, String nome_traccia, int grandezza_playlist) {
 		
 		JPanel contentPanel = new JPanel();
@@ -115,6 +129,9 @@ public class AscoltoRimuoviTraccia extends JDialog {
 				LocalTime sera = LocalTime.parse("18:59:59");
 				LocalTime notte = LocalTime.parse("23:59:59");
 				
+				LocalTime notteFonda = LocalTime.parse("00:00:00");
+				LocalTime notteFin = LocalTime.parse("06:59:59");
+				
 				AscoltoDAO a = new GetAscoltoDAO();
 				
 				if(orario.isAfter(mattina) && orario.isBefore(pomeriggio)) {
@@ -123,7 +140,7 @@ public class AscoltoRimuoviTraccia extends JDialog {
 					fasciaoraria = "Pomeriggio";
 				}else if(orario.isAfter(sera) && orario.isBefore(notte)) {
 					fasciaoraria = "Sera";
-				}else if(orario.isAfter(notte) && orario.isBefore(mattina)) {
+				}else if(orario.isAfter(notteFonda) && orario.isBefore(notteFin)) {
 					fasciaoraria = "Notte";
 				}
 

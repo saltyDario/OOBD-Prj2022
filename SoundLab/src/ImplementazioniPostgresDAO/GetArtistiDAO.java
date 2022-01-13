@@ -12,9 +12,17 @@ import DAO.ArtistaDAO;
 import DAO.TracciaDAO;
 import Modelli.Artista;
 
+/**
+ * Classe di implementazione PostgresDAO che implementa ArtistaDAO
+ */
 public class GetArtistiDAO implements ArtistaDAO{
+	
+	/** Oggetto di tipo Connection in cui viene aperta l'istanza di connessione*/
 	private Connection connection;
 	
+	/**
+	 * Costruttore che si occupa di aprire la connessione
+	 */
 	public GetArtistiDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
@@ -23,6 +31,12 @@ public class GetArtistiDAO implements ArtistaDAO{
 		}
 	}
 
+	/**
+	 * Ritorna artisti da nome.
+	 *
+	 * @param nome artista ricercato
+	 * @return lista di artisti ritornata da mandare a display
+	 */
 	@Override
 	public ArrayList<Artista> ritornaArtistiDaNome(String nome) {
 		PreparedStatement scaricaArtisti;
@@ -54,6 +68,12 @@ public class GetArtistiDAO implements ArtistaDAO{
 		return list;
 	}
 
+	/**
+	 * Ritorna artisti per nazionalita.
+	 *
+	 * @param nazione ricercata
+	 * @return lista di artisti ritornata da mandare a display
+	 */
 	@Override
 	public ArrayList<Artista> ritornaArtistiNazionalita(String nazione) {
 		PreparedStatement scaricaArtisti;

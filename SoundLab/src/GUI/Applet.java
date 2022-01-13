@@ -32,14 +32,31 @@ import javax.swing.border.LineBorder;
 import GUI.FrontGUI;
 import java.awt.event.MouseMotionAdapter;
 
+/**
+ * Classe GUI che permette la comunicazione centrale fra i vari pannelli creati nel menu.
+ */
 public class Applet {
 
+	/** Pannello Home. */
 	private PanelHome paneHome;
+	
+	/** Pannello Libreria. */
 	private PanelLibrary paneLibrary;
+	
+	/** Pannello Ricerca. */
 	private PanelSearch paneSearch;
+	
+	/** Pannello Info per admin. */
 	private PanelInfo paneInfo;
+	
+	/** Posizione X,Y del mouse sullo schermo. */
 	private int mouseX, mouseY;
 	
+	/**
+	 * Costruttore della classe Applet, vedere deifinizione della classe.
+	 *
+	 * @param uname nome dell'username attualmente loggato da cui prenderemo tutti i parametri tramite il metodo getUtenteInDB
+	 */
 	public Applet(String uname) {
 		Utente utente = new Utente(uname);
 		
@@ -310,6 +327,11 @@ public class Applet {
 		creditLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 	}
 	
+	/**
+	 * Metodo che rende cliccabile il menu e oscura i pannelli che non ci interessano rendendo visibile quello cliccato.
+	 *
+	 * @param panel pannello in cui siamo attualmente
+	 */
 	public void menuClicked(JPanel panel) {
 		paneHome.setVisible(false);
 		paneLibrary.setVisible(false);
@@ -319,29 +341,68 @@ public class Applet {
 		panel.setVisible(true);
 	}
 	
+	/**
+	 * Classe innestata utilizzata per capire il pannello in cui siamo attualmente ad ogni nostro click sul menu.
+	 */
 	public class PanelButtonMouseAdapter extends MouseAdapter{
 		
+		/** Switch pannello. */
 		JPanel panel;
+		
+		/**
+		 * Adapter responsivo per switch pannelli.
+		 *
+		 * @param panel the panel
+		 */
 		public PanelButtonMouseAdapter(JPanel panel) {
 			this.panel=panel;
 		}
 		
+		/**
+		 * Mouse clicked.
+		 *
+		 * @param e contiene l'evento del mouse
+		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			panel.setBackground(Color.DARK_GRAY);
 		}
+		
+		/**
+		 * Mouse exited.
+		 *
+		 * @param e contiene l'evento del mouse
+		 */
 		@Override
 		public void mouseExited(MouseEvent e) {
 			panel.setBackground(Color.GRAY);	
 		}
+		
+		/**
+		 * Mouse entered.
+		 *
+		 * @param e contiene l'evento del mouse
+		 */
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			panel.setBackground(Color.DARK_GRAY);
 		}
+		
+		/**
+		 * Mouse pressed.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		public void mousePressed(MouseEvent e) {
 			panel.setBackground(Color.LIGHT_GRAY);
 		}
+		
+		/**
+		 * Mouse released.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			panel.setBackground(Color.DARK_GRAY);

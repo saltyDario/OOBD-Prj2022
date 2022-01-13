@@ -13,15 +13,29 @@ import javax.swing.JOptionPane;
 import Connessione.Connessione;
 import DAO.UtenteDAO;
 
+/**
+ * Classe di implementazione PostgresDAO che implementa UtenteDAO
+ */
 public class GetUtenteDAO implements UtenteDAO{
 	
-	private String eccoUs;
+	/** id dell'utente recuperato */
 	private int ecco_Id = 0;
+	
+	/** email dell'utente recuperato. */
 	private String ecco_Email = null;
+	
+	/** data nascita utente recuperato */
 	private Date ecco_DataN = null;
+	
+	/** tipo utente dell'utente recuperato */
 	private String ecco_TipoUt = null; 
+	
+	/** Oggetto di tipo Connection in cui viene aperta l'istanza di connessione */
 	private Connection con;
 	
+	/**
+	 *  Costruttore che si occupa di aprire la connessione
+	 */
 	public GetUtenteDAO() {
 		
 		try {
@@ -31,6 +45,11 @@ public class GetUtenteDAO implements UtenteDAO{
 		}
 	}
 	
+	/**
+	 * Gets the utente in DB.
+	 *
+	 * @param username username dell'utente
+	 */
 	public void getUtenteInDB(String username) {
 		
 		String eccoUs = null;
@@ -54,6 +73,13 @@ public class GetUtenteDAO implements UtenteDAO{
 		}
 	}
 	
+	/**
+	 * Log in DB.
+	 *
+	 * @param username username dell'utente
+	 * @param password password dell'utente
+	 * @return true se login con successo
+	 */
 	@Override
 	public boolean logInDB(String username, String password) {
 		boolean ok = false;
@@ -86,6 +112,16 @@ public class GetUtenteDAO implements UtenteDAO{
 		return ok;
 	}
 	
+	/**
+	 * Register in DB.
+	 *
+	 * @param username username utente
+	 * @param password password utente
+	 * @param email email utente
+	 * @param sesso sesso utente
+	 * @param data data nascita utente
+	 * @return true se registrato con successo
+	 */
 	@Override
 	public boolean registerInDB(String username, String password, String email, String sesso, Date data) {
 		
@@ -113,18 +149,38 @@ public class GetUtenteDAO implements UtenteDAO{
 		return ok;
 	}
 	
+	/**
+	 * Gets the id utente.
+	 *
+	 * @return the id utente
+	 */
 	public int getIdUtente() {
 		return ecco_Id;
 	}
 	
+	/**
+	 * Gets the email.
+	 *
+	 * @return the email
+	 */
 	public String getEmail() {
 		return ecco_Email;
 	}
 	
+	/**
+	 * Gets the date.
+	 *
+	 * @return the date
+	 */
 	public Date getDate() {
 		return ecco_DataN;
 	}
 	
+	/**
+	 * Gets the tipo ut.
+	 *
+	 * @return the tipo ut
+	 */
 	public String getTipoUt() {
 		return ecco_TipoUt;
 	}

@@ -11,9 +11,17 @@ import javax.swing.JOptionPane;
 import Connessione.Connessione;
 import DAO.AggiungiDAO;
 
+/**
+ * Classe di implementazione PostgresDAO che implementa AggiungiDAO
+ */
 public class GetAggiungiDAO implements AggiungiDAO{
+	
+	/** Oggetto di tipo Connection in cui viene aperta l'istanza di connessione*/
 	private Connection connection;
 	
+	/**
+	 * Costruttore che si occupa di aprire la connessione
+	 */
 	public GetAggiungiDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
@@ -22,6 +30,13 @@ public class GetAggiungiDAO implements AggiungiDAO{
 		}
 	}
 	
+	/**
+	 * Inserisci traccia in playlist.
+	 *
+	 * @param id_playlist id della playlist
+	 * @param id_traccia id della traccia
+	 * @return true se è stata inserita con successo
+	 */
 	public boolean inserisciTracciaInPlaylist(int id_playlist, int id_traccia) {
 		
 		boolean ok = false;

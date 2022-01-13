@@ -42,36 +42,61 @@ import javax.swing.JScrollBar;
 import java.awt.Component;
 import javax.swing.DebugGraphics;
 
+/**
+ * Classe GUI che ci permette di visitare la propria libreria musicale.
+ */
 public class PanelLibrary extends JPanel {
 	
-	private int numero_playlist;
+	/** variabile che contiene l'id_playlist dove siamo dentro */
 	private int id_playlist;
-	private String[] str;
+	
+	/** variabile che contiene il valore on/off della playlist in cui siamo dentro */
 	private String playlist_pref;
 	
+	/** Oggetto di tipo libreria dell'utente */
 	private Libreria libs;
+	
+	/** Lista di playlist scaricate per fare display su schermo */
 	private ArrayList<Playlist> lista_playlist = new ArrayList<Playlist>();
+	
+	/** Lista di tracce scaricate per fare display su schermo */
 	private ArrayList<Traccia> list = new ArrayList<Traccia>();
 	
+	/** Modello della tabella della libreria */
 	DefaultTableModel modelTable = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
 	};
+	
+	/** Header tabella libreria */
 	String headers[] = { "Nome", "Tracce", "Genere", "Preferita" };
+	
+	/** Tabella libreria */
 	private JTable table = new JTable();
 	
 	
+	/** Modello della tabella all'interno di una playlist */
 	DefaultTableModel modelTableTracce = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
 	};
+	
+	/** Header della tabella che effettua il display di tracce all'interno di una playlist */
 	String headersTracce[] = {  "Nome", "Genere", "Tipo Canzone", "Anno", "Artista" };
+	
+	/** Tabella dove vengono mostrate le tracce di una playlist */
 	private JTable tableTracce = new JTable();
 	
+	/**
+	 * Costruttore della classe PanelLibrary
+	 *
+	 * @param username che contiene il nome dell'utente
+	 * @param id_utente contiene l'id_utente per effettruare determinate richieste
+	 */
 	public PanelLibrary(String username, int id_utente) {
 		Utente u = new Utente(username);
 		
@@ -546,7 +571,15 @@ public class PanelLibrary extends JPanel {
 		
 	}
 
-	 public Object GetData(JTable table, int row_index, int col_index){
+	 /**
+ 	 * Metodo che prende dati da una determinata riga o colonna.
+ 	 *
+ 	 * @param table è la tabella che stiamo selezionando
+ 	 * @param row_index indice della riga
+ 	 * @param col_index indice della colonna
+ 	 * @return ritorna un oggetto di tipo obj che viene trasformato in stringa tramite il metodo toString()
+ 	 */
+ 	public Object GetData(JTable table, int row_index, int col_index){
 		  return table.getModel().getValueAt(row_index, col_index);
 		  }
 }

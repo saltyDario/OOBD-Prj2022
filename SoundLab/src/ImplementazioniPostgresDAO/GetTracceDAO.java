@@ -12,9 +12,17 @@ import Modelli.Libreria;
 import Modelli.Playlist;
 import Modelli.Traccia;
 
+/**
+ * Classe di implementazione PostgresDAO che implementa TracciaDAO
+ */
 public class GetTracceDAO implements TracciaDAO{
+	
+	/** Oggetto di tipo Connection in cui viene aperta l'istanza di connessione */
 	private Connection connection;
 	
+	/**
+	 * Costruttore che si occupa di aprire la connessione
+	 */
 	public GetTracceDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
@@ -23,6 +31,12 @@ public class GetTracceDAO implements TracciaDAO{
 		}
 	}
 	
+	/**
+	 * Ritorna tracce a partire da un nome.
+	 *
+	 * @param nomeTraccia da cui fare la ricerca
+	 * @return lista di tracce da mandare a display
+	 */
 	public ArrayList<Traccia> ritornaTracce(String nomeTraccia) {
 		PreparedStatement scaricaTracce;
         ArrayList<Traccia> list = new ArrayList<Traccia>();
@@ -61,6 +75,12 @@ public class GetTracceDAO implements TracciaDAO{
 	}
 	
 	
+	/**
+	 * Ritorna tracce per artista.
+	 *
+	 * @param nomeArtista da cui fare la ricerca
+	 * @return lista di tracce dello stesso artista cercato
+	 */
 	public ArrayList<Traccia> ritornaTraccePerArtista(String nomeArtista) {
 		PreparedStatement scaricaTracce;
         ArrayList<Traccia> list = new ArrayList<Traccia>();
@@ -105,6 +125,12 @@ public class GetTracceDAO implements TracciaDAO{
     return list;
 	}
 	
+	/**
+	 * Ritorna da album.
+	 *
+	 * @param nomeAlbum dell'album
+	 * @return lista di tracce a partire dall'album cercato
+	 */
 	public ArrayList<Traccia> ritornaDaAlbum(String nomeAlbum) {
 		PreparedStatement scaricaTracce;
         ArrayList<Traccia> list = new ArrayList<Traccia>();
@@ -142,6 +168,12 @@ public class GetTracceDAO implements TracciaDAO{
     return list;
 	}
 	
+	/**
+	 * Ritorna tracce playlist.
+	 *
+	 * @param idPlaylist della playlist di cui si vogliono vedere le tracce
+	 * @return lista di tracce di una playlist
+	 */
 	public ArrayList<Traccia> ritornaTraccePlaylist(int idPlaylist) {
         PreparedStatement scaricaTracce;
         ArrayList<Traccia> list = new ArrayList<Traccia>();
@@ -179,6 +211,12 @@ public class GetTracceDAO implements TracciaDAO{
     return list;
     }
 
+	/**
+	 * Ritorna tracce da anno.
+	 *
+	 * @param annoTraccia delle tracce cercate
+	 * @return lista di tracce a partire dall'anno cercato
+	 */
 	@Override
 	public ArrayList<Traccia> ritornaTracceDaAnno(int annoTraccia) {
 		PreparedStatement scaricaTracce;
@@ -217,6 +255,12 @@ public class GetTracceDAO implements TracciaDAO{
     return list;
 	}
 
+	/**
+	 * Ritorna tracce da tipo.
+	 *
+	 * @param tipoCanzone (vedere documentazione Traccia per le tipologie)
+	 * @return lista di tracce in base al tipo
+	 */
 	@Override
 	public ArrayList<Traccia> ritornaTracceDaTipo(String tipoCanzone) {
 		PreparedStatement scaricaTracce;
@@ -255,6 +299,12 @@ public class GetTracceDAO implements TracciaDAO{
     return list;
 	}
 
+	/**
+	 * Ritorna tracce da genere.
+	 *
+	 * @param genereTraccia cercato
+	 * @return lista di tracce in base al genere
+	 */
 	@Override
 	public ArrayList<Traccia> ritornaTracceDaGenere(String genereTraccia) {
 		PreparedStatement scaricaTracce;
@@ -293,6 +343,12 @@ public class GetTracceDAO implements TracciaDAO{
     return list;
 	}
 	
+	/**
+	 * Rimuovi traccia.
+	 *
+	 * @param id_traccia della traccia che si vuole rimuovere
+	 * @return true se eliminata
+	 */
 	@Override
 	public boolean rimuoviTraccia(int id_traccia) {
 		boolean ok = false;
@@ -310,5 +366,4 @@ public class GetTracceDAO implements TracciaDAO{
     }
     return ok;
 	}
-	
 }

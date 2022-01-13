@@ -37,14 +37,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
+/**
+ * Classe GUI che permette di ascoltare una traccia o di aggiungerla ad una playlist.
+ */
 public class AscoltoAggiungiTraccia extends JDialog {
  
+	/** Posizione X,Y del mouse sullo schermo. */
 	private int mouseX, mouseY;
+	
+	/** Timestamp del tempo attuale */
 	private Timestamp ts = new Timestamp(System.currentTimeMillis());
+	
+	/** Lista di playlist su cui è possibile aggiungere tracce. */
 	private ArrayList<Playlist> lista_playlist = new ArrayList<Playlist>();
+	
+	/** TLibreria dell'utente. */
 	private Libreria libs;
 	//yyyy/MM/dd HH:mm:ss
 
+	/**
+	 * Costruttore della classe AscoltoAggiungiTraccia.
+	 *
+	 * @param id_utente passato per effettuare i lavori di ascolto e aggiunta
+	 * @param id_traccia passato per effettuare i lavori di ascolto e aggiunta
+	 * @param nome_traccia passato per effettuare i lavori di ascolto e aggiunta
+	 */
 	public AscoltoAggiungiTraccia(int id_utente, int id_traccia, String nome_traccia) {
 		
 		LibreriaDAO l = new GetLibreriaDAO();

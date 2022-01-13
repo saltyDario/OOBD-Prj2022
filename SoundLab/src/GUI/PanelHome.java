@@ -38,12 +38,21 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 
+/**
+ * Classe GUI che manda a display la sezione esplora dove è possibile effettuare ricerche per categoria
+ */
 public class PanelHome extends JPanel {
 	
+	/** Variabile di appoggio per l'id di una traccia */
 	private int id_traccia;
+	
+	/** Variabile di appoggio per il nome di una traccia */
 	private String nome_traccia = null;
+	
+	/** Array list che contiene le tracce restituite da mandare a display */
 	private ArrayList<Traccia> lista_traccia = new ArrayList<Traccia>();
 	
+	/** Modello da assegnare alla tabella artisti */
 	DefaultTableModel modelArtisti = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -51,6 +60,7 @@ public class PanelHome extends JPanel {
 		}
 	};
 	
+	/** Modello da assegnare alla tabella album */
 	DefaultTableModel modelAlbum = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -58,6 +68,7 @@ public class PanelHome extends JPanel {
 		}
 	};
 	
+	/** Modello da assegnare alla tabella tracce */
 	DefaultTableModel modelTracce = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -65,18 +76,38 @@ public class PanelHome extends JPanel {
 		}
 	};
 	
+	/** Header della tabella artisti */
 	String headersArtisti[] = { "Nome", "Data Nascita", "Nazionalità"};
+	
+	/** Header della tabella album */
 	String headersAlbum[] = { "Nome", "Cantante", "Anno"};
+	
+	/** Header della tabella tracce */
 	String headersTracce[] = { "Nome", "Genere", "Tipo Canzone", "Anno", "Artista"};
 
+	/** The table artisti. */
 	private JTable tableArtisti = new JTable();
+	
+	/** The table album. */
 	private JTable tableAlbum = new JTable();
+	
+	/** The table tracce. */
 	private JTable tableTracce = new JTable();
 	
+	/** The field artisti. */
 	private JTextField fieldArtisti;
+	
+	/** The field album. */
 	private JTextField fieldAlbum;
+	
+	/** The field tracce. */
 	private JTextField fieldTracce;
 
+	/**
+	 * Costruttore del pannello home.
+	 *
+	 * @param id_utente the id utente
+	 */
 	public PanelHome(int id_utente) {
 		setBackground(Color.GRAY);
 		setBounds(0, 0, 481, 592);

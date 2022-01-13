@@ -13,9 +13,17 @@ import DAO.AlbumDAO;
 import Modelli.Album;
 import Modelli.Traccia;
 
+/**
+ * Classe di implementazione PostgresDAO che implementa AlbumDAO
+ */
 public class GetAlbumDAO implements AlbumDAO{
+	
+	/** Oggetto di tipo Connection in cui viene aperta l'istanza di connessione*/
 	private Connection connection;
 	
+	/**
+	 * Costruttore che si occupa di aprire la connessione
+	 */
 	public GetAlbumDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
@@ -24,6 +32,12 @@ public class GetAlbumDAO implements AlbumDAO{
 		}
 	}
 
+	/**
+	 * Ritorna album dal nome.
+	 *
+	 * @param nome dell'album
+	 * @return array list di album da mandare a display
+	 */
 	@Override
 	public ArrayList<Album> ritornaAlbumNome(String nome) {
 		PreparedStatement scaricaAlbum;
@@ -55,6 +69,12 @@ public class GetAlbumDAO implements AlbumDAO{
         return list;
 	}
 
+	/**
+	 * Ritorna album dal nome di un artista.
+	 *
+	 * @param cantante ricercato
+	 * @return lista di album ritornati da mandare a display
+	 */
 	@Override
 	public ArrayList<Album> ritornaAlbumDaArtista(String cantante) {
 		PreparedStatement scaricaAlbum;
@@ -87,6 +107,12 @@ public class GetAlbumDAO implements AlbumDAO{
         return list;
 	}
 
+	/**
+	 * Ritorna album dall'anno.
+	 *
+	 * @param annoAlbum da ricercare
+	 * @return lista di album da mandare a display
+	 */
 	@Override
 	public ArrayList<Album> ritornaAlbumAnno(int annoAlbum) {
 		PreparedStatement scaricaAlbum;
@@ -118,7 +144,4 @@ public class GetAlbumDAO implements AlbumDAO{
         }
         return list;
 	}
-	
-	
-	
 }

@@ -14,10 +14,17 @@ import DAO.LibreriaDAO;
 import Modelli.Libreria;
 import Modelli.Playlist;
 
+/**
+ * Classe di implementazione PostgresDAO che implementa LibreriaDAO
+ */
 public class GetLibreriaDAO implements LibreriaDAO{
 	
+	/** Oggetto di tipo Connection in cui viene aperta l'istanza di connessione */
 	private Connection connection;
 	
+	/**
+	 * Costruttore che si occupa di aprire la connessione
+	 */
 	public GetLibreriaDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
@@ -26,6 +33,12 @@ public class GetLibreriaDAO implements LibreriaDAO{
 		}
 	}
 	
+	/**
+	 * Ritorna la libreria dell'utente.
+	 *
+	 * @param id_utente per ritornare la libreria corretta
+	 * @return l'oggetto libreria
+	 */
 	public Libreria ritornaLibreria(int id_utente) {
 		PreparedStatement scaricaPlaylistPS;
         Libreria l = new Libreria(0);

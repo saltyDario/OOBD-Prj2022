@@ -16,10 +16,17 @@ import DAO.AscoltoDAO;
 import Modelli.Ascolto;
 import Modelli.Traccia;
 
+/**
+ * Classe di implementazione PostgresDAO che implementa AscoltoDAO
+ */
 public class GetAscoltoDAO implements AscoltoDAO{
 	
+	/** Oggetto di tipo Connection in cui viene aperta l'istanza di connessione*/
 	private Connection connection;
 	
+	/**
+	 * Costruttore che si occupa di aprire la connessione
+	 */
 	public GetAscoltoDAO() {
 		try {
 			connection = Connessione.getInstance().getConnection();
@@ -28,6 +35,15 @@ public class GetAscoltoDAO implements AscoltoDAO{
 		}
 	}
 	
+	/**
+	 * Inserisci ascolto.
+	 *
+	 * @param id_utente id dell'utente
+	 * @param id_traccia id della traccia
+	 * @param fasciaoraria dell'ascolto effettuato
+	 * @param data dell'ascolto effettuato
+	 * @return true se effettuato con successo
+	 */
 	public boolean inserisciAscolto(int id_utente, int id_traccia, String fasciaoraria, Timestamp data) {
 		
 		boolean ok = false;
@@ -53,6 +69,12 @@ public class GetAscoltoDAO implements AscoltoDAO{
 	}
 	
 	
+	/**
+	 * Ritorna ascolti da traccia.
+	 *
+	 * @param nomeTraccia ricercata
+	 * @return lista di ascolti ritornata
+	 */
 	public ArrayList<Ascolto> ritornaAscoltiDaTraccia(String nomeTraccia) {
 		PreparedStatement scaricaTracce;
         ArrayList<Ascolto> list = new ArrayList<Ascolto>();
@@ -91,6 +113,12 @@ public class GetAscoltoDAO implements AscoltoDAO{
     return list;
 	}
 	
+	/**
+	 * Ritorna ascolti da utente.
+	 *
+	 * @param nomeUtente ricercato
+	 * @return lista di ascolti
+	 */
 	public ArrayList<Ascolto> ritornaAscoltiDaUtente(String nomeUtente) {
 		PreparedStatement scaricaTracce;
         ArrayList<Ascolto> list = new ArrayList<Ascolto>();
