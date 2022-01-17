@@ -20,10 +20,10 @@ public class Connessione {
 	private String url = "jdbc:postgresql://localhost:5432/SoundLab";
 	
 	/** Username utilizzato per il login nel database */
-	private String username = "Gesualdo";
+	private String username = "postgres";
 	
 	/** Password utilizzata per il login nel database */
-	private String password = "pippo";
+	private String password = "admin";
 	
 	/** Driver del database da noi utilizzato */
 	private String driver = "org.postgresql.Driver";
