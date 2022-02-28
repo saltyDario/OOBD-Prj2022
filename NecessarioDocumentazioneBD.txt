@@ -1,0 +1,11 @@
+- Class Diagram non ristrutturato
+- Modello E/R
+- Class Diagram ristrutturato
+- Modello E/R ristrutturato
+- Dizionario delle classi
+- Dizionario associazioni
+- Dizionario vincoli
+- Schema logico
+- Definizione tabelle
+- Definizione trigger
+- Definizione funzioni
