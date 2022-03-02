@@ -1,0 +1,138 @@
+--TABELLA UTENTE
+CREATE TABLE Utente
+(
+    username character varying(20) NOT NULL,
+    password character varying(20) NOT NULL,
+    id_utente integer NOT NULL DEFAULT nextval('utente_id_utente_seq'::regclass),
+    email character varying(30) NOT NULL,
+    datanascita date NOT NULL,
+    sesso character varying(20),
+    tipo_ut character varying(10) DEFAULT 'Cliente'::character varying,
+    CONSTRAINT utente_pkey PRIMARY KEY (username),
+    CONSTRAINT email_unique UNIQUE (email),
+    CONSTRAINT id_utente_unique UNIQUE (id_utente),
+    CONSTRAINT tipo_utente CHECK (tipo_ut::text = 'Cliente'::text OR tipo_ut::text = 'Admin'::text),
+    CONSTRAINT tipo_pers CHECK (sesso::text = 'Uomo'::text OR sesso::text = 'Donna'::text OR sesso::text = 'Altro'::text)
+)
+
+--TABELLA LIBRERIA
+CREATE TABLE Libreria
+(
+    id_libreria integer NOT NULL,
+    num_playlist integer,
+    CONSTRAINT id_libreria_unique PRIMARY KEY (id_libreria),
+    CONSTRAINT libreria_fkey FOREIGN KEY (id_libreria)
+        REFERENCES public.Utente (id_utente)
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+)
+
+--TABELLA PLAYLIST
+CREATE TABLE Playlist
+(
+    id_playlist integer NOT NULL DEFAULT nextval('playlist_id_playlist_seq'::regclass),
+    id_libappartenenza integer NOT NULL,
+    nome character varying(20) NOT NULL,
+    numerotracce integer NOT NULL DEFAULT 0,
+    genere character varying(20),
+    preferita character varying(6) NOT NULL DEFAULT false,
+    CONSTRAINT playlist_pkey PRIMARY KEY (id_playlist),
+    CONSTRAINT playlist_fkey FOREIGN KEY (id_libappartenenza)
+        REFERENCES public.libreria (id_libreria)
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT tipo_pref CHECK (preferita::text = 'true'::text OR preferita::text = 'false'::text)
+)
+
+--TABELLA TRACCIA
+CREATE TABLE Traccia
+(
+    id_traccia integer NOT NULL DEFAULT nextval('"Traccia_id_traccia_seq"'::regclass),
+    nometraccia character varying(50) NOT NULL,
+    anno integer NOT NULL,
+    genere character varying(20) NOT NULL,
+    tipo_can character varying(20) NOT NULL,
+    id_album integer,
+    num_artisti integer DEFAULT 0,
+    CONSTRAINT traccia_pkey PRIMARY KEY (id_traccia),
+    CONSTRAINT traccia_fk FOREIGN KEY (id_album)
+        REFERENCES public.album (id_album)
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT tipo_traccia CHECK (tipo_can::text = 'Original'::text OR tipo_can::text = 'Cover'::text OR tipo_can::text = 'Remaster'::text)
+)
+
+--TABELLA AGGIUNGI
+CREATE TABLE Aggiungi
+(
+    id_playlist integer NOT NULL DEFAULT nextval('aggiungi_id_playlist_seq'::regclass),
+    id_traccia integer NOT NULL DEFAULT nextval('aggiungi_id_traccia_seq'::regclass),
+    CONSTRAINT aggiungi_pkey PRIMARY KEY (id_playlist, id_traccia),
+    CONSTRAINT aggiugni_fkey1 FOREIGN KEY (id_playlist)
+        REFERENCES public.playlist (id_playlist)
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT aggiungi_fkey2 FOREIGN KEY (id_traccia)
+        REFERENCES public.traccia (id_traccia)
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+)
+
+--TABELLA ASCOLTO
+CREATE TABLE Ascolto
+(
+    id_utente integer NOT NULL DEFAULT nextval('ascolto_id_utente_seq'::regclass),
+    id_traccia integer NOT NULL DEFAULT nextval('ascolto_id_traccia_seq'::regclass),
+    fasciaoraria character varying(20) NOT NULL,
+    data timestamp without time zone NOT NULL,
+    CONSTRAINT ascolto_pk PRIMARY KEY (id_utente, data, fasciaoraria),
+    CONSTRAINT ascolto_fkey1 FOREIGN KEY (id_utente)
+        REFERENCES public.utente (id_utente)
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ascolto_fkey2 FOREIGN KEY (id_traccia)
+        REFERENCES public.traccia (id_traccia)
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT tipo_orario CHECK (fasciaoraria::text = 'Mattina'::text OR fasciaoraria::text = 'Pomeriggio'::text OR fasciaoraria::text = 'Sera'::text OR fasciaoraria::text = 'Notte'::text)
+)
+
+--TABELLA ARTISTA
+CREATE TABLE Artista
+(
+    id_artista integer NOT NULL DEFAULT nextval('artista_id_artista_seq'::regclass),
+    nome character varying(25) NOT NULL,
+    datanascita date,
+    "nazionalità" character varying(25) NOT NULL,
+    CONSTRAINT artista_pkey PRIMARY KEY (id_artista)
+)
+
+--TABELLA ALBUM
+CREATE TABLE Album
+(
+    nomealbum character varying(30),
+    id_album integer NOT NULL DEFAULT nextval('album_id_album_seq'::regclass),
+    id_artista integer NOT NULL,
+    anno integer,
+    CONSTRAINT album_pk PRIMARY KEY (id_album),
+    CONSTRAINT album_fk FOREIGN KEY (id_artista)
+        REFERENCES public.artista (id_artista)
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+)
+
+--TABELLA COLLAB
+CREATE TABLE Collab
+(
+    id_artista integer NOT NULL,
+    id_traccia integer NOT NULL,
+    CONSTRAINT collab_pk PRIMARY KEY (id_artista, id_traccia),
+    CONSTRAINT collab_fk1 FOREIGN KEY (id_artista)
+        REFERENCES public.artista (id_artista)
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT collab_fk2 FOREIGN KEY (id_traccia)
+        REFERENCES public.traccia (id_traccia)
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+)

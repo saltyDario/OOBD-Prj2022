@@ -1,0 +1,103 @@
+--TRIGGER PER CREAZIONE LIBRERIA
+CREATE OR REPLACE FUNCTION public.insert_lib()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+BEGIN
+    INSERT INTO libreria (id_libreria, num_playlist)
+        VALUES (NEW.id_utente, 0);
+    RETURN NEW;
+END;
+$BODY$;
+
+CREATE TRIGGER ins_lib
+    AFTER INSERT
+    ON public.utente
+    FOR EACH ROW
+    EXECUTE FUNCTION public.insert_lib();
+
+--TRIGGER PER AGGIORNARE LA LIBRERIA DOPO UN'AGGIUNTA/RIMOZIONE DI UNA PLAYLIST
+CREATE OR REPLACE FUNCTION public.incrementa_libreria()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+BEGIN
+   CASE TG_OP
+   WHEN 'INSERT' THEN            -- single quotes
+      UPDATE libreria AS l
+      SET    num_playlist = l.num_playlist + 1
+      WHERE  l.id_libreria = NEW.id_libappartenenza;  -- fixed
+   WHEN 'DELETE' THEN
+      UPDATE libreria AS l
+      SET    num_playlist = l.num_playlist - 1 
+      WHERE  l.id_libreria = OLD.id_libappartenenza
+      AND    l.num_playlist > 0;
+   ELSE
+      RAISE EXCEPTION 'Unexpected TG_OP: "%". Should not occur!', TG_OP;
+   END CASE;
+   
+   RETURN NULL;      -- for AFTER trigger this can be NULL
+END
+$BODY$;
+
+CREATE TRIGGER inc_lib
+    AFTER INSERT OR DELETE
+    ON public.playlist
+    FOR EACH ROW
+    EXECUTE FUNCTION public.incrementa_libreria();
+
+--TRIGGER PER AGGIORNARE UNA PLAYLIST DOPO L'AGGIUNTA/RIMOZIONE DI UNA TRACCIA
+CREATE OR REPLACE FUNCTION public.incrementa_playlist()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+BEGIN
+   CASE TG_OP
+   WHEN 'INSERT' THEN            -- single quotes
+      UPDATE playlist AS p
+      SET    numerotracce = p.numerotracce + 1
+      WHERE  p.id_playlist = NEW.id_playlist;  -- fixed
+   WHEN 'DELETE' THEN
+      UPDATE playlist AS p
+      SET    numerotracce = p.numerotracce - 1 
+      WHERE  p.id_playlist = OLD.id_playlist
+      AND    p.numerotracce > 0;
+   ELSE
+      RAISE EXCEPTION 'Unexpected TG_OP: "%". Should not occur!', TG_OP;
+   END CASE;
+
+   RETURN NULL;      -- for AFTER trigger this can be NULL
+END
+$BODY$;
+
+CREATE TRIGGER inc_plst
+    AFTER INSERT OR DELETE
+    ON public.aggiungi
+    FOR EACH ROW
+    EXECUTE FUNCTION public.incrementa_playlist();
+
+--TRIGGER PER TENERE CONTO DEL NUMERO DI ARTISTI CHE HANNO PARTECIPATO AD UNA TRACCIA
+CREATE OR REPLACE FUNCTION public.inc_collab()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+BEGIN
+    UPDATE traccia SET num_artisti = num_artisti + 1
+	WHERE NEW.id_traccia = traccia.id_traccia;
+    RETURN NEW;
+END;
+$BODY$;
+
+CREATE TRIGGER inc_artisti
+    AFTER INSERT
+    ON public.collab
+    FOR EACH ROW
+    EXECUTE FUNCTION public.inc_collab();
