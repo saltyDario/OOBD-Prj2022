@@ -1,9 +1,0 @@
-- Class Diagram non ristrutturato
-- Class Diagram ristrutturato
-- Dizionario delle classi
-- Dizionario associazioni
-- Dizionario vincoli
-- Schema logico
-- Definizione tabelle
-- Definizione trigger
-- Definizione funzioni
