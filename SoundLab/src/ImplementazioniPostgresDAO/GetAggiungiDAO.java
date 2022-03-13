@@ -35,7 +35,7 @@ public class GetAggiungiDAO implements AggiungiDAO{
 	 *
 	 * @param id_playlist id della playlist
 	 * @param id_traccia id della traccia
-	 * @return true se è stata inserita con successo
+	 * @return true se ï¿½ stata inserita con successo
 	 */
 	public boolean inserisciTracciaInPlaylist(int id_playlist, int id_traccia) {
 		
@@ -55,7 +55,7 @@ public class GetAggiungiDAO implements AggiungiDAO{
 			connection.close();
 		}catch(SQLException c) {
 			//c.printStackTrace();
-			JOptionPane.showMessageDialog(null, "La traccia è già presente nella playlist.");
+			JOptionPane.showMessageDialog(null, "La traccia e' gia'  presente nella playlist.");
 		}
 		return ok;
 	}

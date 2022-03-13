@@ -39,7 +39,7 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 
 /**
- * Classe GUI che manda a display la sezione esplora dove è possibile effettuare ricerche per categoria
+ * Classe GUI che manda a display la sezione esplora dove e' possibile effettuare ricerche per categoria
  */
 public class PanelHome extends JPanel {
 	
@@ -77,7 +77,7 @@ public class PanelHome extends JPanel {
 	};
 	
 	/** Header della tabella artisti */
-	String headersArtisti[] = { "Nome", "Data Nascita", "Nazionalità"};
+	String headersArtisti[] = { "Nome", "Data Nascita", "Nazionalita'"};
 	
 	/** Header della tabella album */
 	String headersAlbum[] = { "Nome", "Cantante", "Anno"};
@@ -285,7 +285,7 @@ public class PanelHome extends JPanel {
 		comboBoxArtisti.setForeground(Color.BLACK);
 		comboBoxArtisti.setBackground(Color.WHITE);
 		comboBoxArtisti.setFont(new Font("Arial", Font.PLAIN, 10));
-		comboBoxArtisti.setModel(new DefaultComboBoxModel(new String[] {"Select", "Nome", "Nazionalità"}));
+		comboBoxArtisti.setModel(new DefaultComboBoxModel(new String[] {"Select", "Nome", "Nazionalita'"}));
 		comboBoxArtisti.setBounds(10, 55, 128, 35);
 		esploraArtisti.add(comboBoxArtisti);
 		
@@ -320,7 +320,7 @@ public class PanelHome extends JPanel {
 					for (int i = 0; i < lista_artisti.size(); i++) {
 						modelArtisti.addRow(new Object[] { String.valueOf(lista_artisti.get(i).getNomeArtista()),
 								String.valueOf(lista_artisti.get(i).getDataNascitaArtista()),
-								String.valueOf(lista_artisti.get(i).getNazionalitàArtista())});
+								String.valueOf(lista_artisti.get(i).getNazionalitaArtista())});
 						}
 					
 					if(lista_artisti.size() > 0) {
@@ -340,7 +340,7 @@ public class PanelHome extends JPanel {
 					for (int i = 0; i < lista_artisti.size(); i++) {
 						modelArtisti.addRow(new Object[] { String.valueOf(lista_artisti.get(i).getNomeArtista()),
 								String.valueOf(lista_artisti.get(i).getDataNascitaArtista()),
-								String.valueOf(lista_artisti.get(i).getNazionalitàArtista())});
+								String.valueOf(lista_artisti.get(i).getNazionalitaArtista())});
 						}
 					
 					if(lista_artisti.size() > 0) {

@@ -16,20 +16,20 @@ public class Artista {
 	/** The datanascita artista. */
 	Date datanascita_artista;
 	
-	/** The nazionalità. */
-	String nazionalità;
+	/** The nazionalitï¿½. */
+	String nazionalita;
 	
 	/**
 	 * Instantiates a new artista.
 	 *
 	 * @param nomeArtista the nome artista
 	 * @param datanascitaArtista the datanascita artista
-	 * @param Nazionalità the nazionalità
+	 * @param Nazionalitï¿½ the nazionalitï¿½
 	 */
-	public Artista(String nomeArtista, Date datanascitaArtista, String Nazionalità) {
+	public Artista(String nomeArtista, Date datanascitaArtista, String Nazionalita) {
 		nome_artista = nomeArtista;
 		datanascita_artista = datanascitaArtista;
-		nazionalità = Nazionalità;
+		nazionalita = Nazionalita;
 	}
 	
 	/**
@@ -51,11 +51,11 @@ public class Artista {
 	}
 	
 	/**
-	 * Gets the nazionalità artista.
+	 * Gets the nazionalitï¿½ artista.
 	 *
-	 * @return the nazionalità artista
+	 * @return the nazionalitï¿½ artista
 	 */
-	public String getNazionalitàArtista() {
-		return nazionalità;
+	public String getNazionalitaArtista() {
+		return nazionalita;
 	}
 }

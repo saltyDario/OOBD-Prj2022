@@ -47,7 +47,7 @@ public class GetArtistiDAO implements ArtistaDAO{
 		String nazionalita = null;
 		
 		try {
-			scaricaArtisti = connection.prepareStatement("select nome, datanascita, nazionalità\n"
+			scaricaArtisti = connection.prepareStatement("select nome, datanascita, nazionalita \n"
 					+ "from artista\n"
 					+ "where lower(nome) = lower('" + nome + "')");
 			ResultSet rs = scaricaArtisti.executeQuery();
@@ -55,7 +55,7 @@ public class GetArtistiDAO implements ArtistaDAO{
 			while(rs.next()) {
 				nome_artista = rs.getString("nome");
 				data_nascita = rs.getDate("datanascita");
-				nazionalita = rs.getString("nazionalità");
+				nazionalita = rs.getString("nazionalita");
 				
 				Artista nomeobj = new Artista(nome_artista, data_nascita, nazionalita);
 				list.add(nomeobj);
@@ -84,15 +84,15 @@ public class GetArtistiDAO implements ArtistaDAO{
 		String nazionalita = null;
 		
 		try {
-			scaricaArtisti = connection.prepareStatement("select nome, datanascita, nazionalità\n"
+			scaricaArtisti = connection.prepareStatement("select nome, datanascita, nazionalita\n"
 					+ "from artista\n"
-					+ "where lower(nazionalità) = lower('" + nazione + "')");
+					+ "where lower(nazionalita) = lower('" + nazione + "')");
 			ResultSet rs = scaricaArtisti.executeQuery();
 			
 			while(rs.next()) {
 				nome_artista = rs.getString("nome");
 				data_nascita = rs.getDate("datanascita");
-				nazionalita = rs.getString("nazionalità");
+				nazionalita = rs.getString("nazionalita");
 				
 				Artista nomeobj = new Artista(nome_artista, data_nascita, nazionalita);
 				list.add(nomeobj);
